@@ -1,0 +1,72 @@
+version: '3.8'
+
+services:
+  nginx:
+    container_name: nginx
+    volumes:
+    - /Users/ilia/docker-data/wordpress:/var/www/wordpress
+    networks:
+    - inception
+    depends_on:
+    - wordpress
+    build: 
+      context: requirements/nginx
+      dockerfile: Dockerfile
+    env_file: .env
+    ports:
+    - "443:443"
+    restart: on-failure
+  mariadb:
+    container_name: mariadb
+    networks:
+    - inception
+    build: 
+      context: requirements/mariadb
+      dockerfile: Dockerfile
+    env_file: .env
+    volumes: 
+    - /Users/ilia/docker-data/mariadb:/var/lib/mysql
+    restart: unless-stopped
+    expose:
+    - "3306"
+  wordpress:
+      container_name: wordpress
+      env_file: .env
+      volumes:
+      - /Users/ilia/docker-data/wordpress:/var/www/wordpress
+      networks:
+      - inception
+      build: 
+        context: requirements/wordpress
+        dockerfile: Dockerfile
+      depends_on:    					# WordPress démarrera uniquement après MariaDB (sinon il ne pourra pas configurer la base de données...)
+      - mariadb
+      restart: on-failure
+      expose: 
+      - "9000"
+  
+#volumes:
+#  mariadb:
+#  wordpress:
+#volumes:
+#  wordpress:
+#    driver: local # ici nous stockons le volume en local
+#    driver_opts:
+#      type: 'none' 									# aucun type spécifique
+#      o: 'bind'
+#      device: '/Users/ilia/docker-data/wordpress'			#Ou stocker le dossier sur votre ordinateur en local
+#  mariadb:
+#    driver: local
+#    driver_opts:
+#      type: 'none' 
+#      o: 'bind'										 # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
+#      device: '/Users/ilia/docker-data/mariadb'			#Ou stocker le dossier sur votre ordinateur en local
+#
+networks:
+  inception:
+    name: inception
+    driver: bridge
+    attachable: true
+    labels:
+      com.docker.compose.network: "inception"
+      com.docker.compose.project: "inception"
