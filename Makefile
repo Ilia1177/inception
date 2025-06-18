@@ -1,22 +1,15 @@
 OS := $(shell uname)
 
 ifeq ($(OS), Linux)
-	VOLUMES_PATH=/Users/ilia/docker-data
+	VOLUMES_PATH := /home/npolack/data
 else
-	VOLUMES_PATH=/home/npolack/data
+	VOLUMES_PATH := $(shell pwd)/volumes
 endif
 
 
-
 all :
-	export HOST_VOLUME_PATH=$(VOLUMES_PATH)
-	mkdir -p $(VOLUMES_PATH)/wordpress
-	mkdir -p $(VOLUMES_PATH)/mariadb
-	chmod 755 $(VOLUMES_PATH)/wordpress
-	chmod 755 $(VOLUMES_PATH)/mariadb
-	chown -R $$(whoami):staff $(VOLUMES_PATH)/wordpress
-	chown -R $$(whoami):staff $(VOLUMES_PATH)/mariadb
-	sudo docker compose -f srcs/docker-compose.yml up -d
+	@echo "Using volume path: $(VOLUMES_PATH)"
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
 
 stop :
 	sudo docker compose -f srcs/docker-compose.yml stop 
@@ -40,8 +33,7 @@ clean :
 	@if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); else echo "No volumes to remove."; fi
 
 fclean: clean
-	rm -fr $(VOLUMES_PATH)/mariadb
-	rm -fr $(VOLUMES_PATH)/wordpress
+	rm -fr $(VOLUMES_PATH)
 	docker system prune -a --volumes --force
 	docker network prune
 

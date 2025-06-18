@@ -9,8 +9,6 @@ RUN apk update && apk upgrade && apk add --no-cache\
 	pwgen \
 	&& rm -f /var/cache/apk/*
 
-#RUN usermod -u 1000 mysql && groupmod -g 1000 mysql
-
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 RUN rm -f /etc/my.cnf && rm -f /etc/my.cnf.d/mariadb-server.cnf

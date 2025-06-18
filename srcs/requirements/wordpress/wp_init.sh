@@ -40,16 +40,22 @@ fi
 wp core install \
 	--url="https://localhost" \
 	--title="$SITE_TITLE" \
-	--admin_user="$WP_ADMIN_USER" \
+	--admin_user="$WP_ADMIN_NAME" \
 	--admin_password="$WP_ADMIN_PASS" \
 	--admin_email=$WP_ADMIN_MAIL \
 	--path=$WP_PATH \
 	--allow-root
 
+wp user create $WP_EDITOR_NAME $WP_EDITOR_MAIL \
+  --role=editor \
+  --user_pass=$WP_EDITOR_PASS \
+  --display_name=$WP_EDITOR_NAME \
+  --allow-root \
+  --path=$WP_PATH
 
-
-echo "[INFO] Customize Wordpress"
-wp theme install breevia --activate --allow-root --path=$WP_PATH;
+echo "[INFO] Customize Wordpress with breevia theme"
+mv /tmp/breevia $WP_PATH/wp-content/themes/breevia
+wp theme activate breevia --allow-root --path=$WP_PATH
 wp plugin install jetpack --activate --allow-root --path=$WP_PATH;
 wp plugin install classic-editor --activate --allow-root --path=$WP_PATH;
 #wp rewrite structure '/%postname%/' --hard --allow-root

@@ -31,6 +31,7 @@ RUN apk update && apk upgrade && apk add --no-cache\
 
 RUN ln -s /usr/bin/php82 /usr/bin/php
 
+COPY		breevia/			/tmp/breevia/
 COPY		conf/www.conf		/tmp/www.conf
 COPY		conf/wp-config.php	/tmp/wp-config.php
 COPY 		wp_init.sh	.
