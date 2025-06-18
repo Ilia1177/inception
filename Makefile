@@ -1,13 +1,21 @@
+OS := $(shell uname)
 
-ALL_CONTAINER =
+ifeq ($(OS), Linux)
+	VOLUMES_PATH=/Users/ilia/docker-data
+else
+	VOLUMES_PATH=/home/npolack/data
+endif
+
+
 
 all :
-	mkdir -p /Users/ilia/docker-data/wordpress
-	mkdir -p /Users/ilia/docker-data/mariadb
-	chmod 755 /Users/ilia/docker-data/wordpress
-	chmod 755 /Users/ilia/docker-data/mariadb
-	chown -R $$(whoami):staff /Users/ilia/docker-data/wordpress
-	chown -R $$(whoami):staff /Users/ilia/docker-data/wordpress
+	export HOST_VOLUME_PATH=$(VOLUMES_PATH)
+	mkdir -p $(VOLUMES_PATH)/wordpress
+	mkdir -p $(VOLUMES_PATH)/mariadb
+	chmod 755 $(VOLUMES_PATH)/wordpress
+	chmod 755 $(VOLUMES_PATH)/mariadb
+	chown -R $$(whoami):staff $(VOLUMES_PATH)/wordpress
+	chown -R $$(whoami):staff $(VOLUMES_PATH)/mariadb
 	sudo docker compose -f srcs/docker-compose.yml up -d
 
 stop :
@@ -32,8 +40,8 @@ clean :
 	@if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); else echo "No volumes to remove."; fi
 
 fclean: clean
-	rm -fr /Users/ilia/docker-data/mariadb
-	rm -fr /Users/ilia/docker-data/wordpress
+	rm -fr $(VOLUMES_PATH)/mariadb
+	rm -fr $(VOLUMES_PATH)/wordpress
 	docker system prune -a --volumes --force
 	docker network prune
 

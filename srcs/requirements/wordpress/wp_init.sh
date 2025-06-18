@@ -50,8 +50,8 @@ wp core install \
 
 echo "[INFO] Customize Wordpress"
 wp theme install breevia --activate --allow-root --path=$WP_PATH;
-#wp plugin install jetpack --activate --allow-root
-#wp plugin install classic-editor --activate --allow-root
+wp plugin install jetpack --activate --allow-root --path=$WP_PATH;
+wp plugin install classic-editor --activate --allow-root --path=$WP_PATH;
 #wp rewrite structure '/%postname%/' --hard --allow-root
 #wp rewrite flush --allow-root
 
