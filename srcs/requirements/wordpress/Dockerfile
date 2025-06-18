@@ -30,7 +30,7 @@ RUN apk update && apk upgrade && apk add --no-cache\
 	&& rm -rf /var/lib/apt/lists/*
 
 RUN ln -s /usr/bin/php82 /usr/bin/php
-
+COPY		html/				/tmp/html/
 COPY		breevia/			/tmp/breevia/
 COPY		conf/www.conf		/tmp/www.conf
 COPY		conf/wp-config.php	/tmp/wp-config.php
