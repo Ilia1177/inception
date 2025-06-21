@@ -3,10 +3,8 @@ OS := $(shell uname)
 ifeq ($(OS), Linux)
 	VOLUMES_PATH := /home/npolack/data
 else
-	#VOLUMES_PATH := /Volumes/inception
 	VOLUMES_PATH := $(shell pwd)/volumes
 endif
-
 
 all :
 	@echo "Using volumes path: $(VOLUMES_PATH)"
@@ -20,7 +18,6 @@ nginx :
 
 mariadb :
 	docker build -t mariadb srcs/requirements/mariadb
-	sudo mkdir -p $(VOLUMES_PATH)/mariadb
 	docker run mariadb --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql
 
 wordpress :
@@ -36,7 +33,7 @@ clean :
 	@if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); else echo "No volumes to remove."; fi
 
 fclean: clean
-	sudo rm -fr $(VOLUMES_PATH)
+	rm -fr $(VOLUMES_PATH)
 	docker system prune -a --volumes --force
 	docker network prune
 
