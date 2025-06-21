@@ -9,10 +9,6 @@ RUN apk update && apk upgrade && apk add --no-cache\
 	pwgen \
 	&& rm -f /var/cache/apk/*
 
-#RUN adduser -D -H doctor && \
-#    chown -R doctor /var/lib/mysql
-
-#USER doctor
 RUN mkdir -p /run/mysqld && chown -R mysql:mysql /run/mysqld
 
 RUN rm -f /etc/my.cnf && rm -f /etc/my.cnf.d/mariadb-server.cnf

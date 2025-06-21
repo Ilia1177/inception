@@ -10,14 +10,7 @@ endif
 
 all :
 	@echo "Using volumes path: $(VOLUMES_PATH)"
-	#sudo mkdir -p $(VOLUMES_PATH)/wordpress
-	#sudo mkdir -p $(VOLUMES_PATH)/mariadb
-	#sudo chmod 755 $(VOLUMES_PATH)/wordpress
-	#sudo chmod 755 $(VOLUMES_PATH)/mariadb
-	#sudo chown -R $$(whoami):staff $(VOLUMES_PATH)
-	#sudo chown -R 100:101 $(VOLUMES_PATH)
-	#export HOST_VOLUME_PATH=$(VOLUMES_PATH) 
-	sudo docker compose -f srcs/docker-compose.yml up -d
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
 
 stop :
 	sudo docker compose -f srcs/docker-compose.yml stop 
