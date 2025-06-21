@@ -1,0 +1,500 @@
+
+*{  
+  color:#5c4587;
+  mix-blend-mode: normal;
+  margin:0 auto;
+  font-family: Ubuntu, Verdana, Tahoma, sans-serif;
+  line-height:110%;
+  font-size:14pt;
+  font-weight:800;
+  margin:0;
+  padding:0;}
+body {
+  background-image:url('images/fondRiso.png');
+  background-attachment:fixed;
+}
+h1{ 
+  mix-blend-mode: multiply;
+  text-align:left;
+  font-size:2.9em;
+  letter-spacing:5px;
+  padding : 5px 5px 5px 50px}
+
+h2{
+  mix-blend-mode: multiply;
+  
+  letter-spacing:5px;
+  font-size:1.8em;
+  padding:20px 0 8px 20px;
+  text-align:left}
+
+h3{   
+  mix-blend-mode: multiply;
+  padding : 5px 5px 5px 15px;
+  font-style: italic;
+  padding:4px}
+
+p{  
+  font-weight:800;
+  padding : 5px 40px 5px 40px;
+  text-indent: 30px;
+  text-align: justify;
+  mix-blend-mode: multiply;
+  letter-spacing: 0px;}
+
+
+
+ul{
+  list-style-type: none;
+}
+
+
+
+#nav {
+  transform: rotate(0.5deg) translateY(-10px);
+  transform-origin: center;
+  mix-blend-mode: normal;
+  background-image:url('images/texture/texture7.jpg');
+  background-size: 100%;
+
+  z-index:99;
+  position: sticky;
+  top: 0;
+  
+  padding:20px 20px 0 20px;
+  max-width:1900px;
+  display:flex;
+  align-items:center;
+  margin:0px auto 0px auto;
+  justify-content:space-around;
+  align-items:center;
+  overflow:hidden;
+  height:50px;
+  border-bottom:5px solid white;
+}
+
+#nav li {
+  padding:4px;
+  text-align:center;
+  display:inline-block;
+  color:#5c4587;
+  mix-blend-mode:multiply;
+  /* font-size:1.3em; */
+  height:100%;
+  width:100%;
+}
+#nav li:first-child{
+  width:20%;
+}
+
+
+
+
+
+
+#nav li:hover{
+  text-decoration:none;
+  background-color:hsl(60, 58%, 50%);
+  background-image:url('images/texture/texture2.jpg');
+  mix-blend-mode:multiply;
+}
+#nav li:hover a{
+  color:white;
+}
+#nav li a.active {
+  color:white;
+}
+#nav li:has(> a.active) {
+  text-decoration:none;
+  background-color:hsl(60, 58%, 50%);
+  background-image:url('images/texture/texture2.jpg');
+  mix-blend-mode:multiply;
+}
+
+
+
+article {
+  background-image:url('images/fondRiso3.png'); 
+  background-image:none; 
+  background-color:rgba(255,255,255,0.7);
+  margin: 20px 0 50px 0;}
+article a {
+  text-align:center;
+  color:#5c4587;
+  display:inline-block;
+  border-radius:17px;
+  background-color:hsl(325,100%,90%);
+  margin:10px;
+  padding:10px;
+  text-decoration:none;
+  border:4px solid white;
+}
+article a:hover{
+  background-color:hsl(165,100%,80%);
+}
+article ul {
+  margin:0 20px 0 200px;}
+
+article ul li {
+  text-align:left;
+  list-style-type: none;
+  }
+
+.color {
+  padding:10px;
+}
+.bold {
+  font-weight: 900;
+  font-size: 1.5em;
+}
+.header{
+  display:none;}
+
+#content {
+  margin:auto;
+  max-width:1800px;
+  overflow: hidden;
+  position: relative;}
+
+.title{
+  background-color:none;
+  margin-top:10px;
+}
+
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+article img{
+  padding:0px;
+  margin:0 auto;
+}
+
+#CNV {
+    display:flex;
+    justify-content: center;
+}
+#CNV2 {
+  display:block;
+    justify-content: center;
+}
+
+
+.flex-container{
+    overflow:hidden;
+    display:flex;
+    justify-content: space-between;
+    align-items: stretch
+}
+
+img{
+  width:100%;
+    display:block;
+    margin:0;
+    mix-blend-mode: normal;
+    height: auto; /* Maintain the aspect ratio */
+}
+/* .article{
+    border:2px solid white;} */
+
+.color{
+    border:2px solid white;
+    display:block;
+    margin-left:200px;
+    margin:auto;
+}
+
+#input p {
+  text-indent:0;
+  font-size:9pt;
+}
+
+   /* courousel 
+    #carouselDiv {
+  display:block;
+  flex-direction:row;
+  text-align: center;
+  flex-direction:row;
+ }
+ #carouselDiv > div:nth-child(1) {
+  border:2px solid white;
+  width:100%;
+  margin:auto;
+ }
+ #carouselDiv > div:nth-child(2) {
+  width:100%;
+ }
+.carousel{
+  padding:0;
+  margin:0px;
+}
+   
+   */   
+   #carouselDiv {
+    display:flex;
+    flex-direction:column;
+    text-align: left;
+    flex-direction:row;
+   }
+
+.carousel-container {
+       display: flex;
+       transition: transform 0.1s ease-in-out;}
+.carousel {
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    margin-left:20px;
+    max-width: 100%;}
+.carousel-slide {
+  
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    max-width:100%;}
+.carousel img {
+    height: auto;
+    max-width:100%;}
+.carousel-prev,.carousel-next {
+    position: absolute;
+    top: 50%;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;}
+.carousel-prev {
+    left: 0;}
+.carousel-next {
+    right: 0;}
+
+table {
+    border:2px solid rgb(114, 55, 240);
+    margin:10px auto;
+    width: 95%; /* Adjust width as needed */
+  }
+  th, td {
+    border: 1px solid rgb(114, 55, 240);
+    padding: 8px;
+    text-align: center;
+  }
+  .animated-border {
+    width:100%;
+    padding: 15px;
+    text-align: center;
+    font-size: 18px;
+    border: 2px solid transparent; /* Set initial border */
+    position: relative;
+    display: inline-block;
+    margin:0 auto;
+  }
+  .animated-border ul li {
+    list-style: none;
+  }
+  .animated-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 10px dotted transparent; /* Set initial border */
+    border-radius: 15px; /* Adjust border radius as needed */
+    animation: animateBorder 2s infinite linear; /* Define animation */
+  }
+  
+  @keyframes animateBorder {
+    0% {
+      border-color: #a21e1e; /* Start color */
+    }
+    50% {
+      border-color: #1a961a; /* Middle color */
+    }
+    100% {
+      border-color: #7a7acd; /* End color */
+    }
+  }
+
+  
+  .distord:hover:before, .distord:hover:after {
+    position: absolute;
+    content: "STUDIO DE CRÉATION";
+    transform: translate(-10%, -10%);
+    z-index: -1;
+  }
+  .distord:hover:before {
+    top: 49.5%;
+    left: 49.5%;
+    color: rgba(233, 30, 99, 0.8);
+    animation: distort1 500ms linear infinite;
+  }
+  .distord:hover:after {
+    top: 20.5%;
+    left: 20.5%;
+    color: rgba(3, 244, 212, 0.8);
+    animation: distort2 500ms linear infinite;
+  }
+
+  
+  @keyframes distort1 {
+    0% {
+      top: 50.2%;
+      left: 49.8%;
+    }
+    12.5% {
+      top: 49.8%;
+      left: 30%;
+    }
+    25% {
+      top: 49.8%;
+      left: 50.2%;
+    }
+    37.5% {
+      top: 50%;
+      left: 50.2%;
+    }
+    50% {
+      top: 50.2%;
+      left: 50.2%;
+    }
+    62.5% {
+      top: 50.2%;
+      left: 50%;
+    }
+    75% {
+      top: 50.2%;
+      left: 49.8%;
+    }
+    87.5% {
+      top: 50%;
+      left: 49.5%;
+    }
+    100% {
+      top: 49.5%;
+      left: 49.5%;
+    }
+  }
+
+  @keyframes distort2 {
+    0% {
+      top: 50.5%;
+      left: 50.5%;
+    }
+    12.5% {
+      top: 50%;
+      left: 50.5%;
+    }
+    25% {
+      top: 49.5%;
+      left: 50.5%;
+    }
+    37.5% {
+      top: 49.5%;
+      left: 50%;
+    }
+    50% {
+      top: 49.5%;
+      left: 49.5%;
+    }
+    62.5% {
+      top: 50%;
+      left: 49.5%;
+    }
+    75% {
+      top: 50.5%;
+      left: 49.5%;
+    }
+    87.5% {
+      top: 50.5%;
+      left: 50%;
+    }
+    100% {
+      top: 50.5%;
+      left: 50.5%;
+    }
+  }
+
+  #carouselDiv > div:nth-child(1) {
+    width:50%;
+  }
+   #carouselDiv > div:nth-child(2) {
+    width:50%;
+  }
+
+
+@media screen and (max-width: 700px) {
+
+* {
+  font-size: 10pt;
+  letter-spacing:0;
+}
+#nav {
+  padding: 20px 10px 0 10px;
+ }
+#nav li:first-child {
+  display:none;
+  width:0%;
+}
+#nav li a{
+  font-size:1.2em;
+ }
+article {
+  padding-top:5px;
+  margin:0;
+}
+
+article ul {
+  text-align:center;
+  padding-left:10px;
+  margin:0;
+}
+article ul li {
+  text-align: center;
+}
+
+h1{
+  font-size:2.7em;
+  letter-spacing:0px;
+  padding: 10px 0 5px 20px;
+}
+
+h2{
+  padding: 5px 0 0px 5px;
+  letter-spacing:0;
+}
+
+p {
+  padding:5px 20px;
+}
+
+
+#CNV2{
+  border: 2px solid black;
+}
+
+
+ #carouselDiv {
+  display:block;
+  flex-direction:row;
+  text-align: center;
+  flex-direction:row;
+ }
+ #carouselDiv > div:nth-child(1) {
+  border:2px solid white;
+  width:100%;
+  margin:auto;
+ }
+ #carouselDiv > div:nth-child(2) {
+  width:100%;
+ }
+.carousel{
+  padding:0;
+  margin:0px;
+}
+ img{
+  padding:0;
+ }
+    /* Add additional styles for smaller screens here */
+  }

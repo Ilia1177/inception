@@ -1,26 +1,121 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="Eng">
+
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Simple HTML Page</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 2rem;
-      background-color: #f5f5f5;
-      color: #333;
-    }
-    h1 {
-      color: #007acc;
-    }
-    p {
-      font-size: 1.1rem;
-    }
-  </style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nil POLACK</title>
+  <link href="style80.css" rel="stylesheet">
+  <!-- <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet"> -->
+  <!-- librairies-->
+  
+  <script src="scripts/p5.min.js"></script>
+  <script src="scripts/riso.js"></script>
+
+  <!-- script -->
+  <script src="scripts/script.js"></script>
+  <script>
+
+  </script>
 </head>
+
 <body>
-  <h1>Welcome to my Simple Page</h1>
-  <p>This is a minimal HTML page to get started.</p>
+  <main></main>
+
+  <ul id="nav">
+    <li><a class="active" href ="index.html">///</a></li>
+    <li><a href="edition.html">HAZARDOUS ÉDITORIAL</a></li>
+    <li><a href="offThePress.html">Imprierie RISO</a> </li>
+    <li><a href="wallPaper.html">MURS & PAPIER</a></li>
+    <li><a href="contact.html">À PROPOS</a> </li>
+  </ul>
+
+<div id="content">
+    <article style="background-color:hsla(54, 100%, 70%, 0.5)">
+      <div class="flex-container ">
+        <div style="background-size: cover;background-position: center;padding:20px; background-image:url('images/nuancier.jpg');  width:40%; overflow: hidden;">
+        </div>
+        <div style="width:70%; text-align:center">
+          
+            <h1 class="title" >OFF THE PRESS</h1>
+            <h2>Imprimerie par risographie</h2>
+          
+          <p>Off se Press se printanise ! 
+          Commandez vos impressions à nil@nl-pk.com</p>
+          <h2>STAGE RISO 30/03/2024</h2>
+          <p>Ne manquez pas la date, et venez vous initier à cette technique d'impression si
+          particulière. Apprenez la préparation de vos images en vue 
+          de sa reproduction par risographie et façonnez vos ouvrages !
+          <br>RDV de 14h à 18h le 27/01/24 à</p>
+          <a href="offThePress.html">Oui j'en veux !</a>
+        </div>
+      </div>
+    </article>
+
+    <!-- <article style=" background-color: hsl(325,100%,74%)" >
+      <div class="title" ><a href="emisif.html"></a><h1>ÉMiSSiF ÉDITION</h1></a>
+      </div>
+      <img style="float:right; width:35%; margin: 10px 5px 5px 5px" src="images/chromatique éphémérides.jpg">
+      <div><p>présente :</p> 
+      <h2>CHROMATIC EPHEMERIS</h2>
+      <p>CHROMATIC&nbsp;EPHEMERIS 
+        est une redondance d'expériences imprimées, menés par le 
+        laboratoire éditoriale ÉMiSSiF ÉDITORIAL. L'ouvrage est publié 
+        de manière parfaitement cyclique sur des espaces 
+        temps discontinu, ce qui lui confère ce caractère si irrégulier 
+        et imprévus. Il s'agit de fixer des instant quantique de création. CHROMATIC&nbsp;EPHEMERIS 
+        est une expérience à laquelle vous pouvez prendre part. @CHROMATIC.EPHEMERIS
+        L'épreuve est disponible est disponible uniquement dans une dimension physique, 
+        et bientôt sous un format numérique.</p></div>
+    </article> -->
+
+    <article class="flex-container" style=" background-color: hsla(325,100%,74%,0.5)" >
+      <div style="width:70%;text-align:center; margin:10px 0 10px 0;">
+        <h1>HAZARDOUS ÉDITORIAL</h1>
+        <p>présente :</p> 
+        <h2>CHROMATIQUE ÉPHÉMÉRIDES</h2>
+        <p>CHROMATIQUE ÉPHÉMÉRIDES
+        est une redondance d'expériences imprimées, menés par le 
+        laboratoire HAZARDOUS ÉDITORIAL. L'ouvrage est publié 
+        de manière parfaitement cyclique sur des espaces 
+        temps discontinu, ce qui lui confère ce caractère si irrégulier 
+        et imprévus. Il s'agit de fixer des instants quantique de création. CHROMATIQUE ÉPHÉMÉRIDES 
+        est une expérience à laquelle vous pouvez prendre part. 
+        L'épreuve est disponible est disponible uniquement dans une dimension physique, 
+        et bientôt sous un format numérique.
+        @CHROMATIC.EPHEMERIS
+      </p>
+        <a href="edition.html">What did you say ?</a>
+        </div>
+        
+        <div style="background-size: cover;background-position: center;padding:20px; background-image:url('images/chromatique éphémérides.jpg');  width:40%; overflow: hidden;">
+          <!-- <img style=" padding:0 0; object-fit: cover;" src="images/chromatique éphémérides.jpg"> -->
+        </div>
+    </article>
+      
+  
+
+    <article style="background-color: hsla(234,25%,80%,0.5)">
+      <div class="title" >
+        <h1>Murs & Papier</h1>
+          <h3 >collage d'imprimé riso d'envergure - EXT & INT</h3>
+      </div>
+      <div class="flex-container" style="border-top:10px dotted white;border-bottom:10px dotted white;">
+        <img src="images/wallPaperA.jpg" style="width:50%">
+        <img src="images/wallPaperB.jpg" style="width:50%">
+      </div>
+    
+      <p>Collage d'imprimés riso. GET INTO THE LANDSCAPE! 
+       Compositions éphemères ou pérennes. AT ALL SCALES !</p>
+        <a href="wallPaper.html">Get more infos</a>
+    </article>
+
+    <article >
+      <h1>LIENS UTILES</h1>
+      <iframe src="https://open.spotify.com/embed/episode/3ud5jobSB9dpghDEjGiwkW?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe></div>
+
+    </article>
+ 
 </body>
+
 </html>

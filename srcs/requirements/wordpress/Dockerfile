@@ -29,12 +29,12 @@ RUN apk update && apk upgrade && apk add --no-cache\
 	iproute2\
 	&& rm -rf /var/lib/apt/lists/*
 
-RUN ln -s /usr/bin/php82 /usr/bin/php
+RUN 		ln -s /usr/bin/php82 /usr/bin/php
 COPY		html/				/tmp/html/
 COPY		breevia/			/tmp/breevia/
 COPY		conf/www.conf		/tmp/www.conf
 COPY		conf/wp-config.php	/tmp/wp-config.php
-COPY 		wp_init.sh	.
+COPY 		wp_init.sh			.
 RUN			chmod 755 wp_init.sh
 EXPOSE		9000
 

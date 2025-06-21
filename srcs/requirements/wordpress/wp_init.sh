@@ -1,9 +1,10 @@
 #!/bin/sh
 
 mkdir -p $WP_PATH
-
-chown -R nobody:nobody $WP_PATH
-cp /tmp/www.conf /etc/php82/php-fpm.d/www.conf
+echo "I am : $(whoami)" 
+id $(whoami)
+#chown -R nobody:nobody $WP_PATH
+mv /tmp/www.conf /etc/php82/php-fpm.d/www.conf
 #cp /tmp/wp-config.php /var/www/wordpress/wp-config.php
 mv /tmp/html 	/var/www/html
 

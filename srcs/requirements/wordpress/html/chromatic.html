@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="Eng">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ÉMiSSiF</title>
+  <link href="styleEmissif.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+  <!-- librairies-->
+  
+  <script src="scripts/p5.min.js"></script>
+
+  <!-- script -->
+  <script src="scripts/script.js"></script>
+  <script src="scripts/sketchs/sketch1.js"></script>
+  <script src="scripts/sketchs/sketch2.js"></script>
+  <script src="scripts/sketchs/sketch9.js"></script>
+  <script src="scripts/emissif.js"></script>
+  
+  <script>
+        document.addEventListener("DOMContentLoaded", function() {
+  // Function to set up a slider and its associated display
+  function setupSlider(sliderId, valueDisplayId) {
+    var slider = document.getElementById(sliderId);
+    var valueDisplay = document.getElementById(valueDisplayId);
+
+    // Display the current value of the slider
+    valueDisplay.innerHTML = slider.value;
+
+    // Update the displayed value when the slider is moved
+    slider.addEventListener("input", function() {
+      valueDisplay.innerHTML = slider.value;
+    });
+  }
+
+  // Set up each slider using the function
+  setupSlider("slider1", "slider1Value");
+  setupSlider("slider2", "slider2Value");
+  setupSlider("slider3", "slider3Value");
+  setupSlider("slider4", "slider4Value");
+  setupSlider("slider5", "slider5Value");
+  setupSlider("slider6", "slider6Value");
+  setupSlider("slider7", "slider7Value");
+  setupSlider("slider8", "slider8Value");
+  setupSlider("slider9", "slider9Value");
+});
+  </script>
+
+  <script>    
+    </script>
+  
+</head>
+
+<body>
+  <main></main>
+
+  <a href="index.html"><div id="CNV0"></div></a>
+  
+  <ul id="nav">
+    <!-- <li><a style="padding:5px;"href ="index.html"><img src="images/icon.png" style="width:40px"></a></li> -->
+    <li><a class="active" href="chromatic.html">Chromatique<br> Éphéméride</a></li>
+    <li><a href="hazard.html">Hazardous<br>Collection</a> </li>
+    <li><a href="regular.html">REGULAR Print</a></li>
+    <li><a href="contact.html">> NL-pk.com</a> </li>
+  </ul>
+
+
+<div class="flex-container" style="max-width:1200px; margin:0 auto; border:5px solid grey;">
+  <section id="console">
+    <div class="P5Cnv" id="CNV1"></div>
+    <div id="input1">
+      <div class="flex-container" style="flex-direction:row; height:100%; width:100%;">
+        <div class="flex-container" style="width:50%; flex-direction:column; height:100%">
+         <label for="slider1"><span id="slider1Value">50 </span>/ 100</label>
+         <input type="range" id="slider1" name="slider1" min="0" max="100" value="50">
+         <label for="slider2"><span id="slider2Value">50 </span>/255</label>
+         <input type="range" id="slider2" name="slider2" min="0" max="255" value="50">
+         <label for="slider3"><span id="slider3Value">50</span>/100</label>
+         <input type="range" id="slider3" name="slider3" min="0" max="100" value="50">
+        </div>
+        <div style="width:50%; display:flex; flex-wrap:wrap;">
+          <button id="button1">Arg</button>
+          <button id="button2">Garg</button>
+          <button id="button3">BANG</button>
+          <button id="button4">CRAK</button>
+        </div>
+      </div>
+      
+    </div>
+    
+    <div class="P5Cnv" id="CNV2"></div>
+    <div id="input2">
+      <div class="flex-container" style="flex-direction:row; height:100%; width:100%;">
+        <div class="flex-container" style="width:50%; flex-direction:column; height:100%">
+         <label for="slider4"><span id="slider4Value">50 </span>/ 100</label>
+         <input type="range" id="slider4" name="slider4" min="0" max="100" value="50">
+         <label for="slider5"><span id="slider5Value">50 </span>/255</label>
+         <input type="range" id="slider5" name="slider5" min="0" max="255" value="50">
+         <label for="slider6"><span id="slider6Value">50</span>/100</label>
+         <input type="range" id="slider6" name="slider6" min="0" max="100" value="50">
+        </div>
+        <div style="width:50%; display:flex; flex-wrap:wrap;">
+          <button id="button5">Arg</button>
+          <button id="button6">Garg</button>
+          <button id="button7">BANG</button>
+          <button id="button8">CRAK</button>
+        </div>
+      </div>
+      
+    </div>
+    <div class="P5Cnv" id="CNV3"></div>
+    <div id="input3">
+      <div class="flex-container" style="flex-direction:row; height:100%; width:100%;">
+        <div class="flex-container" style="width:50%; flex-direction:column; height:100%">
+         <label for="slider7"><span id="slider7Value">50 </span>/ 100</label>
+         <input type="range" id="slider7" name="slider7" min="0" max="100" value="50">
+         <label for="slider8"><span id="slider8Value">50 </span>/255</label>
+         <input type="range" id="slider8" name="slider8" min="0" max="255" value="50">
+         <label for="slider9"><span id="slider9Value">50</span>/100</label>
+         <input type="range" id="slider9" name="slider9" min="0" max="100" value="50">
+        </div>
+        <div style="width:50%; display:flex; flex-wrap:wrap;">
+          <button id="button9">Arg</button>
+          <button id="button10">Garg</button>
+          <button id="button11">BANG</button>
+          <button id="button12">CRAK</button>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <div id="content">
+    <article>
+      Welcome to the NET-ZINE version of CHROMATIC_EPHEMERIS // 
+      THIS SECTION is in construction, and will be update reglarly.
+
+
+      <h1>/ CHROMATIC EPHEMERIS</h1>
+      <p>
+        Chromatic Ephemeris is a recurring publication influenced by quantum postulates, 
+        manifesting in various forms with variable content. This periodic documentation 
+        of color experiments is produced using risography. Through this endeavor, 
+        we delve into a quasi-quantum dimension. Join us on this exploration. 
+        Welcome to the digital rendition of CHROMATIC_EPHEMERIS.
+      </p>
+      <p>
+        
+       
+      </p>
+        <ul>
+          <li>
+            <h2>
+              Thought, ideas and emotions are seen like wave :
+            </h2> 
+            <p>
+  
+              Thoughts, ideas, and emotions are perceived as waves: undoubtedly existing, 
+              yet in a waveform. They reside within our brains, hearts, 
+              and even extend beyond ourselves. 
+              Could this webpage be a connection between us? 
+            </p>
+          </li>
+          <li>
+            <h2>
+              Prints, paper and ink can be perceived as particles :
+            </h2> 
+            <p>
+              Prints, paper, and ink can be regarded as particles: 
+              occupying space, existing in time, and possessing weight. 
+              They belong to the atomistic world. Vibrating and resembling living entities, 
+              they serve as vehicles for ideas and thoughts, 
+              carrying information and emotions. 
+              Light is essential, as prints cease to exist in a dark atmosphere.
+            </p>
+          </li>
+        </ul>
+
+        <p>
+          During the process, bonds are made between those two dimensions (particle & wave model) 
+          when we put down ideas and emotion on paper, and vice versa.
+        </p>
+
+        <p>
+          the receiver/observator hold the responsability of observation and lecture. 
+          Without you, our experiments would not find any destinations points, 
+          nor confirmation of existence.
+        </p>
+
+        <p>
+
+          As the recipient of the Ephemeris, 
+          you benefit from a materialistic perspective. 
+          You have the opportunity to experience Chromatic's riso filters 
+          in natural sunlight, engaging your senses through smell and touch, 
+          providing the most immersive experience.
+
+          This publication delves into randomness, chance, and unpredictability. 
+          While there is no real randomness in the studio, what occurs is the 
+          manifestation of energy and creation through quantum fields. 
+          Our laboratory is guided by the theory of chaos—coherent, 
+          yet with too many factors to fully comprehend its trajectory. 
+          We focus on parameters we can influence: emotions, ideas, and thoughts. 
+          We give ourselves the space to connect with our own thoughts, ideas, actions, 
+          and choices, observing the outcomes, mainly manifested in riso prints.
+          These prints are soon dispatched to you, 
+          and we hope you enjoy a wonderful exploration. 
+          Crafted with benevolent intentions, 
+          the prints aim to elevate the world's emotional state. 
+          We trust that you will have an enjoyable time appreciating 
+          these colors and lights, and we look forward to connecting with you soon.
+          
+          This book is printed using risography, 
+          available in limited and numbered editions. 
+          Additionally, it exists in a virtual dimension: the internet.
+          </p>
+
+
+
+ 
+    </article>
+    <article>
+      <h1>Digital EXPERIENCE</h1>
+      <h2>Welcome</h2>
+      <p>
+        Welcome to CHROMATIC EPHEMRIS .DIGITAL This is a place where you can interact with the experience 
+        in real time. Take a seat and start exploring the quantum fields with us.
+
+        <span class="warning">This part is in develloppement, and not fully accessible yet. Update will be done every 2 weeks.</span>
+        <div id="articleLink"><a href="">EXPERIMENTATION ROOM</a></div>
+      </p>
+    </article>
+    <article>
+      
+    </article>
+
+  </div>
+    
+</div>
+
+
+    
+      
+  
+
+    
+
+    
+
+
+
+
+
+
+ 
+</body>
+
+</html>

@@ -1,21 +1,49 @@
 #!/bin/sh
+# Validate required env vars
+echo "$DB_NAME = DB_NAME"
+echo "$DB_USER = DB_USER}"
+echo "$DB_PASSWORD = DB_PASSWORD"
+echo "$DB_ROOTPASS = DB_ROOTPASS"
+
+# Ensure socket dir exists
+mkdir -p /run/mysqld
+chown mysql:mysql /run/mysqld
+
+# Check permissions
+if [ ! -w /var/lib/mysql ]; then
+  echo "[ERROR] /var/lib/mysql is not writable by mysql user"
+  ls -ld /var/lib/mysql
+  echo -n "[DEBUG] user is $(whoami) with "
+  id $(whoami)
+  exit 1
+else
+  echo -n "[INFO] Permission granted on /var/lib/mysql for $(whoami) of "
+  id $(whoami)
+fi
 
 # Initialize database if not already done
 if [ ! -d "/var/lib/mysql/mysql" ]; then
   echo "[INFO] Initializing database..."
-  mysql_install_db --user=mysql --datadir=/var/lib/mysql --basedir=/usr
   chown -R mysql:mysql /var/lib/mysql
+  mysql_install_db --user=mysql --datadir=/var/lib/mysql --basedir=/usr
 fi
 
-echo "[INFO] Starting MariaDB in bootstrap mode..."
 # Start temporary server in background
+echo "[INFO] Starting MariaDB in bootstrap mode..."
 mysqld_safe --user=mysql --skip-networking --skip-grant-tables >/dev/null 2>&1 &
 
 # Wait for server to start with timeout
 echo "[INFO] Waiting for server to start..."
-for i in {1..30}; do
-  mysqladmin ping -uroot --silent && break
+i=0
+while [ $i -lt 30 ]; do
+  mariadb-admin ping -uroot --silent && break
   sleep 1
+  i=$((i + 1))
+done
+
+# Wait for actual SQL queries to work
+for i in $(seq 1 10); do
+  echo "SELECT 1" | mariadb -u root && break || sleep 1
 done
 
 # Configure database and users
