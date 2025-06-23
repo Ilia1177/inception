@@ -1,0 +1,38 @@
+services:
+  nginx:
+    volumes:
+      - ${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress
+      - ${HOST_VOLUME_PATH}/html:/var/www/html
+      - ${HOST_VOLUME_PATH}/adminer:/var/www/adminer
+
+  wordpress:
+    volumes:
+      - "${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress"
+
+  html:
+    container_name: html
+    env_file: .env
+    build:
+      context: requirements/bonus/html
+      dockerfile: Dockerfile
+    depends_on:
+    - nginx
+    networks:
+    - inception
+    volumes:
+    - "${HOST_VOLUME_PATH}/html:/var/www/html"
+
+  adminer:
+    container_name: adminer
+    build:
+      context: requirements/bonus/adminer
+      dockerfile: Dockerfile
+    volumes:
+    - ${HOST_VOLUME_PATH}/adminer:/var/www/adminer
+    networks:
+    - inception
+    depends_on:
+    - mariadb
+    expose:
+    - "9000"
+    restart: unless-stopped

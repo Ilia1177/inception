@@ -5,7 +5,6 @@ echo "$DB_USER = DB_USER}"
 echo "$DB_PASSWORD = DB_PASSWORD"
 echo "$DB_ROOTPASS = DB_ROOTPASS"
 
-mariadb --version
 # Ensure socket dir exists
 mkdir -p /run/mysqld
 chown mysql:mysql /run/mysqld
@@ -26,26 +25,26 @@ fi
 if [ ! -d "/var/lib/mysql/mysql" ]; then
   echo "[INFO] Initializing database..."
   chown -R mysql:mysql /var/lib/mysql
-  mariadb-install-db --user=mysql --datadir=/var/lib/mysql --basedir=/usr
+  mysql_install_db --user=mysql --datadir=/var/lib/mysql --basedir=/usr
 fi
 
 # Start temporary server in background
 echo "[INFO] Starting MariaDB in bootstrap mode..."
-mariadbd-safe --user=mysql --skip-networking --skip-grant-tables >/dev/null 2>&1 &
+mysqld_safe --user=mysql --skip-networking --skip-grant-tables >/dev/null 2>&1 &
 
-# Wait for server to start
+# Wait for server to start with timeout
 echo "[INFO] Waiting for server to start..."
 i=0
 while [ $i -lt 30 ]; do
-  mariadb-admin ping -u root -p"${DB_ROOTPASS}" && break
+  mariadb-admin ping -uroot --silent && break
   sleep 1
   i=$((i + 1))
 done
 
-if [ $i -gt 30 ]; then
-  echo "[ERROR] MariaDB did not start in time"
-  exit 1
-fi
+# Wait for actual SQL queries to work
+for i in $(seq 1 10); do
+  echo "SELECT 1" | mariadb -u root && break || sleep 1
+done
 
 # Configure database and users
 echo "[INFO] Configuring database..."
@@ -73,19 +72,19 @@ sql_script=$(cat <<EOF
 EOF
 )
 
-echo "$sql_script" | mariadb -u root -p"$DB_ROOTPASS"
+echo "$sql_script" | mysql -u root
 
 # Verify user can connect before proceeding
-mariadb -u "$DB_USER" -p"$DB_PASSWORD" -e "SELECT 1" || {
+mysql -u $DB_USER -p$DB_PASSWORD -e "SELECT 1" || {
   echo "[ERROR] Failed to verify super user creation"
   exit 1
 }
 
 # Shutdown temporary server
 echo "[INFO] Shutting down temporary server..."
-mariadb-admin shutdown -u root -p"$DB_ROOTPASS"
+mysqladmin -u root -p$DB_ROOTPASS shutdown
 
 # Start production server in foreground
 echo "[INFO] Starting production MariaDB server..."
-exec mariadbd-safe --user=mysql --console
+exec mysqld_safe --user=mysql --console
 #mariadb --user=mysql --console

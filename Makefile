@@ -9,7 +9,8 @@ endif
 all :
 	@echo "Using volumes path: $(VOLUMES_PATH)"
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
-
+bonus :
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
 stop :
 	sudo docker compose -f srcs/docker-compose.yml stop 
 
@@ -18,7 +19,7 @@ nginx :
 
 mariadb :
 	docker build -t mariadb srcs/requirements/mariadb
-	docker run mariadb --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql
+	docker run -it --name mariadb --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql mariadb sh
 
 wordpress :
 	docker build -t wordpress srcs/requirements/wordpress

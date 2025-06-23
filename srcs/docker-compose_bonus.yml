@@ -5,6 +5,7 @@ services:
     container_name: nginx
     volumes:
     - "${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress"
+    - "${HOST_VOLUME_PATH}/html:/var/www/html"
     networks:
     - inception
     depends_on:
@@ -16,7 +17,6 @@ services:
     ports:
     - "443:443"
     restart: on-failure
-
   mariadb:
     container_name: mariadb
     networks:
@@ -30,7 +30,6 @@ services:
     restart: unless-stopped
     expose:
     - "3306"
-
   wordpress:
       container_name: wordpress
       env_file: .env
@@ -46,23 +45,21 @@ services:
       restart: on-failure
       expose: 
       - "9000"
-#volumes:
-#  mariadb:
-#  wordpress:
-#volumes:
-#  wordpress:
-#    driver: local # ici nous stockons le volume en local
-#    driver_opts:
-#      type: 'none' 									# aucun type spécifique
-#      o: 'bind'
-#      device: '/Users/ilia/docker-data/wordpress'			#Ou stocker le dossier sur votre ordinateur en local
-#  mariadb:
-#    driver: local
-#    driver_opts:
-#      type: 'none' 
-#      o: 'bind'										 # Les Bind Mounts sont des volumes qui se montent sur un chemin d'accès à l'hôte, et ils peuvent être modifiés par d'autres processus en dehors de docker.
-#      device: '/Users/ilia/docker-data/mariadb'			#Ou stocker le dossier sur votre ordinateur en local
-#
+  html:
+    container_name: html
+    env_file: .env
+    build:
+      context: requirements/bonus/html
+      dockerfile: Dockerfile
+    depends_on:
+    - nginx
+    networks:
+    - inception
+    volumes:
+    - "${HOST_VOLUME_PATH}/html:/var/www/html"
+    expose: 
+    - "5050"
+
 networks:
   inception:
     name: inception

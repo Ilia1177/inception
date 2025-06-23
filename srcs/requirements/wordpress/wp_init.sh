@@ -57,13 +57,13 @@ wp user create $WP_EDITOR_NAME $WP_EDITOR_MAIL \
   --allow-root \
   --path=$WP_PATH
 
-echo "[INFO] Customize Wordpress with breevia theme"
+echo "[INFO] Customize Wordpress with theme & plugin"
 mv /tmp/breevia $WP_PATH/wp-content/themes/breevia
-wp theme activate breevia			--allow-root --path=$WP_PATH
+wp theme activate breevia					   --allow-root --path=$WP_PATH
 wp plugin install jetpack 			--activate --allow-root --path=$WP_PATH;
 wp plugin install classic-editor	--activate --allow-root --path=$WP_PATH;
 wp plugin install redis-cache		--activate --allow-root --path=$WP_PATH;
-wp redis enable 					--allow-root
+wp redis enable 						   	   --allow-root
 #wp rewrite structure '/%postname%/' --hard --allow-root
 #wp rewrite flush --allow-root
 
