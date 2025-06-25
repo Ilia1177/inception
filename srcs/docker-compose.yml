@@ -16,6 +16,7 @@ services:
     ports:
     - "443:443"
     restart: on-failure
+    image: nginx:ft42
 
   mariadb:
     container_name: mariadb
@@ -30,6 +31,7 @@ services:
     restart: unless-stopped
     expose:
     - "3306"
+    image: mariadb:ft42
 
   wordpress:
       container_name: wordpress
@@ -46,6 +48,8 @@ services:
       restart: on-failure
       expose: 
       - "9000"
+      image: wordpress:ft42
+
 #volumes:
 #  mariadb:
 #  wordpress:

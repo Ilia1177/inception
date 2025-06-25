@@ -12,7 +12,7 @@ all :
 bonus :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
 stop :
-	sudo docker compose -f srcs/docker-compose.yml stop 
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml stop 
 
 nginx : 
 	docker build -t nginx srcs/requirements/nginx/
@@ -25,7 +25,7 @@ wordpress :
 	docker build -t wordpress srcs/requirements/wordpress
 
 down :
-	docker compose -f srcs/docker-compose.yml down
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml down
 
 clean :
 	@if [ -n "$$(docker ps -q)" ]; then docker stop $$(docker ps -q); else echo "No running containers to stop."; fi
@@ -34,9 +34,9 @@ clean :
 	@if [ -n "$$(docker volume ls -q)" ]; then docker volume rm $$(docker volume ls -q); else echo "No volumes to remove."; fi
 
 fclean: clean
-	rm -fr $(VOLUMES_PATH)
 	docker system prune -a --volumes --force
 	docker network prune
+	rm -fr $(VOLUMES_PATH)
 
 
 # docker exec -it my-nginx /bin/bash
