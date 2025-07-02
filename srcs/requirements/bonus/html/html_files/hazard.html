@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="Eng">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HAZARDOUS</title>
+  <link href="styleEmissif.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+
+  <!-- librairies-->
+  
+  <script src="scripts/p5.min.js"></script>
+  <script src="scripts/carousel.js"></script>
+
+  <!-- script -->
+  <script src="scripts/sketchs/sketch7.js"></script>
+  <script src="scripts/script.js"></script>
+  <!-- <script src="scripts/sketchs/sketch1.js"></script>  -->
+  <!-- <script src="scripts/sketchs/sketch6.js"></script>
+  <script src="scripts/sketchs/sketch7.js"></script>  -->
+  <script src="scripts/sketchs/sketch10.js"></script> 
+  <script src="scripts/emissif.js"></script>
+  
+  <script>
+
+    document.addEventListener("DOMContentLoaded", function() {
+  // Function to set up a slider and its associated display
+  function setupSlider(sliderId, valueDisplayId) {
+    var slider = document.getElementById(sliderId);
+    var valueDisplay = document.getElementById(valueDisplayId);
+    // Display the current value of the slider
+    valueDisplay.innerHTML = slider.value;
+
+    // Update the displayed value when the slider is moved
+    slider.addEventListener("input", function() {
+      valueDisplay.innerHTML = slider.value;
+    });
+  }
+
+  // Set up each slider using the function
+  setupSlider("slider1", "slider1Value");
+  setupSlider("slider2", "slider2Value");
+  setupSlider("slider3", "slider3Value");
+  setupSlider("slider4", "slider4Value");
+  setupSlider("slider5", "slider5Value");
+  setupSlider("slider6", "slider6Value");
+  setupSlider("slider7", "slider7Value");
+  setupSlider("slider8", "slider8Value");
+  setupSlider("slider9", "slider9Value");
+});
+
+// let currentSketch = new p5(sketch1, 'sketchContainer');
+
+// function switchSketch(sketchNumber) {
+//   if (currentSketch) {
+//     currentSketch.remove();
+//   }
+
+//   switch (sketchNumber) {
+//     case 1:
+//       currentSketch = new p5(sketch1, 'sketchContainer');
+//       break;
+//     case 2:
+//       currentSketch = new p5(sketch2, 'sketchContainer');
+//       break;
+//     case 3:
+//       currentSketch = new p5(sketch3, 'sketchContainer');
+//       break;
+
+//     // Add cases for additional sketches as needed
+//     default:
+//       currentSketch = new p5(sketch1, 'sketchContainer');
+//       break;
+//   }
+// }
+
+  </script>
+  
+</head>
+
+<body>
+  <main></main>
+
+  <a href="hazardousEditorial.html"><div id="CNV0"></div></a>
+  <ul id="nav">
+    <!-- <li><a style="padding:5px;"href ="index.html"><img src="images/icon.png" style="width:40px"></a></li> -->
+    <li><a href="chromatic.html">Chromatique<br> Éphéméride</a></li>
+    <li><a class="active" href="hazard.html">Hazardous Collection</a> </li>
+    <li><a href="regular.html">REGULAR Print</a></li>
+    <li><a href="contact.html">About</a> </li>
+  </ul>
+
+
+  
+<div class="flex-container" style="max-width:1200px; margin:0 auto; border:5px solid grey;">
+  <section id="console" style="border:5px solid grey;">
+    <div class="P5Cnv" id="CNV1"></div>
+    <div id="input1">
+      <div class="flex-container" style="flex-direction:row; height:100%; width:100%;">
+        <div class="flex-container" style="width:50%; flex-direction:column; height:100%">
+         <label for="slider1"><span id="slider1Value">50 </span>/ 100</label>
+         <input type="range" id="slider1" name="slider1" min="0" max="100" value="50">
+         <label for="slider2"><span id="slider2Value">50 </span>/255</label>
+         <input type="range" id="slider2" name="slider2" min="0" max="255" value="50">
+         <label for="slider3"><span id="slider3Value">50</span>/100</label>
+         <input type="range" id="slider3" name="slider3" min="0" max="100" value="50">
+        </div>
+        <div style="width:50%; display:flex; flex-wrap:wrap;">
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button1">Arg</button>
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button2">Garg</button>
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button3">BANG</button>
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button4">CRAK</button>
+        </div>
+      </div>
+      
+    </div>
+    <div class="P5Cnv" id="CNV2"></div>
+    <div id="input2">
+      <div class="flex-container" style="flex-direction:row; height:100%; width:100%;">
+        <div class="flex-container" style="width:50%; flex-direction:column; height:100%">
+         <label for="slider4"><span id="slider4Value">50 </span>/ 100</label>
+         <input type="range" id="slider4" name="slider4" min="0" max="100" value="50">
+         <label for="slider5"><span id="slider5Value">50 </span>/255</label>
+         <input type="range" id="slider5" name="slider5" min="0" max="255" value="50">
+         <label for="slider6"><span id="slider6Value">50</span>/100</label>
+         <input type="range" id="slider6" name="slider6" min="0" max="100" value="50">
+        </div>
+        <div style="width:50%; display:flex; flex-wrap:wrap;">
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button5">Arg</button>
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button6">Garg</button>
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button7">BANG</button>
+          <button style="border:0px solid grey;width:50%; height:50%; padding:0;" id="button8">CRAK</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="P5Cnv" id="CNV3"></div>
+    <div id="input3">
+      <div class="flex-container" style="flex-direction:row; height:100%; width:100%;">
+        <div class="flex-container" style="width:50%; flex-direction:column; height:100%">
+         <label for="slider7"><span id="slider7Value">50 </span>/ 100</label>
+         <input type="range" id="slider7" name="slider7" min="0" max="100" value="50">
+         <label for="slider8"><span id="slider8Value">50 </span>/ 255</label>
+         <input type="range" id="slider8" name="slider8" min="0" max="255" value="50">
+         <label for="slider9"><span id="slider9Value">50</span>/ 100</label>
+         <input type="range" id="slider9" name="slider9" min="0" max="100" value="50">
+        </div>
+        <div style="width:50%; display:flex; flex-wrap:wrap;">
+          <button id="button9">Arg</button>
+          <button id="button10">Garg</button>
+          <button id="button11">BANG</button>
+          <button id="button12">CRAK</button>
+        </div>
+      </div>
+      
+    </div>
+  </section>
+
+  <div id="content">
+    <article>
+      
+        <div >
+          <h2>// COPIE D'ESSAI</h2>
+          <p style="display: inline-block;">
+            These are test prints, consistently A3-sized sheets of 
+            paper exclusively employed by the Off The Press workshop 
+            for calibrating the RISO machine with each new print. 
+            In an exploration of randomness and diversity, 
+            they undergo sorting, selection, and reuse. 
+            Reprinted at will, these prints haphazardly 
+            intertwine the various color layers of images produced in the workshop. 
+            They represent the outcomes of emotions translated into action and choices. 
+            Each particle is a print, distinguished by a unique number, 
+            providing the buyer access to the "CHROMATIC" experience. 
+            Stay informed and subscribe for ongoing updates.
+          </p>
+            
+          <p>To query a test print,
+            please contact me : nil@nl-pk.com
+          </p>
+        </div>
+      
+
+      <div id="missPrint" class="carousel">
+        <div class="carousel-container">
+          <div class="carousel-slide">
+            <img src="images/testPrint/missPrint1.jpg" alt="Image 1">
+          </div>
+          <div class="carousel-slide">
+            <img src="images/testPrint/missPrint2.jpg" alt="Image 2">
+          </div>
+        </div>
+          <button class="carousel-prev"> <- </button>
+          <button class="carousel-next"> -> </button>
+      </div>
+
+    </article>
+
+  </div>
+    
+</div>
+
+
+
+
+    
+      
+  
+
+    
+
+    
+
+
+
+
+
+
+ 
+</body>
+
+</html>

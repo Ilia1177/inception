@@ -1,0 +1,70 @@
+*{
+    font-family: Ubuntu;
+    font-size:16pt;
+    margin:auto;
+    background: black;;
+    color:white;
+    padding:0;
+    
+    
+}
+
+#nav {
+    z-index:99;
+    list-style-type: none;
+    transform: rotate(0.5deg) translateY(-10px);
+    transform-origin: center;
+    background-size: 100%;
+    position: sticky;
+    top: 0;
+    padding:20px 20px 0 20px;
+    max-width:1900px;
+    display:flex;
+    align-items:center;
+    margin:0px auto 0px auto;
+    justify-content:space-around;
+    align-items:center;
+    height:0px;
+    border-bottom:5px solid white;
+    overflow:hidden;
+    transition: height 0.3s;
+    
+}
+#nav:hover  {
+    height: 50px;
+}
+#content {
+    display:flex;
+    max-width:900px;
+    justify-content: center;
+    overflow: hidden;
+}
+#CNV0 {
+    background:transparent;
+    display:block;
+    position: absolute;
+    top:0px;
+    left:0px;
+    
+}
+/* #CNV0 {
+    background:transparent;
+    display:flex;
+    justify-content:center;
+    border:2px solid white;
+    
+    width:541px;
+} */
+
+.aside{
+    display:none;
+    width:calc(800px - 50%);
+    overflow:hidden;
+}
+
+.flex-container{
+    justify-content: center;
+    margin:auto;
+    display:flex;
+    width:100%;
+}

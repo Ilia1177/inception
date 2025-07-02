@@ -1,0 +1,371 @@
+*{  
+  color:black;
+  margin:0 auto;
+  font-family: Ubuntu, Verdana, sans-serif;
+  line-height:100%;
+  font-size:16pt;
+  font-weight:800px;
+  margin:0;
+  /* letter-spacing: -4px; */
+  padding:0;}
+  
+p{  
+  font-weight:800;
+  padding : 20px 5px;
+  text-indent:20px;
+  text-align: justify;
+  mix-blend-mode: multiply;
+  }
+
+article {
+  padding: 10px 10px 100px 10px;
+}
+
+article ul {
+  padding:20px 50px;
+}
+
+article ul p {
+  padding-left:90px;
+}
+
+
+h1 {
+  font-size:2em;
+  padding:10px 0;
+}
+h2 {
+  font-size:1.5em;
+}
+ul{
+  list-style-type: none;
+}
+
+#nav a {
+  color:white;
+  text-align:center;
+  display:inline-block;}
+
+
+#nav {
+  /* transform: rotate(5deg) translateY(-10px); */
+  transform-origin: center;
+  background-color:grey;
+  z-index:99;
+  position: sticky;
+  top:0;
+  max-width:1200px;
+  display:flex;
+  margin:0px auto;
+  justify-content:space-around;
+  overflow:hidden;
+  height:60px;
+  padding-top:5px;
+  padding-bottom:5px;
+  border:5px solid grey;
+  border-top:none;
+  /* background: linear-gradient(to bottom, rgba(0, 0, 0, 0.2), rgba(0, 0, 0, 0.7)); */
+}
+#nav li {
+
+  display:flex;
+  justify-content: center;
+  align-items: center;
+  border:5px solid rgb(56, 56, 56);
+  width:20%;
+  height:50px;
+}
+#nav li a{
+  display:flex;;
+  font-weight: bolder;
+  line-height:1.2;
+  padding:0;
+}
+
+#nav li a:hover{
+  color:black;
+  text-decoration:none;
+  background-color:white;
+  
+}
+#nav li a.active{
+  background-color:white;
+  color:black;
+  text-decoration:none;
+}
+
+
+.P5Cnv {
+  width:400px;
+  height:400px;
+  overflow: hidden;
+}
+
+#console {
+  width:33%;
+  display:block;
+  border:5px solid grey;
+  height:100%;
+  overflow:hidden;
+}
+
+#content {
+  border:5px solid grey;
+  width:66%;
+  height:1515px;
+  overflow:scroll;
+  margin:0, auto;
+  background-image:url('images/fondRisoBis.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  }
+#articleLink {
+  text-align:center;
+  padding:15px;
+  border-radius: 100px;
+  display:block;
+  width:400px;
+  margin:auto;
+  background-color:grey;
+  font-size:1.5em;
+}
+#articleLink a {
+  color : white;
+}
+
+
+#input1, #input2, #input3 {
+  overflow:hidden;
+  align-items:center;
+  justify-content: center;
+  width:100%;
+  height:100px;
+  border-bottom:5px solid grey;
+  background-color:rgb(180, 180, 180);
+}
+#console button{
+  background-color:rgb(180, 180, 180);
+  width:50%; height:50%; padding:0;
+  border:5px solid grey
+}
+
+#console button:hover{
+  /* background-color:rgb(108, 58, 58) */
+  background-color:rgb(200, 200, 200)
+}
+
+label {
+  height:2%;
+  display: block;
+  margin-bottom: 10px;
+}
+.clearfix::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+
+#CNV1 {
+    justify-content: center;
+    
+}
+#CNV2 {
+  display:block;
+    justify-content: center;
+    
+}
+#CNV0 {
+  display:block;
+  max-width:1200px;
+  margin:0 auto;
+}
+
+.flex-container{
+    overflow:hidden;
+    display:flex;
+    justify-content: space-between;
+}
+
+
+
+
+   /* courousel */
+.carousel {
+    overflow: hidden;
+    position: relative;
+    margin: 0 auto;
+    border-top:5px solid grey;;
+    max-width: 100%;}
+.carousel-container {
+ 
+    display: flex;
+    transition: transform 0.1s ease-in-out;}
+.carousel-slide {
+  
+    flex-shrink: 0;
+    overflow: hidden;
+    display: flex;
+    max-width:100%;}
+.carousel img {
+    height: auto;
+    max-width:100%;}
+.carousel-prev,.carousel-next {
+    position: absolute;
+    top: 50%;
+    padding: 10px 20px;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    z-index:99;
+    cursor: pointer;}
+.carousel-prev {
+    left: 0;}
+.carousel-next {
+    right: 0;}
+
+
+  .animated-border {
+    padding: 0px;
+    text-align: center;
+    font-size: 18px;
+    border: 2px solid transparent; /* Set initial border */
+    position: relative;
+    display: inline-block;
+  }
+  
+  .animated-border::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    border: 10px solid transparent; /* Set initial border */
+    border-radius: 15px; /* Adjust border radius as needed */
+    animation: animateBorder 2s infinite linear; /* Define animation */
+  }
+  
+  @keyframes animateBorder {
+    0% {
+      border-color: #ff0000; /* Start color */
+    }
+    50% {
+      border-color: #00ff00; /* Middle color */
+    }
+    100% {
+      border-color: #0000ff; /* End color */
+    }
+  }
+
+  
+  .distord:hover:before, .distord:hover:after {
+    position: absolute;
+    content: "STUDIO DE CRÉATION";
+    transform: translate(-10%, -10%);
+    z-index: -1;
+  }
+  .distord:hover:before {
+    top: 49.5%;
+    left: 49.5%;
+    color: rgba(233, 30, 99, 0.8);
+    animation: distort1 500ms linear infinite;
+  }
+  .distord:hover:after {
+    top: 20.5%;
+    left: 20.5%;
+    color: rgba(3, 244, 212, 0.8);
+    animation: distort2 500ms linear infinite;
+  }
+
+  
+  @keyframes distort1 {
+    0% {
+      top: 50.2%;
+      left: 49.8%;
+    }
+    12.5% {
+      top: 49.8%;
+      left: 30%;
+    }
+    25% {
+      top: 49.8%;
+      left: 50.2%;
+    }
+    37.5% {
+      top: 50%;
+      left: 50.2%;
+    }
+    50% {
+      top: 50.2%;
+      left: 50.2%;
+    }
+    62.5% {
+      top: 50.2%;
+      left: 50%;
+    }
+    75% {
+      top: 50.2%;
+      left: 49.8%;
+    }
+    87.5% {
+      top: 50%;
+      left: 49.5%;
+    }
+    100% {
+      top: 49.5%;
+      left: 49.5%;
+    }
+  }
+  @keyframes distort2 {
+    0% {
+      top: 50.5%;
+      left: 50.5%;
+    }
+    12.5% {
+      top: 50%;
+      left: 50.5%;
+    }
+    25% {
+      top: 49.5%;
+      left: 50.5%;
+    }
+    37.5% {
+      top: 49.5%;
+      left: 50%;
+    }
+    50% {
+      top: 49.5%;
+      left: 49.5%;
+    }
+    62.5% {
+      top: 50%;
+      left: 49.5%;
+    }
+    75% {
+      top: 50.5%;
+      left: 49.5%;
+    }
+    87.5% {
+      top: 50.5%;
+      left: 50%;
+    }
+    100% {
+      top: 50.5%;
+      left: 50.5%;
+    }
+  }
+
+  ::-webkit-scrollbar {
+    width: 12px; /* Set the width of the scrollbar */
+    height:12px;
+  }
+  
+  ::-webkit-scrollbar-thumb {
+    background-color: #555; /* Set the color of the thumb (the draggable part) */
+  }
+  
+  ::-webkit-scrollbar-track {
+    background-color: #eee; /* Set the color of the track (the area the thumb moves along) */
+  }

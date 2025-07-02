@@ -1,0 +1,42 @@
+This is a 42 School project on Docker running the following containers:
+-- MariaDB
+-- Wordpress
+-- Static HTML
+-- Nginx server
+-- Adminer (->MariaDB)
+
+This set up:
+The HAZARDOUS PROJECT (static html)		at :hazardous.fr
+A Wordpress dynamic website 			at :npolack.42.fr
+Adminer to manage MariaDB database		at :admin.npolack.42.fr
+
+To run on MacOs using colima:
+
+	brew install colima
+
+1) To give colima write permissions on volumes, use:
+
+	colima start --edit
+	then add to configuration file:
+
+	#MacOs user uid & gid (id -u && id -g)
+	guest:
+	  uid: 501
+	  gid: 20
+
+	mounts:
+	  - location: "/path/to/volumes"
+	  writable: true
+	
+	colima stop
+	colima delete
+	colima start
+
+2) if any problems "error getting credential" delete the lines: "credsStore": "desktop" in .docker/config.json
+
+	{
+	  "auths": {},
+	  "credsStore": "desktop", <-- line to delete
+	  "currentContext": "colima"
+	}
+

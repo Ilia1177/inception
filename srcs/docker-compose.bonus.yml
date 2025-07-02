@@ -21,6 +21,7 @@ services:
     - inception
     volumes:
     - "${HOST_VOLUME_PATH}/html:/var/www/html"
+    image: html:ft42
 
   adminer:
     container_name: adminer
@@ -36,3 +37,4 @@ services:
     expose:
     - "9000"
     restart: unless-stopped
+    image: adminer:ft42

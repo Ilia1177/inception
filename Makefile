@@ -6,11 +6,20 @@ else
 	VOLUMES_PATH := $(shell pwd)/volumes
 endif
 
-all :
+all : info
+ifeq ($(OS), Darwin)
+	colima start
+endif
 	@echo "Using volumes path: $(VOLUMES_PATH)"
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
-bonus :
+
+bonus : info
+ifeq ($(OS), Darwin)
+	colima start
+endif
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
+	open -a "Firefox" https://hazardous.fr
+
 stop :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml stop 
 
@@ -26,6 +35,20 @@ wordpress :
 
 down :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml down
+
+info :
+ifeq ($(OS), Darwin)
+	@echo "With MacOs intel, to give colima permission on volumes: use \"colima start --edit\" then add:"
+	@echo
+	@echo "mounts:" && echo '  - location: "/Users/ilia/Documents/42CC/inception/volumes"'
+	@echo "  writable: true"
+	@echo
+	@echo "guest:"
+	@echo "  uid: 501" && echo "  gid: 20"
+	@echo
+else
+	@echo "Running from linux"
+endif
 
 clean :
 	@if [ -n "$$(docker ps -q)" ]; then docker stop $$(docker ps -q); else echo "No running containers to stop."; fi
