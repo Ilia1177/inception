@@ -1,0 +1,40 @@
+*{
+    font-family: Ubuntu;
+    font-size:16pt;
+    margin:auto;
+    background: black;;
+    color:white;
+    padding:0;
+}
+
+#content {
+    display:flex;
+    max-width:900px;
+    justify-content: center;
+    overflow: hidden;
+}
+
+#CNV0 {
+    background:transparent;
+    display:block;
+    position: absolute;
+    top:0px;
+    left:0px;
+    
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1; /* optional: puts it behind other elements */
+}
+
+.flex-container{
+    justify-content: center;
+    margin:auto;
+    display:flex;
+    width:100%;
+}

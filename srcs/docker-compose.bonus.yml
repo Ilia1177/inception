@@ -2,26 +2,26 @@ services:
   nginx:
     volumes:
       - ${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress
-      - ${HOST_VOLUME_PATH}/html:/var/www/html
+      - ${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous
       - ${HOST_VOLUME_PATH}/adminer:/var/www/adminer
 
   wordpress:
     volumes:
       - "${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress"
 
-  html:
-    container_name: html
+  hazardous:
+    container_name: hazardous
     env_file: .env
     build:
-      context: requirements/bonus/html
+      context: requirements/bonus/www
       dockerfile: Dockerfile
     depends_on:
     - nginx
     networks:
     - inception
     volumes:
-    - "${HOST_VOLUME_PATH}/html:/var/www/html"
-    image: html:ft42
+    - "${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous"
+    image: hazardous:ft42
 
   adminer:
     container_name: adminer

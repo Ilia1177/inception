@@ -16,8 +16,16 @@ endif
 build_bonus : 
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
 
-build_bonus : 
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
+#build_bonus : 
+#	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
+
+save:
+	@if [ -d "${VOLUMES_PATH}/hazardous" ] && [ "$$(ls -A "${VOLUMES_PATH}/hazardous")" ]; then \
+		echo "Save html files"; \
+		rm -fr srcs/requirements/bonus/www/hazardous && cp -r "${VOLUMES_PATH}/hazardous" srcs/requirements/bonus/www/hazardous; \
+	else \
+		echo "Folder does not exist or is empty"; \
+	fi
 
 bonus : info build_bonus
 ifeq ($(OS), Darwin)
