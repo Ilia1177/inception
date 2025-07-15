@@ -13,7 +13,13 @@ endif
 	@echo "Using volumes path: $(VOLUMES_PATH)"
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
 
-bonus : info
+build_bonus : 
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
+
+build_bonus : 
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
+
+bonus : info build_bonus
 ifeq ($(OS), Darwin)
 	colima start
 endif
@@ -21,7 +27,10 @@ endif
 	open -a "Firefox" https://hazardous.fr
 
 stop :
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml stop 
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml stop 
+
+down :
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml down
 
 nginx : 
 	docker build -t nginx srcs/requirements/nginx/
@@ -33,8 +42,6 @@ mariadb :
 wordpress :
 	docker build -t wordpress srcs/requirements/wordpress
 
-down :
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml down
 
 info :
 ifeq ($(OS), Darwin)

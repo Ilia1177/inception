@@ -1,4 +1,7 @@
+
+
 This is a 42 School project on Docker running the following containers:
+
 -- MariaDB
 -- Wordpress
 -- Static HTML
@@ -10,14 +13,16 @@ The HAZARDOUS PROJECT (static html)		at :hazardous.fr
 A Wordpress dynamic website 			at :npolack.42.fr
 Adminer to manage MariaDB database		at :admin.npolack.42.fr
 
-To run on MacOs using colima:
+------------------------------------------------------------------------
+- To run docker && docker deamon on MacOs using colima:
 
 	brew install colima
 
-1) To give colima write permissions on volumes, use:
+- To give colima write permissions on volumes, use:
 
 	colima start --edit
-	then add to configuration file:
+
+then add to configuration file:
 
 	#MacOs user uid & gid (id -u && id -g)
 	guest:
