@@ -1,46 +1,6 @@
-
-//windowWidth = window.innerWidth;
-//windowHeight = window.innerHeight;
-
-let max_width = 9999
-
-class Face {
-	constructor(width, height, h, e, m, n) {
-		this.width = width;
-		this.height = height;
-		this.iM = m;
-		this.iE = e;
-		this.iH = h;
-		this.iN = n;
-		this.nose = [4];
-		this.mouth = [4];
-		this.head = [4];
-		this.eye = [4];
-	};
-
-	increment(group) {
-		if (group == "head") {
-			this.iH = this.ih + 1 % 4;
-		} else if (group == "mouth") {
-			this.iM = this.iM + 1 % 4;
-		} else if (group == "nose") {
-			this.iN = this.iN + 1 % 4;
-		} else if (group == "eyes")
-			this.iE = this.iE + 1 % 4;
-	}
-
-	draw(buffer, x, y) {
-		console.log(buffer, this.nose[0], this.iN);
-		buffer.image(this.nose[this.iH], x, y);
-		buffer.image(this.head[this.iM], x, y);
-		buffer.image(this.mouth[this.iE], x, y);
-		buffer.image(this.eye[this.iN], x, y);
-	}
-}
-	
 // Display a full page canvas with title "Hazardous editorial" in a perlin noise fog
 // It uses a grid of cells to display the fog and makes a pixels effect
-let digital_sketch = function(p) {
+function level_1(p) {
     let		grid 
 	let		mouse;
 	let		tones = p.floor(p.random(5, 10)); 		// [0 - 100]
@@ -82,7 +42,7 @@ let digital_sketch = function(p) {
 		grid = new Grid(p, cell_size, "background")
 		grid.init(cell_size, background);
 		p.printText(grid);
-		p.printFace(grid, face);
+		//p.printFace(grid, face);
 		//p.printFace(grid);
 		//face.draw(grid.buffer, window.innerWidth / 2 - (face.width / 2), face.width / 2);
 		//
@@ -106,7 +66,7 @@ let digital_sketch = function(p) {
 		grid.display(tones, blur, saturation, "noise");
 		p.fill(255)
 		p.textSize(14);
-		p.text("Frame Rate: " + Math.round(p.frameRate()), 30, 30);
+		p.text("level 1 -- Frame Rate: " + Math.round(p.frameRate()), 30, 30);
 		grid.noise.z += 0.005; 
 	};
 
@@ -133,7 +93,10 @@ let digital_sketch = function(p) {
 
 
 	p.mouseClicked = function() {
-
+		console.log("Level 1 -> next")
+		sketch_index = (sketch_index + 1) % sketches.length;
+		p5_start(sketches[sketch_index]);
+		return ;
 		for (let c of grid.cells) {
 			if (c.group != 0 && c.group != "title") {
 				c.group = 0;
@@ -148,24 +111,11 @@ let digital_sketch = function(p) {
 		face.iN = p.floor(p.random(0, 4));
 		face.iE = p.floor(p.random(0, 4));
 		p.printFace(grid, face);
-		//saturation = p.map(mouse.x, 0, p.width, 0, 100);
-		//tones = p.floor(p.map(mouse.y, 0, p.height, 3, 74));
-	//	p.printFace(grid, window.innerWidth / 2 - 100, 200);
-	//			} else if (cell.group == 2) {
-	//				window.location.href = "edition.html";
-	//			} else if (cell.group == 3) {
-	//				window.location.href = "hazard.html";
-
 	}
 
-	window.addEventListener("resize", function() {
-		console.log("Window size has changed !");
-		//windowWidth = window.innerWidth;
-		//windowHeight = window.innerHeight;
-		grid.init(cell_size, "background");
-		p.printText(grid);
-		p.printFace(grid, face);
-	});
+	p.windowResized = function () {
+		console.log("level 2 -- Window size has changed !");
+		p.resizeCanvas(window.innerWidth, window.innerHeight); // 🔧 resize canvas!
+		grid.init(cell_size, "background"); // Reinitialize the grid
+	};
 };
-
-new p5(digital_sketch);

@@ -17,8 +17,8 @@ class Grid {
 	}
 
 	init(size, parent) {
-		console.log("initialisation...");
 		let p = this.p5;
+		console.log("initialisation of grid on size.x:", p.windowWidth, "and size.y:", p.windowHeight);
 		this.noise = {x:1, y:5000, z:0};
 		if(p.windowWidth > max_width){
 			this.ctx = p.createCanvas(max_width , p.windowHeight).parent(parent);

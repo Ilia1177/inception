@@ -14,30 +14,26 @@
 	<script src="scripts/p5.min.js"></script>
 	<script src="p5_sketchs/includes/Cell.js"></script>
 	<script src="p5_sketchs/includes/Grid.js"></script>
-	<script src="p5_sketchs/includes/Face.js"></script>
-	<script src="p5_sketchs/level_1.js"></script>
-	<script src="p5_sketchs/level_2.js"></script>
-	<script>
-				let max_width = 9999
-				let sketch_index = 0;
-				let p5_sketch;
-				let sketches = [level_1, level_2];
-
-				function p5_start(sketch) {
-					if (p5_sketch) {
-    					p5_sketch.remove(); // Remove old sketch
-					}
-  					p5_sketch = new p5(sketch);
-				}
-				p5_start(sketches[sketch_index]);
-	</script>
+	<script src="p5_sketchs/digital.js" id="sketch"></script>
 
 </head>
 
 <body>
-	<main>
+
 		<div id="background"></div>
+	<main>
+			<!-- <div id="header"></div> -->
+			<div class="flex-container"> 
+				<section>
+						<p>Risography edited by Hazardous Éditorial.</p>
+				</section>
+
+				<section>
+					<img src="images/fondRiso.png" alt="Description of image">
+				</section>
+			</div>
 	</main>
+
 </body>
 
 </html>
