@@ -1,7 +1,6 @@
 // made by Hazardous.editorial -- Ilia
 
-
-function level_2(p) {
+function level_1(p) {
     let		grid 
 	let		mouse;
 	let		tones = 10;				// Shade of grey
@@ -31,9 +30,7 @@ function level_2(p) {
 			}
 		}
 		grid.display(tones, blur, saturation, "noise");
-		p.fill(255)
-		p.textSize(14);
-		p.text("LEVEL 2 -- Frame Rate: " + Math.round(p.frameRate()), 30, 30);
+		p.printInfos(0, 80);
 		grid.noise.z += 0.005; 
 	};
 
@@ -42,6 +39,13 @@ function level_2(p) {
 		p.resizeCanvas(window.innerWidth, window.innerHeight); // 🔧 resize canvas!
 		grid.init(cell_size, "background"); // Reinitialize the grid
 	};
+
+	p.printInfos = function(x, y) {
+		p.fill(255)
+		p.textSize(14);
+		p.text("LEVEL 1", 30 + x, 30 + y);
+		p.text("Frame Rate: " + Math.round(p.frameRate()), 30 + x, 44 + y);
+	}
 
 	p.mouseClicked = function() {
 		console.log("Level 2 -> next")

@@ -1,6 +1,6 @@
 // Display a full page canvas with title "Hazardous editorial" in a perlin noise fog
 // It uses a grid of cells to display the fog and makes a pixels effect
-function level_1(p) {
+function level_2(p) {
     let		grid 
 	let		mouse;
 	let		tones = p.floor(p.random(5, 10)); 		// [0 - 100]
@@ -42,15 +42,8 @@ function level_1(p) {
 		grid = new Grid(p, cell_size, "background")
 		grid.init(cell_size, background);
 		p.printText(grid);
-		//p.printFace(grid, face);
-		//p.printFace(grid);
-		//face.draw(grid.buffer, window.innerWidth / 2 - (face.width / 2), face.width / 2);
-		//
-	//	grid.buffer.image(face.head[0], window.innerWidth / 2 - (face.width / 2), face.width / 2);
-	//	grid.buffer.image(face.head[0], 20, 20); 
+		p.printFace(grid, face);
 
-		//grid.buffer_to_grid(255, 2);
-		//p.printFace(grid, window.innerWidth / 2 - (face.width / 2), 200);
 	};
 
 	p.draw = function() {
@@ -64,9 +57,7 @@ function level_1(p) {
 			}
 		}
 		grid.display(tones, blur, saturation, "noise");
-		p.fill(255)
-		p.textSize(14);
-		p.text("level 1 -- Frame Rate: " + Math.round(p.frameRate()), 30, 30);
+		p.printInfos(0, 80);
 		grid.noise.z += 0.005; 
 	};
 
@@ -93,10 +84,6 @@ function level_1(p) {
 
 
 	p.mouseClicked = function() {
-		console.log("Level 1 -> next")
-		sketch_index = (sketch_index + 1) % sketches.length;
-		p5_start(sketches[sketch_index]);
-		return ;
 		for (let c of grid.cells) {
 			if (c.group != 0 && c.group != "title") {
 				c.group = 0;
@@ -110,12 +97,26 @@ function level_1(p) {
 		face.iH = p.floor(p.random(0, 4));
 		face.iN = p.floor(p.random(0, 4));
 		face.iE = p.floor(p.random(0, 4));
+		console.log(face.iH, face.iN, face.iH, face.iE);
 		p.printFace(grid, face);
+		if (face.iM == face.iE == face.iN == face.iH) {
+			console.log("Level 1 -> next")
+			sketch_index = (sketch_index + 1) % sketches.length;
+			p5_start(sketches[sketch_index]);
+		}
+	}
+
+	p.printInfos = function(x, y) {
+		p.fill(255)
+		p.textSize(14);
+		p.text("LEVEL 2", 30 + x, 30 + y);
+		p.text("Frame Rate: " + Math.round(p.frameRate()), 30 + x, 44 + y);
 	}
 
 	p.windowResized = function () {
 		console.log("level 2 -- Window size has changed !");
 		p.resizeCanvas(window.innerWidth, window.innerHeight); // 🔧 resize canvas!
 		grid.init(cell_size, "background"); // Reinitialize the grid
+		p.printFace(grid);
 	};
 };

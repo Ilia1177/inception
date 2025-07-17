@@ -20,10 +20,10 @@ class Grid {
 		let p = this.p5;
 		console.log("initialisation of grid on size.x:", p.windowWidth, "and size.y:", p.windowHeight);
 		this.noise = {x:1, y:5000, z:0};
-		if(p.windowWidth > max_width){
-			this.ctx = p.createCanvas(max_width , p.windowHeight).parent(parent);
-		} else if (p.windowWidth <= max_width) {
-			this.ctx = p.createCanvas(p.windowWidth, p.windowHeight).parent(parent);
+		if(window.innerWidth > max_width){
+			this.ctx = p.createCanvas(max_width , window.innerHeight).parent(parent);
+		} else if (window.innerWidth <= max_width) {
+			this.ctx = p.createCanvas(window.innerWidth, window.innerHeight).parent(parent);
 		}
 		this.cellSize = size;
 		this.buffer = this.p5.createGraphics(this.p5.width, this.p5.height);
