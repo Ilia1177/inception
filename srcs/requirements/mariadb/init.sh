@@ -1,7 +1,7 @@
 #!/bin/sh
 # Validate required env vars
 echo "$DB_NAME = DB_NAME"
-echo "$DB_USER = DB_USER}"
+echo "$DB_USER = DB_USER"
 echo "$DB_PASSWORD = DB_PASSWORD"
 echo "$DB_ROOTPASS = DB_ROOTPASS"
 

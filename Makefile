@@ -6,21 +6,27 @@ else
 	VOLUMES_PATH := $(shell pwd)/volumes
 endif
 
-all : info colima
-	@echo "Using volumes path: $(VOLUMES_PATH)"
+all : info build volumes
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
+	open -a "Firefox" https://npolack.42.fr
+
+volumes:
+	@echo "Create volumes folder at $(VOLUMES_PATH)"
+	@mkdir -p /Users/ilia/Documents/42CC/inception/volumes/
+	@sudo chown -R $(whoami):staff /Users/ilia/Documents/42CC/inception/volumes
+	@chmod -R 755 /Users/ilia/Documents/42CC/inception/volumes
 
 colima:
-	@echo -n "system is :" && echo $(OS)
+	@echo "system is : $(OS)"
 ifeq ($(OS), Darwin)
 	colima start
 endif
 
-build_bonus : colima
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
+build:
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f build
 
-#build_bonus : 
-#	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
+build_bonus :
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
 
 save:
 	@if [ -d "${VOLUMES_PATH}/hazardous" ] && [ "$$(ls -A "${VOLUMES_PATH}/hazardous")" ]; then \
@@ -30,7 +36,7 @@ save:
 		echo "Folder does not exist or is empty"; \
 	fi
 
-bonus : info build_bonus
+bonus : info build_bonus volumes
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
 	open -a "Firefox" https://hazardous.fr
 
@@ -75,9 +81,5 @@ fclean: clean
 	docker system prune -a --volumes --force
 	docker network prune
 	rm -fr $(VOLUMES_PATH)
-ifeq ($(OS), Darwin)
-	colima stop
-	colima delete
-endif
 
 # docker exec -it my-nginx /bin/bash

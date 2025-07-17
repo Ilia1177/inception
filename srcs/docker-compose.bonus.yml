@@ -1,5 +1,10 @@
 services:
   nginx:
+    build:
+      context: requirements/nginx
+      dockerfile: Dockerfile
+      args:
+        INCLUDE_BONUS: "true"
     volumes:
       - ${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress
       - ${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous
