@@ -1,6 +1,4 @@
-// made by Hazardous.editorial -- Ilia
-// Fog
-function level_1(p) {
+function sketch1(p) {
     let		grid 
 	let		mouse;
 	let		tones = 10;				// Shade of grey
@@ -9,15 +7,18 @@ function level_1(p) {
     p.cell_size = 20;			// size of cells in px
 	const	noise_precision = 16;	// Nois Precisions [1 - 32]
 	const	cursor_size = 80;		// size of Halo effect around the cursor
-
+    const parent = document.getElementById('cnv1');
+	var width = parent.clientWidth;   // CSS width in px
+	var height = p.floor(width * 1.4142); // CSS height in 
 	p.setup = function () {
+		p.createCanvas(width, height).parent(parent);
 		p.noCursor();
 		p.frameRate(10);
 		p.noiseDetail(noise_precision);
 		p.noStroke();
 		p.pixelDensity(1);
-		grid = new Grid(p, p.cell_size, "background")
-		grid.init(p.cell_size, "background");
+		grid = new Grid(p, width, height, p.cell_size, parent)
+		grid.init(width, height, p.cell_size, parent);
 	};
 
 	p.draw = function() {
@@ -37,8 +38,11 @@ function level_1(p) {
 
 	p.windowResized = function () {
 		console.log("level 2 -- Window size has changed !");
-		p.resizeCanvas(window.innerWidth, window.innerHeight); // 🔧 resize canvas!
-		grid.init(p.cell_size, "background"); // Reinitialize the grid
+
+	  width = canvasParent.clientWidth;   // CSS width in px
+	  height = canvasParent.clientHeight; // CSS height in px
+		p.resizeCanvas(width, height); // 🔧 resize canvas!
+		grid.init(width, height, p.cell_size, parent); // Reinitialize the grid
 	};
 
 	p.printInfos = function(x, y) {

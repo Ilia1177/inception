@@ -3,7 +3,7 @@
 // parent: is id of html element
 // Hold a buffer
 class Grid {
-	constructor (p5, cellsize, parent) {
+	constructor (p5, width, height, cellsize, parent) {
 		this.p5	= p5;
       	this.buffer;
 		this.ctx;
@@ -13,25 +13,23 @@ class Grid {
 		this.blur;
 		this.saturation;
 		this.tones;
-		this.init(cellsize. parent);
+		this.init(width, height, cellsize, parent);
 	}
 
-	init(size, parent) {
+	init(width, height, size, parent) {
 		let p = this.p5;
-		console.log("initialisation of grid on size.x:", p.windowWidth, "and size.y:", p.windowHeight);
 		this.noise = {x:1, y:5000, z:0};
-		if(window.innerWidth > max_width){
-			this.ctx = p.createCanvas(max_width , window.innerHeight).parent(parent);
-		} else if (window.innerWidth <= max_width) {
-			this.ctx = p.createCanvas(window.innerWidth, window.innerHeight).parent(parent);
+		if(width > max_width){
+			this.ctx = p.resizeCanvas(max_width , height);
+		} else if (width <= max_width) {
+			this.ctx = p.resizeCanvas(width, height);
 		}
 		this.cellSize = size;
-		this.buffer = this.p5.createGraphics(this.p5.width, this.p5.height);
+		this.buffer = p.createGraphics(width, height);
 		this.cells = [];
-		this.res = {x:this.p5.floor(this.p5.width / size) + 1,
-					y:this.p5.floor(this.p5.height / size) + 1};
+		this.res = {x:this.p5.floor(width / size) + 1,
+					y:this.p5.floor(height / size) + 1};
 		for (let i = 0; i < this.res.x; i++) {
-			let j = 0;
 			for (let j = 0; j < this.res.y; j++) {
 				let index = i + j * this.res.y;
 				this.cells.push(new Cell(p, i, j, size, 0));
@@ -41,7 +39,6 @@ class Grid {
 
 	// Print text on buffer
 	text_to_buffer(str, align, x, y, textSize = 80) {
-		console.log("Print text on buffer");
 		let buffer = this.buffer;
 		let p = this.p5;
 		let xOff, yOff;
@@ -116,7 +113,6 @@ class Grid {
 	}
 
 	display(tones, blur, saturation, option) {
-		//console.log("display")
 		let p = this.p5;
 		for (let cell of this.cells) {
 			let color = p.floor(p.map(cell.n, 0, 1, -saturation, tones + saturation)) * (255 / tones);

@@ -15,11 +15,18 @@
 	<script src="p5_sketchs/includes/Cell.js"></script>
 	<script src="p5_sketchs/includes/Grid.js"></script>
 	<script src="p5_sketchs/hzd_sketch_fog.js" id="sketch"></script>
+	<script>
+				let max_width = 9999;
+				window.onload = function () {
+				  new p5(hzd_fog, background);
+				};
+	</script>
 
 </head>
 
 <body>
-  <main></main>
+		
+  <div id="background"></div>
 
 <!-- NAV BAR -->
 <!--  <ul id="nav">
@@ -30,7 +37,6 @@
  
   </ul> -->
 
-  <div id="CNV0"></div>
 
  
 </body>

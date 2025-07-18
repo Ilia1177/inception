@@ -14,24 +14,107 @@
 	<script src="scripts/p5.min.js"></script>
 	<script src="p5_sketchs/includes/Cell.js"></script>
 	<script src="p5_sketchs/includes/Grid.js"></script>
-	<script src="p5_sketchs/digital.js" id="sketch"></script>
+	<script src="p5_sketchs/analog.js" id="sketch"></script>
+	<script src="p5_sketchs/sketch1.js" id="sketch"></script>
+	<script src="p5_sketchs/noise.js" id="sketch"></script>
+	<script>
+				let max_width = 9999
+				let sketch_index = 0;
+				let p5_sketch;
+				let digital_cnv1;
+				let digital_cnv2;
+				let digital_cnv3;
+				let digital_cnv4;
+				//let sketches = [level_1, level_2, level_3];
+				function p5_start(sketch) {
+					if (p5_sketch) {
+    					p5_sketch.remove(); // Remove old sketch
+					}
+  					p5_sketch = new p5(sketch);
+				}
+				window.onload = function () {
+				  p5_start(analog);
+				  new p5(noise, 'cnv1');
+				  new p5(noise, 'cnv2');
+				  new p5(noise, 'cnv3');
+				  new p5(noise, 'cnv4');
+				};
+	</script>
+	<script>
+
+			// script to select collection list
+			document.addEventListener("DOMContentLoaded", function () {
+				const menuItems = document.querySelectorAll('.collection-menu li');
+				const items = document.querySelectorAll('.gallery .item');
+				const title = document.getElementById('detail');
+				//hight light menu li
+				//menuItems.forEach(item => item.classList.remove('active'));
+				//menuItem.classList.add('active');
+
+				menuItems.forEach(menuItem => {
+					menuItem.addEventListener('click', () => {
+						const selected = menuItem.getAttribute('data-collection');
+
+						items.forEach(item => {
+							if (selected == "all" || item.classList.contains(selected)) {
+								if (selected == "all") {
+									title.textContent = "All images are here";
+								}
+								if (!item.classList.contains("digital")) {
+									item.style.display = 'block';
+								}
+					  		} else if (selected == "collection1") {
+								title.textContent = "Collection 1";
+								item.style.display = 'none';
+					  		} else if (selected == "collection2") {
+								title.textContent = "Collection 2";
+								item.style.display = 'none';
+					  		} else if (selected == "collection3") {
+								title.textContent = "Collection 3";
+								item.style.display = 'none';
+					  		}
+						});
+					});
+				});
+			});
+</script>
 
 </head>
 
 <body>
 
-		<div id="background"></div>
+	<div id="background"></div>
 	<main>
-			<!-- <div id="header"></div> -->
-			<div class="flex-container"> 
-				<section>
-						<p>Risography edited by Hazardous Éditorial.</p>
-				</section>
-
-				<section>
-					<img src="images/fondRiso.png" alt="Description of image">
-				</section>
-			</div>
+			<article>
+				<h2 id="detail">Welcome, please select any collection you'd like to learn about...</h2>
+				<ul class="collection-menu">
+				  <li data-collection="collection1">Wave lenght</li>
+				  <li data-collection="collection2">Missprint</li>
+				  <li data-collection="collection3">Collection 3</li>
+				  <li data-collection="all">All</li>
+				</ul>
+			</article>
+				<div class="gallery collection1">
+				  <div class="item collection3"><img src="images/fondRiso.png" alt="Image One"><div class="caption">Image One</div></div>
+				  <div class="item digital"><div id="cnv1" class="p5cnv"></div><div class="caption">sketch 1</div></div>
+				  <div class="item collection2"><img src="images/fondRiso2.png" alt="Image Two"><div class="caption">Image Two</div></div>
+				  <div class="item collection2"><img src="images/fondRiso.png" alt="Image One"><div class="caption">Image One</div></div>
+				  <div class="item collection1"><img src="images/fondRiso2.png" alt="Image Two"><div class="caption">Image Two</div></div>
+				  <div class="item digital"><div id="cnv2" class="p5cnv"></div><div class="caption">sketch 1</div></div>
+				  <div class="item collection2"><img src="images/fondRiso.png" alt="Image One"><div class="caption">Image One</div></div>
+				  <div class="item collection1"><img src="images/fondRiso2.png" alt="Image Two"><div class="caption">Image Two</div></div>
+				  <div class="item digital"><div id="cnv3" class="p5cnv"></div><div class="caption">sketch 1</div></div>
+				  <div class="item digital"><div id="cnv4" class="p5cnv"></div><div class="caption">sketch 1</div></div>
+				</div>
+			<article>
+				<h2>If you'd like one of thoses A3 riso print: place your order at nil@nl-pk.com. Please make a 20 euros payment on paypal.</h2>
+				<ul class="collection-menu">
+				  <li data-collection="collection1">Wave lenght</li>
+				  <li data-collection="collection2">Missprint</li>
+				  <li data-collection="collection3">Collection 3</li>
+				  <li data-collection="all">All</li>
+				</ul>
+			</article>
 	</main>
 
 </body>

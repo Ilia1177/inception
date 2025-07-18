@@ -1,40 +1,100 @@
 *{
     font-family: Ubuntu;
     font-size:16pt;
-    margin:auto;
-    background: black;;
-    color:white;
-    padding:0;
+    background: transparent;
+  padding: 0;
+  margin: 0; /* reset spacing instead of forcing center */
 }
 
-#content {
-    display:flex;
-    max-width:900px;
-    justify-content: center;
-    overflow: hidden;
+main {
+  margin: 100px auto 0 auto; /* top right bottom left */
+  background: transparent;
+  position: relative;
+  z-index: 1;  /* in front */
+  padding: 2rem;
+  max-width: 1500px;
 }
 
-#CNV0 {
-    background:transparent;
-    display:block;
-    position: absolute;
-    top:0px;
-    left:0px;
-    
+.collection-menu li.active {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.collection-menu {
+  display: flex;
+  gap: 1rem;              /* space between items */
+  padding: 1rem 1rem;
+  list-style: none;       /* remove bullets */
+  justify-content: center; /* center them horizontally */
+}
+
+.collection-menu li {
+  cursor: pointer;        /* show hand on hover */
+  padding: 0.5rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+.collection-menu li:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+article {
+	width: 100%;
+	border-radius: 8px;
+	margin: 40px 0 40px 0;
+	text-align: center;
+	background-color: rgba(255,255,255,0.4);
 }
 
 #background {
+	background-color: rgba(255,255,255,0.4);
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
-  height: 100vh;
+  height: 100vw;
   z-index: -1; /* optional: puts it behind other elements */
 }
 
-.flex-container{
-    justify-content: center;
-    margin:auto;
-    display:flex;
-    width:100%;
+.gallery {
+  display: grid;
+  z-index: 1;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1rem 0.5rem;
+}
+
+.item.digital {
+	display:none;
+}
+
+.item .p5cnv {
+  aspect-ratio: 1 / 1.414; /* A4 aspect ratio */
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s;
+  overflow: hidden;
+}
+
+.item img {
+  aspect-ratio: 1 / 1.414; /* A4 aspect ratio */
+  width: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  transition: transform 0.3s;
+}
+
+.caption {
+  text-align: center;
+  margin-top: 0.3rem;
+  font-size: 14px;
+}
+
+.item img:hover {
+  transform: scale(1.05);
 }

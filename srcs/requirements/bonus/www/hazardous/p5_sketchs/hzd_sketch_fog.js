@@ -1,8 +1,6 @@
 //windowWidth = window.innerWidth;
 //windowHeight = window.innerHeight;
 
-let max_width = 9999
-
 // Display a full page canvas with title "Hazardous editorial" in a perlin noise fog
 // It uses a grid of cells to display the fog and makes a pixels effect
 let hzd_fog = function(p) {
@@ -11,16 +9,25 @@ let hzd_fog = function(p) {
 	let		tones = 10;				// Shade of grey
 	let		blur = 0.08;			// Noisy Blur effect (doesnt work that well...)
 	let		saturation = 1; 		// [0 - 100]
-    const	cell_size = 5;			// size of cells in px
+    var		cell_size;			// size of cells in px
 	const	noise_precision = 16;	// Nois Precisions [1 - 32]
 	const	cursor_size = 80;		// size of Halo effect around the cursor
+	var	parent;
 	p.setup = function () {
+		parent = p._userNode;
+		p.createCanvas(window.innerWidth, window.innerHeight).parent(parent);
+		if (window.innerWidth > 1500) {
+			cell_size = 20;
+		} else {
+			cell_size = 10;
+		}
+		p.frameRate(10);
 		p.noCursor();
 		p.noiseDetail(noise_precision);
 		p.noStroke();
 		p.pixelDensity(1);
-		grid = new Grid(p, cell_size, "CNV0")
-		grid.init(cell_size, "CNV0");
+		grid = new Grid(p, window.innerWidth, window.innerHeight, cell_size, parent)
+		grid.init(window.innerWidth, window.innerHeight, cell_size, parent);
 		p.printText(grid);
 	};
 
@@ -46,16 +53,16 @@ let hzd_fog = function(p) {
 		grid.buffer.background(255);
 		grid.text_to_buffer("HAZARDOUS","center", 0, -45, 90);
 		grid.text_to_buffer("- ÉDiTORiAL -","center", 0, 45, 80);
-		grid.buffer_to_grid(180, 1);
-		grid.buffer.background(255);
-		grid.text_to_buffer("Analog","center", -160, 180, 80);
-		grid.buffer_to_grid(180, 2);
-		grid.buffer.background(255);
-		grid.text_to_buffer("|","center", 0, 180, 80);
-		grid.buffer_to_grid(180, 0);
-		grid.buffer.background(255);
-		grid.text_to_buffer("Digital","center", 160, 180, 80);
-		grid.buffer_to_grid(180, 3);
+		grid.buffer_to_grid(180, "title");
+		//grid.buffer.background(255);
+		//grid.text_to_buffer("Analog","center", -160, 180, 80);
+		//grid.buffer_to_grid(180, 2);
+		//grid.buffer.background(255);
+		//grid.text_to_buffer("|","center", 0, 180, 80);
+		//grid.buffer_to_grid(180, 0);
+		//grid.buffer.background(255);
+		//grid.text_to_buffer("Digital","center", 160, 180, 80);
+		//grid.buffer_to_grid(180, 3);
 	}
 
 
@@ -64,25 +71,22 @@ let hzd_fog = function(p) {
 		tones = p.floor(p.map(mouse.y, 0, p.height, 3, 74));
 		for (let cell of grid.cells) {
 			if (mouse.dist(cell.realPos) < 20) {
-				if (cell.group == 1) {
-					window.location.replace("emissif.html");
-				} else if (cell.group == 2) {
-					window.location.href = "edition.html";
-				} else if (cell.group == 3) {
-					window.location.href = "digital.html";
+				if (cell.group == "title") {
+					window.location.replace("analog.html");
 				}
 
 		  }
 		}
 	}
-
-	window.addEventListener("resize", function() {
-		console.log("Window size has changed !");
-		windowWidth = window.innerWidth;
-		windowHeight = window.innerHeight;
-		grid.init(cell_size, "CNV0");
+	p.windowResized = function () {
+		p.resizeCanvas(window.innerWidth, window.innerHeight); // 🔧 resize canvas!
+		if (window.innerWidth > 1500) {
+			cell_size = 20;
+		} else {
+			cell_size = 10;
+		}
+		grid.init(window.innerWidth, window.innerHeight, cell_size, parent);// Reinitialize the grid
 		p.printText(grid);
-	});
+	};
 };
 
-new p5(hzd_fog);
