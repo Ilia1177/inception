@@ -14,6 +14,6 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
 COPY conf/bonus.conf /etc/nginx/conf.d/bonus.conf
+
 RUN if [ "$INCLUDE_BONUS" = "false" ]; then rm -f /etc/nginx/conf.d/bonus.conf && echo "removed bonus.conf"; fi
-RUN ls /etc/nginx/*
 CMD ["nginx", "-g", "daemon off;"]

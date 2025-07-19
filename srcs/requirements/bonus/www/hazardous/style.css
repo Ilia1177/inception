@@ -2,16 +2,16 @@
     font-family: Ubuntu;
     font-size:16pt;
     background: transparent;
-  padding: 0;
-  margin: 0; /* reset spacing instead of forcing center */
+	padding: 0;
+  	margin: 0; /* reset spacing instead of forcing center */
 }
 
 main {
-  margin: 100px auto 0 auto; /* top right bottom left */
+  margin: 100px 2rem 0 2rem; /* top right bottom left */
   background: transparent;
   position: relative;
   z-index: 1;  /* in front */
-  padding: 2rem;
+ /* padding: 2rem; */
   max-width: 1500px;
 }
 
@@ -50,7 +50,6 @@ article {
 }
 
 #background {
-	background-color: rgba(255,255,255,0.4);
   position: fixed;
   top: 0;
   left: 0;
@@ -63,19 +62,26 @@ article {
   display: grid;
   z-index: 1;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 1rem 0.5rem;
+  gap: 0.2rem 0.2rem;
+}
+
+.item {
+  display: block; /* ensure block-level */
+  overflow: hidden; /* prevents any overflow */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
 }
 
 .item.digital {
 	display:none;
 }
 
+/* Iamage and p5 canvas inside items */
 .item .p5cnv {
   aspect-ratio: 1 / 1.414; /* A4 aspect ratio */
   width: 100%;
   object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  /*border-radius: 10px;*/
+  /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);*/
   transition: transform 0.3s;
   overflow: hidden;
 }
@@ -83,13 +89,15 @@ article {
 .item img {
   aspect-ratio: 1 / 1.414; /* A4 aspect ratio */
   width: 100%;
+  height: 100%; /* Add this to fill full height */
   object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+  /*border-radius: 10px;*/
+  /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);*/
   transition: transform 0.3s;
 }
 
 .caption {
+	display: none;
   text-align: center;
   margin-top: 0.3rem;
   font-size: 14px;

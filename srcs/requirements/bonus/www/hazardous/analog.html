@@ -18,6 +18,7 @@
 	<script src="p5_sketchs/sketch1.js" id="sketch"></script>
 	<script src="p5_sketchs/noise.js" id="sketch"></script>
 	<script>
+				// Manage p5 sketchs in background and in <div class"item digital">
 				let max_width = 9999
 				let sketch_index = 0;
 				let p5_sketch;
@@ -25,13 +26,14 @@
 				let digital_cnv2;
 				let digital_cnv3;
 				let digital_cnv4;
-				//let sketches = [level_1, level_2, level_3];
+
 				function p5_start(sketch) {
 					if (p5_sketch) {
     					p5_sketch.remove(); // Remove old sketch
 					}
   					p5_sketch = new p5(sketch);
 				}
+
 				window.onload = function () {
 				  p5_start(analog);
 				  new p5(noise, 'cnv1');
@@ -41,8 +43,7 @@
 				};
 	</script>
 	<script>
-
-			// script to select collection list
+			// script to show images by collection
 			document.addEventListener("DOMContentLoaded", function () {
 				const menuItems = document.querySelectorAll('.collection-menu li');
 				const items = document.querySelectorAll('.gallery .item');
@@ -87,13 +88,13 @@
 	<main>
 			<article>
 				<h2 id="detail">Welcome, please select any collection you'd like to learn about...</h2>
+			</article>
 				<ul class="collection-menu">
 				  <li data-collection="collection1">Wave lenght</li>
 				  <li data-collection="collection2">Missprint</li>
 				  <li data-collection="collection3">Collection 3</li>
 				  <li data-collection="all">All</li>
 				</ul>
-			</article>
 				<div class="gallery collection1">
 				  <div class="item collection3"><img src="images/fondRiso.png" alt="Image One"><div class="caption">Image One</div></div>
 				  <div class="item digital"><div id="cnv1" class="p5cnv"></div><div class="caption">sketch 1</div></div>
@@ -107,13 +108,9 @@
 				  <div class="item digital"><div id="cnv4" class="p5cnv"></div><div class="caption">sketch 1</div></div>
 				</div>
 			<article>
-				<h2>If you'd like one of thoses A3 riso print: place your order at nil@nl-pk.com. Please make a 20 euros payment on paypal.</h2>
-				<ul class="collection-menu">
-				  <li data-collection="collection1">Wave lenght</li>
-				  <li data-collection="collection2">Missprint</li>
-				  <li data-collection="collection3">Collection 3</li>
-				  <li data-collection="all">All</li>
-				</ul>
+				<h2>If you'd like one of thoses A3 riso print: place your order at nil@nl-pk.com.
+					Please make a 20 euros payment on paypal.</h2>
+				<button>place order</button>
 			</article>
 	</main>
 
