@@ -22,10 +22,10 @@ ifeq ($(OS), Darwin)
 	colima start --mount /Users/ilia/Documents/42CC/inception/volumes:w --vm-type vz
 endif
 
-build:
+build: colima
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f build
 
-build_bonus :
+build_bonus : colima
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
 
 save:
@@ -81,6 +81,8 @@ fclean: clean
 	docker system prune -a --volumes --force
 	docker network prune
 	rm -fr $(VOLUMES_PATH)
+ifeq ($(OS), Darwin)
 	colima stop && colima delete
+endif
 
 # docker exec -it my-nginx /bin/bash

@@ -11,34 +11,45 @@
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
 	<!-- JAVASCRIPT -->
-	<script src="scripts/p5.min.js"></script>
-	<script src="p5_sketchs/includes/Cell.js"></script>
-	<script src="p5_sketchs/includes/Grid.js"></script>
-	<script src="p5_sketchs/hzd_sketch_fog.js" id="sketch"></script>
+	<script src="p5/includes/p5.min.js"></script>
+	<script src="p5/includes/Cell.js"></script>
+	<script src="p5/includes/Grid.js"></script>
+	<script src="p5/PerlinFog.js" id="sketch"></script>
 	<script>
 				let max_width = 9999;
+
+				//customize PerlinFog sketch
+				function PerlinFog_index(p) {
+					// Call the original function to set up everything
+					const original = PerlinFog(p);
+
+					// Override the printText function
+					p.printText = function(grid) {
+						grid.buffer.background(255);
+						grid.text_to_buffer("HAZARDOUS","center", 0, -45, 90);
+						grid.text_to_buffer("- ÉDiTORiAL -","center", 0, 45, 80);
+						grid.buffer_to_grid(180, "title");
+					};
+
+					p.handleClick = function(grid, mouse) {
+						for (let cell of grid.cells) {
+							if (mouse.dist(cell.realPos) < 50 && cell.group == "title") {
+        							window.location.href = "analog.html";
+							}
+						}
+					}
+					return original;
+				}
+
 				window.onload = function () {
-				  new p5(hzd_fog, background);
+					new p5(PerlinFog_index, background);
 				};
 	</script>
 
 </head>
 
 <body>
-		
   <div id="background"></div>
-
-<!-- NAV BAR -->
-<!--  <ul id="nav">
-
-    <li><a >ANALOG</a></li>
-    <li><a  class="active" href ="index.html">HAZARDOUS ÉDITORIAL</a> </li>
-    <li><a >DIGITAL</a></li>
- 
-  </ul> -->
-
-
- 
 </body>
 
 </html>

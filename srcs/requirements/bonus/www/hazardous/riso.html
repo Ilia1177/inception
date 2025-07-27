@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="Eng">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>// HAZARDOUS //</title>
+	<!-- STYLES --> 
+	<link href="style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+	<!-- JAVASCRIPT -->
+	<script src="p5/includes/p5.min.js"></script>
+	<script src="p5/includes/p5.riso.js"></script>
+	<script src="p5/includes/Cell.js"></script>
+	<script src="p5/includes/Grid.js"></script>
+	<script src="p5/PerlinFog.js" id="sketch"></script>
+	<script src="p5/sketches/sketch1.js" id="sketch"></script>
+	<script src="p5/noise.js" id="sketch"></script>
+	<script>
+			// Manage p5 sketchs in background and in <div class"item digital">
+			let max_width = 9999
+			//let sketch_index = 0;
+			//let p5_sketch;
+
+			//function p5_start(sketch) {
+			//	if (p5_sketch) {
+			//		p5_sketch.remove(); // Remove old sketch
+			//	}
+			//	p5_sketch = new p5(sketch);
+			//}
+			//customize PerlinFog sketch
+			function PerlinFog_analog(p) {
+				// Call the original function to set up everything
+				const original = PerlinFog(p, {cell_size: p.floor(p.random(5, 20))});
+
+				//rewrite function handleClick
+				p.handleClick = function(grid, mouse) {
+					for (let cell of grid.cells) {
+						if (mouse.dist(cell.realPos) < 20) {
+							if (cell.group == "title") {
+								document.location = "index.html"
+							};
+							break ;
+						}
+					}
+				}
+
+				p.printText = function(grid) {
+					grid.buffer.background(255);
+					grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, 90);
+					grid.buffer_to_grid(180, "title");
+				}
+				return original;
+			}
+
+			window.onload = function () {
+			  new p5(PerlinFog_analog, 'background');
+			};
+	</script>
+</head>
+
+<body>
+
+	<div id="background"></div>
+		<div id="nav">
+			<ul>
+				<a href="index.html">		<li>Home</li></a>
+				<a href="riso.html">		<li>WTF is Riso ?</li></a>
+				<a href="analog.html">		<li>Riso Print Collections</li></a>
+				<a href="about.html">		<li>Labotory</li></a>
+			</ul>
+		</div>
+
+	<main>
+			<article>
+				<h1>WHAT IS RISOGRAPHY ?</h1>
+				<p>Hazardous est un laboratoire éditorial. 
+					Develloppé par Nil POLACK, il voit le jour en 2026.
+					Nous experimentons autour de l'impression via risographie; et pas seulement. 
+					Vous trouverez ici les differentes experiences plastique du laboratoire.
+				</p>
+				<p>Créé au Japon en 1946, 
+					la risographie est une méthode d'impression fusionnant la sérigraphie et l'impression offset. 
+					L’encre est appliqué à froid à travers un pochoir (écran maître) fabriqué par la machine 
+					à partir d’une image numérisée. Elle produit des œuvres aux teintes vives 
+					et aux textures variées. Elle se révèle économique Pour les tirages moyens, 
+					en offrant une qualité similaire à l'offset. Cependant, 
+					elle partage aussi des caractéristiques de la sérigraphie, 
+					comme des imperfections charmantes telles que des variations 
+					subtiles dans l'application d'encre. 
+					Grâce à des couleurs vibrantes et un effet granuleux, 
+					les impressions risographiques se démarquent par leur esthétique distincte 
+					et recherchée. Les artistes exploitent souvent ces traits pour créer des 
+					œuvres impossibles à obtenir autrement. La risographie est un procédé écologique, 
+					utilisant des encres à base de soja, consomant peu d’energie et produisant peu de déchets. 
+					Le papier imprimé n’est pas couché, sans plastique. En somme, la risographie, 
+					en mariant les atouts de la sérigraphie et de l'offset, 
+					propose des résultats visuellement attrayants, uniques et abordables. 
+					Son utilisation croissante dans l'art et l'édition découle de sa capacité à 
+					générer des impressions mémorables et marquantes.
+				</p>
+			</article>
+	</main>
+
+</body>
+
+</html>

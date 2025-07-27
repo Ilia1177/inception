@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="Eng">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>// HAZARDOUS //</title>
+	<!-- STYLES --> 
+	<link href="style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+	<!-- JAVASCRIPT -->
+	<script src="p5/includes/p5.min.js"></script>
+	<script src="p5/includes/p5.riso.js"></script>
+	<script src="p5/includes/Cell.js"></script>
+	<script src="p5/includes/Grid.js"></script>
+	<script src="p5/PerlinFog.js" id="sketch"></script>
+	<script src="p5/sketches/sketch1.js" id="sketch"></script>
+	<script src="p5/noise.js" id="sketch"></script>
+	<script>
+			// Manage p5 sketchs in background and in <div class"item digital">
+			let max_width = 9999
+			//let sketch_index = 0;
+			//let p5_sketch;
+
+			//function p5_start(sketch) {
+			//	if (p5_sketch) {
+			//		p5_sketch.remove(); // Remove old sketch
+			//	}
+			//	p5_sketch = new p5(sketch);
+			//}
+			//customize PerlinFog sketch
+			function PerlinFog_analog(p) {
+				// Call the original function to set up everything
+				const original = PerlinFog(p, {cell_size: p.floor(p.random(5, 20))});
+
+				//rewrite function handleClick
+				p.handleClick = function(grid, mouse) {
+					for (let cell of grid.cells) {
+						if (mouse.dist(cell.realPos) < 20) {
+							if (cell.group == "title") {
+								document.location = "index.html"
+							};
+							break ;
+						}
+					}
+				}
+
+				p.printText = function(grid) {
+					grid.buffer.background(255);
+					grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, 90);
+					grid.buffer_to_grid(180, "title");
+				}
+
+
+		//		p.handleClick = function(grid, mouse) {
+		//			for (let cell of grid.cells) {
+		//				if (mouse.dist(cell.realPos) < 20) {
+		//					if (cell.group == "title") {
+		//						const items = document.querySelectorAll('.item.digital');
+		//						items.forEach(item => {
+		//							item.style.display = 'block';
+		//						});
+		//						break ;
+		//					}
+		//				}
+		//			}
+
+		//		}
+				return original;
+			}
+
+			window.onload = function () {
+					new p5(noise, 'cnv1');
+		//			new p5(noise, 'cnv2');
+		//			new p5(noise, 'cnv3');
+		//			new p5(noise, 'cnv4');
+			  new p5(PerlinFog_analog, 'background');
+			};
+	</script>
+</head>
+
+<body>
+
+	<div id="background" class="image" "></div>
+		<div id="nav">
+			<ul>
+				<a href="index.html">		<li>Home</li></a>
+				<a href="riso.html">		<li>WTF is Riso ?</li></a>
+				<a href="analog.html">		<li>Riso Print Collections</li></a>
+				<a href="about.html">		<li>Labotory</li></a>
+			</ul>
+		</div>
+
+	<main>
+			<article>
+				<h1>Hazardous Éditorial</h1>
+				<p>Hazardous est un laboratoire éditorial. 
+					Develloppé par Nil POLACK, il voit le jour en 2026.
+					Nous experimentons autour de l'impression via risographie; et pas seulement. 
+					Vous trouverez ici les differentes experiences plastique du laboratoire.
+				</p>
+			</article>
+			<section>
+				<div class="image" style="background-image: url('images/papier_peint_detail1.jpg');"></div>
+				<div class="text">
+					<h1>Mur et papier</h1>
+					<p>"Murs & Papier" est un projet autour de la couleur et du motif. 
+						Ce sont des fresques en papier de toutes tailles qui viennent 
+						se fondre et sublimer le paysage en décorant le mobilier urbain. 
+						La tapisserie est assemblée et collée sur place. 
+						Le motif est conçu aux couleurs de l'événement et imprimé dans mon atelier en risographie. 
+						Cette technique d'impression, similaire à la sérigraphie, 
+						se caractérise par des couleurs vives et un très faible impact écologique. 
+						Idéale pour la décoration d'événement ponctuel extérieur, 
+						le collage s'adapte à quasiment n'importe quelle surface plane.
+
+						Pérénité des oeuvres : La durée de vie d’un collage exterieur est de 2 à 3 mois 
+						avec une météo printanière (Charente-Maritime). 
+						Le papier utilisé est recyclé (80g), sans plastiques et les encres RISO™ 
+						sont à base d’huile végétale, et en cas de dégradation de l’oeuvre, 
+						il n’y a pas de risque pour l’environnemen.t</p>
+				</div>
+			</section>
+			<section>
+				<div class="text">
+					<h1>Numerical sketch</h1>
+					<p>Here are few experiment using a popular javascript librairie for creative numerical image. you'll find here some stuff about ...</p>
+				</div>
+				<div id="cnv1" class="p5cnv"></div>
+			</section>
+	</main>
+
+</body>
+
+</html>

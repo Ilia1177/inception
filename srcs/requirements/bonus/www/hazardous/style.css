@@ -7,12 +7,120 @@
 }
 
 main {
-  margin: 100px 2rem 0 2rem; /* top right bottom left */
+  margin: 100px auto 0 auto;
   background: transparent;
   position: relative;
   z-index: 1;  /* in front */
- /* padding: 2rem; */
+  padding: 2rem;
   max-width: 1500px;
+}
+
+article {
+	width: 100%;
+	border-radius: 8px;
+	margin: 40px 0 40px 0;
+	text-align: center;
+	background-color: rgba(255,255,255,0.4);
+}
+
+section {
+	display: flex;
+	width: 100%;
+	border-radius: 8px;
+	margin: 40px 0;
+	overflow: hidden;
+	align-items: flex-start;
+	background-color: rgba(255,255,255,0.4);
+	align-items: stretch; /* <--- ensures image fills full height */
+}
+
+section .image {
+  width: 33.33%;
+  background-size: cover;      /* zoom & crop */
+  background-position: center; /* center image */
+  background-repeat: no-repeat;
+}
+
+.image #background {
+}
+section .p5cnv {
+	width: 33.33%;
+	height: auto;
+	display: flex;
+	align-items: stretch;
+}
+
+section .text{
+  width: 66%;
+  padding: 1rem;
+  text-align: left; /* override center alignment */
+}
+
+#nav {
+	position: fixed;
+	top: 0;
+	height: 50px;
+	color: white;
+	width:100%;
+	justify-content: center;
+	background: black;
+	z-index:3;
+}
+
+#nav ul {
+    display: flex;
+    list-style: none; /* optional: removes bullet points */
+    padding: 10px;
+	margin: 0 auto;
+    gap: 1rem; /* optional spacing between items */
+	justify-content: center; /* centers items horizontally */
+}
+
+#nav ul li {
+  font-weight: bold;
+  text-decoration: underline;
+  cursor: pointer;        /* show hand on hover */
+  padding: 0rem 1rem;
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 8px;
+  transition: background 0.3s, transform 0.2s;
+}
+
+#nav ul li.active {
+  font-weight: bold;
+  text-decoration: underline;
+
+}
+
+#nav ul li:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: scale(1.05);
+}
+
+#nav ul a:visited{
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  text-decoration: underline; /* optional */
+}
+
+#background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vw;
+  z-index: -1; /* optional: puts it behind other elements */
+}
+
+#sketch-container {
+    display: flex;           /* Enable flexbox */
+    justify-content: center; /* Center horizontally */
+    align-items: center;     /* Center vertically */
+    width: 200px;
+    height: 100vh;           /* Full viewport height */
+    padding: 0;              /* Remove padding (auto isn't valid) */
+	margin: 0 auto;
 }
 
 .collection-menu li.active {
@@ -41,22 +149,7 @@ main {
   transform: scale(1.05);
 }
 
-article {
-	width: 100%;
-	border-radius: 8px;
-	margin: 40px 0 40px 0;
-	text-align: center;
-	background-color: rgba(255,255,255,0.4);
-}
 
-#background {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vw;
-  z-index: -1; /* optional: puts it behind other elements */
-}
 
 .gallery {
   display: grid;
@@ -66,6 +159,7 @@ article {
 }
 
 .item {
+  position: relative; /* Add this - creates positioning context */
   display: block; /* ensure block-level */
   overflow: hidden; /* prevents any overflow */
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
@@ -91,18 +185,29 @@ article {
   width: 100%;
   height: 100%; /* Add this to fill full height */
   object-fit: cover;
-  /*border-radius: 10px;*/
-  /*box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);*/
   transition: transform 0.3s;
 }
 
-.caption {
-	display: none;
-  text-align: center;
-  margin-top: 0.3rem;
+.item .caption {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
   font-size: 14px;
+  z-index: 2; /* Ensure it's above the image */
+  opacity: 0;
+  top: 50%; left: 50%; transform: translate(-50%, -50%); /* make caption in the center of the item */
+}
+
+.item:hover .caption,
+.item:active .caption {
+  opacity: 1;  /* Visible on hover */
 }
 
 .item img:hover {
-  transform: scale(1.05);
+  transform: scale(1.20);
 }
+
+
+
