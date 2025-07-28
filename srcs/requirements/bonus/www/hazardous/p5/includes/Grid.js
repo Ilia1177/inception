@@ -38,7 +38,7 @@ class Grid {
 	}
 
 	// Print text on buffer
-	text_to_buffer(str, align, x, y, textSize = 80) {
+	text_to_buffer(str, align, x, y, textSize) {
 		let buffer = this.buffer;
 		let p = this.p5;
 		let xOff, yOff;

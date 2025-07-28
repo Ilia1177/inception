@@ -28,7 +28,7 @@ class Cell {
 		let p = this.p5;
 		if (this.printed)
 			color = 255 - color;
-		p.fill(color);
+		p.fill(color, 20, 89, 50);
 		p.rect(this.realPos.x, this.realPos.y, this.size);
 	}
 

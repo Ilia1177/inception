@@ -21,11 +21,12 @@ function PerlinFog(p, option = {}) {
 		p.pixelDensity(1);
 		grid = new Grid(p, window.innerWidth, window.innerHeight, cell_size, parent)
 		grid.init(window.innerWidth, window.innerHeight, cell_size, parent);
-		p.printText(grid);
+		p.printText(grid, 60);
+
 	};
 
 	p.draw = function() {
-		p.background(0);
+		//p.background(0);
 		mouse = p.createVector(p.mouseX, p.mouseY)
 		grid.run_noise(0.01);
 		for (let cell of grid.cells) {
@@ -43,7 +44,12 @@ function PerlinFog(p, option = {}) {
 		console.log("level 2 -- Window size has changed !");
 		p.resizeCanvas(window.innerWidth, window.innerHeight); // 🔧 resize canvas!
 		grid.init(window.innerWidth, window.innerHeight, cell_size, parent);
-		p.printText(grid);
+		if (window.innerWidth < 1100) {
+			console.log("resize text");
+			p.printText(grid, 30);
+		} else {
+			p.printText(grid, 60);
+		}
 	};
 
 	p.printInfos = function(x, y) {
@@ -54,9 +60,14 @@ function PerlinFog(p, option = {}) {
 		p.text("frame Rate: " + Math.round(p.frameRate()), 30 + x, 44 + y);
 	}
 
-	p.printText = function(grid) {
+	p.printText = function(grid, size) {
 		grid.buffer.background(255);
-		grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 80, 60);
+		let fontSize = p.floor(0.0833 * window.innerWidth - 1.65);
+		if (window.innerWidth > 600)
+			grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, fontSize);
+		else
+			grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 100, fontSize);
+
 		grid.buffer_to_grid(180, "title");
 	}
 

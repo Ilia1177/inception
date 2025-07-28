@@ -47,35 +47,10 @@
 					}
 				}
 
-				p.printText = function(grid) {
-					grid.buffer.background(255);
-					grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, 90);
-					grid.buffer_to_grid(180, "title");
-				}
-
-
-		//		p.handleClick = function(grid, mouse) {
-		//			for (let cell of grid.cells) {
-		//				if (mouse.dist(cell.realPos) < 20) {
-		//					if (cell.group == "title") {
-		//						const items = document.querySelectorAll('.item.digital');
-		//						items.forEach(item => {
-		//							item.style.display = 'block';
-		//						});
-		//						break ;
-		//					}
-		//				}
-		//			}
-
-		//		}
 				return original;
 			}
 
 			window.onload = function () {
-					new p5(noise, 'cnv1');
-		//			new p5(noise, 'cnv2');
-		//			new p5(noise, 'cnv3');
-		//			new p5(noise, 'cnv4');
 			  new p5(PerlinFog_analog, 'background');
 			};
 	</script>
@@ -83,52 +58,27 @@
 
 <body>
 
-	<div id="background" class="image" "></div>
+	<div id="background"></div>
 		<div id="nav">
 			<ul>
-				<a href="index.html">		<li>Home</li></a>
-				<a href="riso.html">		<li>WTF is Riso ?</li></a>
-				<a href="analog.html">		<li>Riso Print Collections</li></a>
-				<a href="about.html">		<li>Labotory</li></a>
+				<li><a href="index.html">		Home</a></li>
+				<li><a href="riso.html">		WTF is Riso ?</a></li>
+				<li><a href="analog.html">		RisoPrint</a></li>
+				<li><a href="labotory.html">	Labotory</a></li>
 			</ul>
 		</div>
 
 	<main>
-			<article>
-				<h1>Hazardous Éditorial</h1>
-				<p>Hazardous est un laboratoire éditorial. 
-					Develloppé par Nil POLACK, il voit le jour en 2026.
-					Nous experimentons autour de l'impression via risographie; et pas seulement. 
-					Vous trouverez ici les differentes experiences plastique du laboratoire.
-				</p>
-			</article>
-			<section>
-				<div class="image" style="background-image: url('images/papier_peint_detail1.jpg');"></div>
+	<section>
+				<div class="image" style="background-image: url('images/nil_polack.jpg');"></div>
 				<div class="text">
-					<h1>Mur et papier</h1>
-					<p>"Murs & Papier" est un projet autour de la couleur et du motif. 
-						Ce sont des fresques en papier de toutes tailles qui viennent 
-						se fondre et sublimer le paysage en décorant le mobilier urbain. 
-						La tapisserie est assemblée et collée sur place. 
-						Le motif est conçu aux couleurs de l'événement et imprimé dans mon atelier en risographie. 
-						Cette technique d'impression, similaire à la sérigraphie, 
-						se caractérise par des couleurs vives et un très faible impact écologique. 
-						Idéale pour la décoration d'événement ponctuel extérieur, 
-						le collage s'adapte à quasiment n'importe quelle surface plane.
-
-						Pérénité des oeuvres : La durée de vie d’un collage exterieur est de 2 à 3 mois 
-						avec une météo printanière (Charente-Maritime). 
-						Le papier utilisé est recyclé (80g), sans plastiques et les encres RISO™ 
-						sont à base d’huile végétale, et en cas de dégradation de l’oeuvre, 
-						il n’y a pas de risque pour l’environnemen.t</p>
+					<p>Je vis et travaille sur l'île d'Oléron en tant qu'artiste et imprimeur depuis 2023. J'édite mes travaux de création et d'édition avec le laboratoire HAZARDOUS EDITORIAL, que j'ai récemment créé, un laboratoire de recherche graphic, où j'expérimente l'édition en tout genre. Également co-fondateur de la maison d'édition associative "Les Éditions Béton" à La Rochelle, je propose des stages et un accompagnement à la micro-édition. </p> <br>
+					<p>06 95 00 22 58</p>
+					<p>nil@nl-pk.com</p>
+					<p>@nlpk01></p>
+					<p>@off.the.press__risolab</p>
+					<a href="">show more</a>
 				</div>
-			</section>
-			<section>
-				<div class="text">
-					<h1>Numerical sketch</h1>
-					<p>Here are few experiment using a popular javascript librairie for creative numerical image. you'll find here some stuff about ...</p>
-				</div>
-				<div id="cnv1" class="p5cnv"></div>
 			</section>
 	</main>
 

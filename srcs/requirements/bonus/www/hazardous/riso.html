@@ -49,7 +49,12 @@
 
 				p.printText = function(grid) {
 					grid.buffer.background(255);
-					grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, 90);
+					let fontSize = p.floor(0.0833 * window.innerWidth - 1.65);
+					if (window.innerWidth > 600)
+						grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, fontSize);
+					else
+						grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 100, fontSize);
+
 					grid.buffer_to_grid(180, "title");
 				}
 				return original;
@@ -66,13 +71,12 @@
 	<div id="background"></div>
 		<div id="nav">
 			<ul>
-				<a href="index.html">		<li>Home</li></a>
-				<a href="riso.html">		<li>WTF is Riso ?</li></a>
-				<a href="analog.html">		<li>Riso Print Collections</li></a>
-				<a href="about.html">		<li>Labotory</li></a>
+				<li><a href="index.html">		Home</a></li>
+				<li><a href="riso.html">		WTF is Riso ?</a></li>
+				<li><a href="analog.html">		RisoPrint</a></li>
+				<li><a href="labotory.html">	Labotory</a></li>
 			</ul>
 		</div>
-
 	<main>
 			<article>
 				<h1>WHAT IS RISOGRAPHY ?</h1>
@@ -102,6 +106,7 @@
 					générer des impressions mémorables et marquantes.
 				</p>
 			</article>
+
 	</main>
 
 </body>

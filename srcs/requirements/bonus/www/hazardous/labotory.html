@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="Eng">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>// HAZARDOUS //</title>
+	<!-- STYLES --> 
+	<link href="style.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+	<!-- JAVASCRIPT -->
+	<script src="p5/includes/p5.min.js"></script>
+	<script src="p5/includes/p5.riso.js"></script>
+	<script src="p5/includes/Cell.js"></script>
+	<script src="p5/includes/Grid.js"></script>
+	<script src="p5/PerlinFog.js" id="sketch"></script>
+	<script src="p5/sketches/sketch1.js" id="sketch"></script>
+	<script src="p5/noise.js" id="sketch"></script>
+	<script>
+			// Manage p5 sketchs in background and in <div class"item digital">
+			let max_width = 9999
+			//let sketch_index = 0;
+			//let p5_sketch;
+
+			//function p5_start(sketch) {
+			//	if (p5_sketch) {
+			//		p5_sketch.remove(); // Remove old sketch
+			//	}
+			//	p5_sketch = new p5(sketch);
+			//}
+			//customize PerlinFog sketch
+			function PerlinFog_analog(p) {
+				// Call the original function to set up everything
+				const original = PerlinFog(p, {cell_size: p.floor(p.random(5, 20))});
+
+				//rewrite function handleClick
+				p.handleClick = function(grid, mouse) {
+					for (let cell of grid.cells) {
+						if (mouse.dist(cell.realPos) < 20) {
+							if (cell.group == "title") {
+								document.location = "index.html"
+							};
+							break ;
+						}
+					}
+				}
+
+				return original;
+			}
+
+			window.onload = function () {
+					new p5(noise, 'cnv1');
+		//			new p5(noise, 'cnv2');
+		//			new p5(noise, 'cnv3');
+		//			new p5(noise, 'cnv4');
+			  new p5(PerlinFog_analog, 'background');
+			};
+	</script>
+</head>
+
+<body>
+
+	<div id="background" class="image" "></div>
+		
+		<div id="nav">
+			<ul>
+				<li><a href="index.html">		Home</a></li>
+				<li><a href="riso.html">		WTF is Riso ?</a></li>
+				<li><a href="analog.html">		RisoPrint</a></li>
+				<li><a href="labotory.html">	Labotory</a></li>
+			</ul>
+		</div>
+
+
+	<main>
+			<article>
+				<h1>Hazardous Éditorial</h1>
+				<p>Hazardous est un laboratoire éditorial. Develloppé et dirige par <a href="about.html">Nil POLACK</a>, 
+					il voit le jour en 2026. Les recherches plastique et artistique 
+					Nous experimentons autour de l'impression via risographie; et pas seulement. 
+					Vous trouverez ici les differentes experiences plastique du laboratoire.
+				</p>
+			</article>
+			<section>
+				<div class="image" style="background-image: url('images/papier_peint_detail1.jpg');"></div>
+				<div class="text">
+					<h1>Mur et papier</h1>
+					<p>"Murs & Papier" est un projet autour de la couleur et du motif. 
+						Ce sont des fresques en papier de toutes tailles qui viennent 
+						se fondre et sublimer le paysage en décorant le mobilier urbain. 
+						La tapisserie est assemblée et collée sur place. 
+						Le motif est conçu aux couleurs de l'événement et imprimé dans mon atelier en risographie. 
+						Cette technique d'impression, similaire à la sérigraphie, 
+						se caractérise par des couleurs vives et un très faible impact écologique. 
+						Idéale pour la décoration d'événement ponctuel extérieur, 
+						le collage s'adapte à quasiment n'importe quelle surface plane.
+
+						Pérénité des oeuvres : La durée de vie d’un collage exterieur est de 2 à 3 mois 
+						avec une météo printanière (Charente-Maritime). 
+						Le papier utilisé est recyclé (80g), sans plastiques et les encres RISO™ 
+						sont à base d’huile végétale, et en cas de dégradation de l’oeuvre, 
+						il n’y a pas de risque pour l’environnemen.t</p>
+					<a href="">show more</a>
+				</div>
+			</section>
+			<section>
+				<div class="text">
+					<h1>Numerical sketch</h1>
+					<p>Here are few experiment using a popular javascript librairie for creative numerical image. you'll find here some stuff about ...</p>
+					<a href="">show more</a>
+				</div>
+				<div id="cnv1" class="p5cnv"></div>
+			</section>
+			<section>
+				<div style="background-image: url('images/chromatic_ephemeris.jpg')" class="image"></div>
+				<div class="text">
+					<h1>Chromatic Ephemeris</h1>
+					<p>
+						Chromatic Ephemeris is a recurring publication influenced by quantum postulates, 
+						manifesting in various forms with variable content. 
+						This periodic documentation of color experiments is produced using risography. 
+						Through this endeavor, we delve into a quasi-quantum dimension. 
+						Join us on this exploration. Welcome to the digital rendition of CHROMATIC_EPHEMERIS. 
+					<h2>Thought, ideas and emotions are seen like wave</h2> 
+						Thoughts, ideas, and emotions are perceived as waves: undoubtedly existing, yet in a waveform. 
+						They reside within our brains, hearts, and even extend beyond ourselves. 
+						Could this webpage be a connection between us? 
+						Prints, paper and ink can be perceived as particles : 
+						Prints, paper, and ink can be regarded as particles: 
+						occupying space, existing in time, and possessing weight. 
+						They belong to the atomistic world. Vibrating and resembling living entities, 
+						they serve as vehicles for ideas and thoughts, carrying information and emotions. 
+						Light is essential, as prints cease to exist in a dark atmosphere. 
+						During the process, bonds are made between those two dimensions (particle & wave model) when we put down ideas and emotion on paper, 
+						and vice versa.
+						the receiver/observator hold the responsability of observation and lecture. 
+						Without you, our experiments would not find any destinations points, nor confirmation of existence.
+						As the recipient of the Ephemeris, you benefit from a materialistic perspective. 
+						You have the opportunity to experience Chromatic's riso filters in natural sunlight, 
+						engaging your senses through smell and touch, providing the most immersive experience. 
+						This publication delves into randomness, chance, and unpredictability. 
+						While there is no real randomness in the studio, what occurs is the manifestation of energy and creation through quantum fields. 
+					Our laboratory is guided by the theory of chaos—coherent, yet with too many factors to fully comprehend its trajectory. 
+					We focus on parameters we can influence: emotions, ideas, and thoughts. We give ourselves the space to connect with our own thoughts, 
+					ideas, actions, and choices, observing the outcomes, mainly manifested in riso prints. 
+					These prints are soon dispatched to you, and we hope you enjoy a wonderful exploration. 
+					Crafted with benevolent intentions, the prints aim to elevate the world's emotional state. 
+					We trust that you will have an enjoyable time appreciating these colors and lights, and we look forward to connecting with you soon. 
+					This book is printed using risography, available in limited and numbered editions. 
+					Additionally, it exists in a virtual dimension: the internet.
+					</p>
+					<a href="">show more</a>
+				</div>
+			</section>
+	</main>
+
+</body>
+
+</html>

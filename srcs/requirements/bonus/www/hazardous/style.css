@@ -6,6 +6,12 @@
   	margin: 0; /* reset spacing instead of forcing center */
 }
 
+h1 {
+	font-size: 1.3rem;
+	margin: 0.5rem 0;
+	font-weight:bolder;
+}
+
 main {
   margin: 100px auto 0 auto;
   background: transparent;
@@ -16,9 +22,9 @@ main {
 }
 
 article {
-	width: 100%;
 	border-radius: 8px;
-	margin: 40px 0 40px 0;
+	margin-top: 70px;
+	padding: 1rem;
 	text-align: center;
 	background-color: rgba(255,255,255,0.4);
 }
@@ -41,8 +47,6 @@ section .image {
   background-repeat: no-repeat;
 }
 
-.image #background {
-}
 section .p5cnv {
 	width: 33.33%;
 	height: auto;
@@ -55,6 +59,13 @@ section .text{
   padding: 1rem;
   text-align: left; /* override center alignment */
 }
+
+section .text a {
+  display: block;
+  width: fit-content;
+  margin: 1rem auto 0 auto; /* top margin + horizontal centering */
+}
+
 
 #nav {
 	position: fixed;
@@ -78,12 +89,14 @@ section .text{
 
 #nav ul li {
   font-weight: bold;
+  text-align: center;
   text-decoration: underline;
   cursor: pointer;        /* show hand on hover */
   padding: 0rem 1rem;
   background: rgba(255, 255, 255, 0.1);
   border-radius: 8px;
   transition: background 0.3s, transform 0.2s;
+  white-space: nowrap; /* prevents text wrapping */
 }
 
 #nav ul li.active {
@@ -104,6 +117,28 @@ section .text{
   text-decoration: underline; /* optional */
 }
 
+@media (max-width: 600px) {
+main {
+	padding:0;
+	margin:150px 0 0 0;
+	width: 100%;
+}
+  #nav ul {
+	gap: 0.5rem;
+    flex-wrap: wrap; /* allow items to wrap to new line */
+    justify-content: center;
+  }
+
+  #nav ul li {
+    font-size: 0.9rem;
+    padding: 0.1rem 0.3rem;
+  }
+
+  #nav ul li a {
+	  font-size: 12pt;
+    padding: 0.4rem 0.3rem;
+  }
+}
 #background {
   position: fixed;
   top: 0;
@@ -209,5 +244,11 @@ section .text{
   transform: scale(1.20);
 }
 
+@media (max-width: 600px) {
 
+
+  .text {
+    font-size: 1rem;
+  }
+}
 

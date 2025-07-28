@@ -47,11 +47,6 @@
 					}
 				}
 
-				p.printText = function(grid) {
-					grid.buffer.background(255);
-					grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, 90);
-					grid.buffer_to_grid(180, "title");
-				}
 				return original;
 			}
 
@@ -118,12 +113,15 @@ document.addEventListener('DOMContentLoaded', function() {
 <body>
 
 	<div id="background" style="background-image: url('images/texture/riso1.jpg');"></div>
+
+
+
 		<div id="nav">
 			<ul>
-				<a href="index.html">		<li>Home</li></a>
-				<a href="risographie.html">	<li>WTF is Riso ?</li></a>
-				<a href="analog.html">		<li>Riso Print Collections</li></a>
-				<a href="about.html">		<li>Labotory</li></a>
+				<li><a href="index.html">		Home</a></li>
+				<li><a href="riso.html">		WTF is Riso ?</a></li>
+				<li><a href="analog.html">		RisoPrint</a></li>
+				<li><a href="labotory.html">	Labotory</a></li>
 			</ul>
 		</div>
 	<main>
