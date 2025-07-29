@@ -1,0 +1,38 @@
+@media (max-width: 600px) {
+	main {
+		padding: 0;
+		margin:80px 0 0 0;
+		width: 100%;
+        top: 0;
+        left: 0;
+        right: 0;
+	}
+    #nav::before {
+        top: -280px; 
+        bottom: -80px;
+    }
+
+	#nav ul li {
+		padding: 0.2rem 0.4rem;
+		gap: 1rem; 
+	}
+
+	#nav ul li a {
+		font-size: 12pt;
+		color:blue;
+	}
+	.gallery {
+	  display: grid;
+	  grid-template-columns: repeat(auto-fill, minmax(110px, 0.9fr));
+	  gap: 0.1rem 0.1rem;
+	}
+
+	.item {
+	  position: relative; /* Add this - creates positioning context */
+	  display: block; /* ensure block-level */
+	  overflow: hidden; /* prevents any overflow */
+	  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+	}
+}
+
+

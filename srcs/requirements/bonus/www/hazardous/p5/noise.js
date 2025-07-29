@@ -1,7 +1,7 @@
 
 // Display a full page canvas with title "Hazardous editorial" in a perlin noise fog
 // It uses a grid of cells to display the fog and makes a pixels effect
-function noise(p) {
+function Noise(p) {
 	let		mouse;
 	let img;
 	let face;

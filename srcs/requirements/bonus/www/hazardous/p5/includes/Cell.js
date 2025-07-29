@@ -24,11 +24,11 @@ class Cell {
 		p.text(chars[index], this.realPos.x, this.realPos.y);
 	}
 
-	draw(color) {
+	draw(color, alpha) {
 		let p = this.p5;
 		if (this.printed)
 			color = 255 - color;
-		p.fill(color, 20, 89, 50);
+		p.fill(color, 20, 89, alpha);
 		p.rect(this.realPos.x, this.realPos.y, this.size);
 	}
 

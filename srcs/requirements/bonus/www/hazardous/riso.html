@@ -8,6 +8,7 @@
 	<title>// HAZARDOUS //</title>
 	<!-- STYLES --> 
 	<link href="style.css" rel="stylesheet">
+	<link href="style_mobile.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
 
 	<!-- JAVASCRIPT -->
@@ -19,61 +20,25 @@
 	<script src="p5/sketches/sketch1.js" id="sketch"></script>
 	<script src="p5/noise.js" id="sketch"></script>
 	<script>
-			// Manage p5 sketchs in background and in <div class"item digital">
 			let max_width = 9999
-			//let sketch_index = 0;
-			//let p5_sketch;
 
-			//function p5_start(sketch) {
-			//	if (p5_sketch) {
-			//		p5_sketch.remove(); // Remove old sketch
-			//	}
-			//	p5_sketch = new p5(sketch);
-			//}
-			//customize PerlinFog sketch
-			function PerlinFog_analog(p) {
-				// Call the original function to set up everything
-				const original = PerlinFog(p, {cell_size: p.floor(p.random(5, 20))});
-
-				//rewrite function handleClick
-				p.handleClick = function(grid, mouse) {
-					for (let cell of grid.cells) {
-						if (mouse.dist(cell.realPos) < 20) {
-							if (cell.group == "title") {
-								document.location = "index.html"
-							};
-							break ;
-						}
-					}
-				}
-
-				p.printText = function(grid) {
-					grid.buffer.background(255);
-					let fontSize = p.floor(0.0833 * window.innerWidth - 1.65);
-					if (window.innerWidth > 600)
-						grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 160, fontSize);
-					else
-						grid.text_to_buffer("HAZARDOUS  ÉDiTORiAL","justify", 0, 100, fontSize);
-
-					grid.buffer_to_grid(180, "title");
-				}
-				return original;
-			}
-
-			window.onload = function () {
-			  new p5(PerlinFog_analog, 'background');
-			};
+			//window.onload = function () {
+			//	new p5(PerlinFog, 'background');
+			//};
 	</script>
 </head>
 
 <body>
 
 	<div id="background"></div>
+	<div id="header">
+		<img src="images/hazardous.jpg" />
+	</div>
 		<div id="nav">
 			<ul>
 				<li><a href="index.html">		Home</a></li>
-				<li><a href="riso.html">		WTF is Riso ?</a></li>
-				<li><a href="analog.html">		RisoPrint</a></li>
+				<li class="active"><a href="riso.html">		WTF is Riso ?</a></li>
+				<li><a href="prints.html">		RisoPrint</a></li>
 				<li><a href="labotory.html">	Labotory</a></li>
 			</ul>
 		</div>

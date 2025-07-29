@@ -112,14 +112,16 @@ class Grid {
 		}
 	}
 
-	display(tones, blur, saturation, option) {
+	display(option, alpha) {
 		let p = this.p5;
+		let blr = this.blur;
+		let sat = this.saturation;
+		let ton = this.tones;
 		for (let cell of this.cells) {
-			let color = p.floor(p.map(cell.n, 0, 1, -saturation, tones + saturation)) * (255 / tones);
-			//cell.n += blur * (Math.random() - 0.5);
-			cell.n += p.random(-blur, blur);
+			let color = p.floor(p.map(cell.n, 0, 1, -sat, ton + sat)) * (255 / ton);
+			cell.n += p.random(-blr, blr);
 			if (option == "noise") {
-				cell.draw(color);
+				cell.draw(color, alpha);
 			} else if (option == "char") {
 				cell.putChar();
 			}

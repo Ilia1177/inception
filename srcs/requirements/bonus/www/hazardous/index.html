@@ -16,40 +16,67 @@
 	<script src="p5/includes/Grid.js"></script>
 	<script src="p5/PerlinFog.js" id="sketch"></script>
 	<script>
-				let max_width = 9999;
+		let max_width = 9999;
 
-				//customize PerlinFog sketch
-				function PerlinFog_index(p) {
-					// Call the original function to set up everything
-					const original = PerlinFog(p);
+		function p5_start(sketch) {
+			if (p5_sketch) {
+				p5_sketch.remove(); // Remove old sketch
+			}
+			p5_sketch = new p5(sketch);
+		}
 
-					// Override the printText function
-					p.printText = function(grid) {
-						grid.buffer.background(255);
-						grid.text_to_buffer("HAZARDOUS","center", 0, -45, 90);
-						grid.text_to_buffer("- ÉDiTORiAL -","center", 0, 45, 80);
-						grid.buffer_to_grid(180, "title");
-					};
+		//customize PerlinFog sketch
+		const options = { cellSize: Math.floor(window.innerWidth * 0.01) };
+		function PerlinFog_index(p, option = {}) {
+			// Call the original function to set up everything
+			const original = PerlinFog(p, options);
 
-					p.handleClick = function(grid, mouse) {
-						for (let cell of grid.cells) {
-							if (mouse.dist(cell.realPos) < 50 && cell.group == "title") {
-        							window.location.href = "analog.html";
-							}
-						}
+			// Override the printText function
+			p.printText = function(grid) {
+				grid.buffer.background(255);
+				let fontSize = p.floor(0.093 * window.innerWidth - 1.65);
+				let heightDiff = fontSize - (fontSize / 2);
+				grid.text_to_buffer("HAZARDOUS","center", 0, -heightDiff + 160, fontSize);
+				grid.text_to_buffer("- ÉDiTORiAL -","center", 0, heightDiff + 160, fontSize * 0.8);
+				grid.buffer_to_grid(180, "title");
+			};
+
+			p.handleClick = function(grid, mouse) {
+				for (let cell of grid.cells) {
+					if (mouse.dist(cell.realPos) < 190 && cell.group == "title") {
+						window.location.href = "prints.html";
+						break ;
 					}
-					return original;
 				}
+			}
+			p.touchEnded = function () {
+				p.handleClick(grid, mouse);
+				return false; // Prevent default iOS behavior like double-tap zoom
+			};
 
-				window.onload = function () {
-					new p5(PerlinFog_index, background);
-				};
+			return original;
+		}
+
+		window.onload = function () {
+			new p5(PerlinFog_index, 'background'); 
+		};
 	</script>
 
 </head>
 
 <body>
-  <div id="background"></div>
+	<div id="header">
+		<img src="images/hazardous.jpg" />
+	</div>
+		<div id="nav">
+			<ul>
+				<li class="active"><a href="index.html">		Home</a></li>
+				<li><a href="riso.html">		WTF is Riso ?</a></li>
+				<li><a href="prints.html">		RisoPrint</a></li>
+				<li><a href="labotory.html">	Labotory</a></li>
+			</ul>
+		</div>
+		<a href="prints.html"><div id="background" style="pointer-events: auto; touch-action: auto; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;"></div></a>
 </body>
 
 </html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="Eng">
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<title>// HAZARDOUS //</title>
+	<!-- STYLES --> 
+	<link href="style.css" rel="stylesheet">
+	<link href="style_mobile.css" rel="stylesheet"> 
+	<link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+	<!-- JAVASCRIPT -->
+		<!-- <script src="https://www.paypal.com/sdk/js?client-id=AbNK1oXilwNtHcORdcfkbT5k08K55xRS5oL-b-kCH2mhtN9dmqS6rUTipXpR5tnSL_0Wm_-RAgfIEGQd&currency=EUR"></script> -->
+	<script src="https://www.paypal.com/sdk/js?client-id=AZbdxPfWdKr1LkOC49eCK4t7k8hc95-8SNG2cR_7tP53vfTzHhyRnoU7bAbMkIvupua4VLFTtw3GKiPP&currency=EUR"></script>
+	<script src="p5/includes/p5.min.js"></script>
+	<script src="p5/includes/p5.riso.js"></script>
+	<script src="p5/includes/Cell.js"></script>
+	<script src="p5/includes/Grid.js"></script>
+	<script src="p5/PerlinFog.js" id="sketch"></script>
+	<script src="p5/sketches/sketch1.js" id="sketch"></script>
+	<script src="p5/noise.js" id="sketch"></script>
+	<script>
+			// Manage p5 sketchs in background and in <div class"item digital">
+			let max_width = 9999
+			const options = { cellSize: Math.floor(window.innerWidth * 0.01) };
+			//window.onload = function () {
+			//  new p5(PerlinFog, 'background', options);
+			//};
+	</script>
+	<script>
+
+		let all_collection = "Here are the risography printed by Hazardous press. Some of them belongs to specials collections. Please select a collection to learn more about.";
+		let guest_collection = "Thoses risography has been printed at Hazardous Press, made by outsider artists.";
+		let waves_collection = "This collection hope to represents waves functions in our quantum world";
+		let artificial_collection = "Thoses images has been made throught numerical tools, like artificial intelligence. Images a try and test of the deep tools, that might throw us in deep starvation.";
+		let otp_collection = "This collection comes from the first opening of the risography studio, at this times called Off the press";
+		// script to show images by collection
+		document.addEventListener("DOMContentLoaded", function () {
+			const menuItems = document.querySelectorAll('.collection-menu li');
+			const items = document.querySelectorAll('.gallery .item');
+			const title = document.getElementById('detail');
+
+			menuItems.forEach(menuItem => {
+				menuItem.addEventListener('click', () => {
+					const selected = menuItem.getAttribute('data-collection');
+
+					if (selected == "all") {
+						title.textContent = all_collection;
+					} else if (selected == "guest") {
+						title.textContent = guest_collection;
+					} else if (selected == "IA") {
+						title.textContent = artificial_collection;
+					} else if (selected == "OTP") {
+						title.textContent = otp_collection;
+					} else if (selected == "waves") {
+						title.textContent = waves_collection;
+					}
+
+					items.forEach(item => {
+						if (selected == "all" || item.classList.contains(selected)) {
+							item.style.display = 'block';
+						} else {
+							item.style.display = 'none';
+						}
+					});
+				});
+			});
+		});
+	</script>
+	<script>
+		document.addEventListener('DOMContentLoaded', function () {
+			const items = document.querySelectorAll('.gallery .item');
+			const lightbox = document.getElementById('lightbox');
+			const lightboxImg = lightbox.querySelector('img');
+			const lightboxCaption = lightbox.querySelector('.caption');
+			const closeBtn = lightbox.querySelector('.lightbox-close');
+
+			items.forEach(item => {
+				const img = item.querySelector('img');
+				const caption = item.querySelector('.caption');
+
+				// Only add click listener if img exists
+				if (img) {
+					img.addEventListener('click', () => {
+						lightboxImg.src = img.src;
+						lightboxCaption.textContent = caption ? caption.textContent : '';
+						lightbox.classList.add('active');
+					});
+				}
+			});
+
+		  if (closeBtn) {
+			closeBtn.addEventListener('click', function (e) {
+			  e.stopPropagation(); // Prevent click from bubbling to background
+			  lightbox.classList.remove('active');
+			});
+		  }
+
+		  // Close when clicking outside content
+		  lightbox.addEventListener('click', (e) => {
+			if (e.target === lightbox) {
+			  lightbox.classList.remove('active');
+			}
+		  });
+
+		  // Close with Escape key
+		  document.addEventListener('keydown', function (e) {
+			if (e.key === 'Escape') {
+			  lightbox.classList.remove('active');
+			}
+		  });
+		});
+	</script>
+	<script>
+		paypal.Buttons({
+		  style: {
+			layout: 'vertical',
+			color:  'gold',
+			shape:  'rect',
+			label:  'paypal'
+		  },
+		  createOrder: function(data, actions) {
+			return actions.order.create({
+			  purchase_units: [{
+				amount: {
+				  value: '20.00' // 💶 Update to match your item price
+				},
+				description: 'A3 Riso Print'
+			  }]
+			});
+		  },
+		  onApprove: function(data, actions) {
+			return actions.order.capture().then(function(details) {
+			  alert('Payment completed by ' + details.payer.name.given_name);
+			  // 👉 Optionally: redirect, show a message, send order to server, etc.
+			});
+		  }
+		}).render('#paypal-button-container');
+	</script>
+</head>
+<div id="lightbox" class="lightbox">
+  <div class="lightbox-content">
+    <img src="" alt="Full View" />
+    <div class="caption">Caption text here</div>
+	<button class="lightbox-close">×</button>
+  </div>
+</div>
+<body>
+	<div id="background"></div>
+	<div id="header">
+		<img src="images/hazardous.jpg" />
+	</div>
+		<div id="nav">
+			<ul>
+				<li><a href="index.html">					Home</a></li>
+				<li><a href="riso.html">					WTF is Riso ?</a></li>
+				<li class="active"><a href="prints.html">	RisoPrint</a></li>
+				<li><a href="labotory.html">				Labotory</a></li>
+			</ul>
+		</div>
+	<main>
+		<article id="deskboard">
+			<h2 id="detail">Here are the risography printed by Hazardous press. 
+					Some of them belongs to specials collections. 
+					Please select a collection to learn more about.</h2>
+			<ul class="collection-menu">
+			  <li data-collection="waves">Wave lenght</li>
+			  <li data-collection="guest">guest</li>
+			  <li data-collection="OTP">old</li>
+			  <li data-collection="IA">Collage numerique</li>
+			  <li data-collection="all">All</li>
+			</ul>
+		</article>
+
+				<div class="gallery collection1">
+				  <div class="item waves"><img src="images/riso_preview/WA_fish.jpg" alt="Image One"><div class="caption">Format A3 - Dead fish</div></div>
+				  <div class="item waves"><img src="images/riso_preview/WA_sand.jpg" alt="Image One"><div class="caption">Format: A3 - Pink sand</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_drop01.jpg" alt="Image One"><div class="caption">Format: A3 - Random paint #1</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_drop02.jpg" alt="Image One"><div class="caption">Format: A3 - Random paint #2</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_thread.jpg" alt="Image One"><div class="caption">Format: A3 - Threaded woman</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_nuances.jpg" alt="Image One"><div class="caption">Format: A3 - Nuances de blanc</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_leaves01V1.jpg" alt="Image One"><div class="caption">Format: A3 - Leaves #01v1</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_leaves02.jpg" alt="Image One"><div class="caption">Format: A3 - Leaves #02</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_junk.jpg" alt="Image One"><div class="caption">Format: A3 - Junk</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_ioMap.jpg" alt="Image One"><div class="caption">Format: A3 - IO Map</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_hallucination.jpg" alt="Image One"><div class="caption">Format: A3 - Hallucination</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_geo02.jpg" alt="Image One"><div class="caption">Format: A3 - Geo #2</div></div>
+				<div class="item OTP"><img src="images/riso_preview/OTP_geo01.jpg" alt="Image One"><div class="caption">Format: A3 - Geo #1</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_flowers.jpg" alt="Image One"><div class="caption">Format: A3 - Twin flowers</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_crowd.jpg" alt="Image One"><div class="caption">Format: A3 - Foule</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_colorChart25.jpg" alt="Image One"><div class="caption">Format: A3 - Color chart 2025 </div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_city.jpg" alt="Image One"><div class="caption">Format: A3 - Bruit de ville</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_chromatic.jpg" alt="Image One"><div class="caption">Format: A3 - Chromatic ephemeris #0</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_bacteria.jpg" alt="Image One"><div class="caption">Format: A3 - Bacteria world</div></div>
+				  <div class="item OTP"><img src="images/riso_preview/OTP_algae.jpg" alt="Image One"><div class="caption">Format: A3 - Algae marina</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_storm.jpg" alt="Image One"><div class="caption">Format: A3 - Artificial storm</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_skull.jpg" alt="Image One"><div class="caption">Format: A3 - Flower & skull</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_man.jpg" alt="Image One"><div class="caption">Format: A3 - Lonely intelligence</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_jungle.jpg" alt="Image One"><div class="caption">Format: A3 - Jungle #1</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_hands.jpg" alt="Image One"><div class="caption">Format: A3 - Messed hands</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_fire.jpg" alt="Image One"><div class="caption">Format: A3 - The last forest</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_cliffs.jpg" alt="Image One"><div class="caption">Format: A3 - Red cliffs</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_beach01.jpg" alt="Image One"><div class="caption">Format: A3 - Fausse plage</div></div>
+				  <div class="item IA"><img src="images/riso_preview/IA_beach02.jpg" alt="Image One"><div class="caption">Format: A3 - Moonset rabbit</div></div>
+				  <div class="item guest"><img src="images/riso_preview/GU_baigneuse.jpg" alt="Image One"><div class="caption">Format: A3 - Baigneuse</div></div>
+				  <div class="item guest"><img src="images/riso_preview/GU_tigreV1.jpg" alt="Image One"><div class="caption">Format: A3 - Tigre v1</div></div>
+				  <div class="item guest"><img src="images/riso_preview/GU_tigreV2.jpg" alt="Image One"><div class="caption">Format: A3 - Tigre v2</div></div>
+				  <div class="item guest"><img src="images/riso_preview/GU_cairn.jpg" alt="Image One"><div class="caption">Format: A3 - Cairn (by Sait)</div></div>
+				</div>
+			<article>
+				<h2>N'attendez pas pour commander votre Risographie ! Les tirages sont limites. 
+					N'oubliez pas d'indiquer le titre de votre affiche avec votre paiement -20€- !<h2>
+				<div id="paypal-button-container"></div>
+			</article>
+	</main>
+
+</body>
+
+</html>
