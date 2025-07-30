@@ -14,12 +14,11 @@
 }
 
 *{
-	outline: 2px solid red;
+	/*outline: 2px solid red;*/
 	background: none;
     font-family: StampLike, typewriter, Ubuntu;
 	color: rgb(24, 30, 115);
-    font-size:16pt;
-	font-size: 1.4rem;
+	font-size: 16pt;
     background: transparent;
 	padding: 0;
   	margin: 0; /* reset spacing instead of forcing center */
@@ -33,17 +32,19 @@ html, body {
 }
 
 h1 {
+	padding: 1rem 0; 
 	font-size: 2.2rem;
 	font-weight:bolder;
 	text-decoration: underline overline;
 }
 h2 {
-	font-size: 2.0rem;
+	font-size: 1.8rem;
 	font-weight:bolder;
 	text-decoration: underline;
 }
 
 p {
+	font-size: 1.2rem;;
 	padding: 0 0 0.5rem 0;
 }
 
@@ -78,16 +79,17 @@ section {
 	margin: 40px 0;
 	overflow: hidden;
 	align-items: flex-start;
-	background-color: none;
 	align-items: stretch; /* <--- ensures image fills full height */
 }
 
 .left .text {
   text-align: left; /* override center alignment */
+  padding-right: 1rem;
 }
 
 .right .text {
   text-align: right; /* override center alignment */
+  padding-left: 1rem;
 }
 
 section img {
@@ -114,7 +116,6 @@ section .p5cnv {
 section .text{
   width: 66%;
   padding: 0 1rem;
-  text-align: left; /* override center alignment */
 }
 
 section .text a {
@@ -172,17 +173,10 @@ section .text a {
 	justify-content: space-evenly; 
     /*gap: 2rem; /* optional spacing between items */
 	box-sizing: border-box;
+  overflow: visible;
 }
 
-#nav ul li {
-  display: flex;                /* make li a flex container */
-  align-items: center;          /* vertical center */
-  justify-content: center;      /* horizontal center (optional) */
-  padding: 0.3rem 1rem;           /* keep horizontal padding */
-  background: rgba(255, 255, 255, 1);
-  /*border-radius: 8px;*/
-  transition: background 0.3s, transform 0.2s;
-}
+
 
 #nav ul li.active {
   font-weight: bold;
@@ -194,17 +188,38 @@ section .text a {
   transform: scale(1.05);
 }
 
-#nav ul li a {
-  color: black;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 3vw;
+#nav ul li {
+	padding: 0.2rem 0.5rem;
+	mix-blend-mode: multiply;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
 }
 
+#nav ul li::before {
+  content: '';
+  position: absolute;
+  inset: 0; /* shorthand for top: 0; right: 0; bottom: 0; left: 0; */
+  background-image: url('images/texture/echantillon2.png'); /* your image path */
+  background-size: cover;         /* scales image to fill */
+  background-position: center;    /* centers image */
+  background-repeat: no-repeat;   /* no repeating */§
+  z-index: -1;                    /* behind text */
+}
+
+#nav ul li a,
 #nav ul li a:visited {
-  font-size: 3vw;
-  color: black;
-  font-weight: bold;
+	position: relative;
+	text-decoration: none;
+	z-index: 9;
+	font-size: 3vw;
+	color: white;
+	font-weight: normal;
+	font-weight: bold;
+}
+
+#nav ul li:hover a {
+	color: rgb(0, 67, 98);
 }
 
 
@@ -232,21 +247,17 @@ section .text a {
 }
 
 #deskboard {
-	padding: 10px 0 0 0;
+	padding: 0;
 	margin: 0; 
 	overflow: hidden;
-	background-color: transparent;
 }
 
-#deskboard h2 {
-	margin: 0 1rem;
-}
+
 
 .collection-menu {
   display: flex;
   justify-content: space-evenly;
   list-style: none;
-  margin: 5px 0 0 0;
   background: #f9f9f9;
   border-top: 1px solid #ddd;
   align-items: stretch;

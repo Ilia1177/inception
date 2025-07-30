@@ -1,5 +1,9 @@
 @media (max-width: 600px) {
 
+	html {
+		font-size: 12pt;
+	}
+
 	main {
 		padding: 100px 0;
 		width: 100%;
@@ -9,21 +13,16 @@
 	}
 
     #nav::before {
-        top: -280px; 
+        top: -490px; 
         bottom: -80px;
     }
 
 	#nav ul li {
 		padding: 0.2rem 0.4rem;
-		gap: 1rem; 
 	}
 
 	#nav ul li a {
 		font-size: 12pt;
-		color:blue;
-	}
-	p, p a {
-		font-size: 0.8rem;
 	}
 
 	.collection-menu {
@@ -37,7 +36,7 @@
 	}
 
 	.collection-menu li {
-		font-size: 0.5rem;
+		font-size: 1rem;
 		display:flex;
 		cursor: pointer;        /* show hand on hover */
 		padding: 10px;
