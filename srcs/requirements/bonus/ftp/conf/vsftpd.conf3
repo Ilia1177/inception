@@ -1,0 +1,64 @@
+# vsftpd configuration file
+
+# Basic settings
+listen=YES
+listen_ipv6=NO
+anonymous_enable=NO
+local_enable=YES
+write_enable=YES
+local_umask=022
+
+# Daemon settings - CRITICAL for Docker
+background=NO
+listen=YES
+listen_ipv6=NO
+
+# Security settings
+chroot_local_user=YES
+allow_writeable_chroot=YES
+secure_chroot_dir=/var/run/vsftpd/empty
+
+# User settings
+local_root=/var/ftp/wordpress
+
+# Connection settings
+connect_from_port_20=YES
+idle_session_timeout=300
+data_connection_timeout=120
+
+# Passive mode settings (required for Docker)
+pasv_enable=YES
+pasv_min_port=21000
+pasv_max_port=21010
+# pasv_address will be set by entrypoint script
+
+# Logging
+log_ftp_protocol=YES
+xferlog_enable=YES
+xferlog_std_format=NO
+vsftpd_log_file=/var/log/vsftpd/vsftpd.log
+
+# Performance settings
+use_localtime=YES
+check_shell=NO
+
+# File permissions
+file_open_mode=0666
+local_umask=022
+
+# Directory listings
+use_localtime=YES
+hide_ids=NO
+
+# Welcome message
+ftpd_banner=Welcome to WordPress FTP Server
+
+# Disable some commands for security
+cmds_denied=DELE,RMD
+
+# Enable upload
+upload_enable=YES
+download_enable=YES
+
+# Standalone mode - MUST be NO for Docker
+background=NO

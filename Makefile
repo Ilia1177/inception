@@ -54,8 +54,10 @@ mariadb : volumes
 	docker run -it mariadb:ft42 --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql mariadb
 
 wordpress :
-	docker build -t wordpress srcs/requirements/wordpress
+	docker build -t wordpress:ft42 srcs/requirements/wordpress
 
+redis : 
+	docker build -t redis:ft42 srcs/requirements/bonus/redis
 
 info :
 ifeq ($(OS), Darwin)
