@@ -14,6 +14,8 @@
 }
 
 *{
+	outline: 2px solid red;
+	background: none;
     font-family: StampLike, typewriter, Ubuntu;
 	color: rgb(24, 30, 115);
     font-size:16pt;
@@ -32,16 +34,29 @@ html, body {
 
 h1 {
 	font-size: 2.2rem;
-	margin: 0.5rem 0;
 	font-weight:bolder;
+	text-decoration: underline overline;
+}
+h2 {
+	font-size: 2.0rem;
+	font-weight:bolder;
+	text-decoration: underline;
 }
 
+p {
+	padding: 0 0 0.5rem 0;
+}
+
+h3 {
+	font-size: 1.5rem;
+	text-decoration: underline;
+}
 main {
   position: relative;
-  margin: 20px auto 0 auto;
-  background: transparent;
+  margin: 0 auto 0 auto;
+  background-image: url('images/wrinkled-paper-white.jpg');
   z-index: 1;  /* in front */
-  padding: 2rem;
+  padding: 150px 0;
   max-width: 1500px;
 }
 
@@ -57,14 +72,27 @@ article #paypal-button-container {
 }
 
 section {
-	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6);
+/*	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); */
 	display: flex;
 	width: 100%;
 	margin: 40px 0;
 	overflow: hidden;
 	align-items: flex-start;
-	background-color: transparent;
+	background-color: none;
 	align-items: stretch; /* <--- ensures image fills full height */
+}
+
+.left .text {
+  text-align: left; /* override center alignment */
+}
+
+.right .text {
+  text-align: right; /* override center alignment */
+}
+
+section img {
+	width: 90%;
+	mix-blend-mode: multiply;
 }
 
 section .image {
@@ -85,14 +113,14 @@ section .p5cnv {
 
 section .text{
   width: 66%;
-  padding: 1rem;
+  padding: 0 1rem;
   text-align: left; /* override center alignment */
 }
 
 section .text a {
   display: block;
   width: fit-content;
-  margin: 1rem auto 0 auto; /* top margin + horizontal centering */
+  margin: 0 auto 0 auto; /* top margin + horizontal centering */
 }
 
 #header {
@@ -106,11 +134,25 @@ section .text a {
 	width: 100%;
 }
 
+#nav::before {
+    content: '';
+    position: absolute;
+    top: -580px;		/* Overflow upward */
+    left: 0; 			/* Overflow leftward */
+    right: 0; 			/* Overflow rightward */
+    bottom: -150px; 	/* Overflow downward */
+    background-image: url('images/header_web.png');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: -1; /* Behind the nav content */
+}
+
 #nav {
 	display: flex;
 	position: -webkit-sticky;
 	position: sticky;
-	top: 0;   
+	top: 0; 
 	height: 50px;
 	color: white;
 	width:100%;
@@ -120,26 +162,14 @@ section .text a {
 	z-index:3;
 }
 
-#nav::before {
-    content: '';
-    position: absolute;
-    top: -500px; /* Overflow upward */
-    left: 0; /* Overflow leftward */
-    right: 0; /* Overflow rightward */
-    bottom: -130px; /* Overflow downward */
-    background-image: url('images/header_web.png');
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    z-index: -1; /* Behind the nav content */
-}
-
 #nav ul {
+	width: 100%;
 	display: flex;
-	flex-wrap: wrap;             /* allow wrapping */
+/*	flex-wrap: wrap;             /* allow wrapping */
     list-style: none; /* optional: removes bullet points */
 	align-items: center;
-	justify-content: center; /* centers items horizontally */
+	/*justify-content: center; /* centers items horizontally */
+	justify-content: space-evenly; 
     /*gap: 2rem; /* optional spacing between items */
 	box-sizing: border-box;
 }
@@ -149,8 +179,8 @@ section .text a {
   align-items: center;          /* vertical center */
   justify-content: center;      /* horizontal center (optional) */
   padding: 0.3rem 1rem;           /* keep horizontal padding */
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 8px;
+  background: rgba(255, 255, 255, 1);
+  /*border-radius: 8px;*/
   transition: background 0.3s, transform 0.2s;
 }
 

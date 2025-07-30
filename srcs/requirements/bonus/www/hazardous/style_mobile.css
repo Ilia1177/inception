@@ -1,12 +1,13 @@
 @media (max-width: 600px) {
+
 	main {
-		padding: 0;
-		margin:80px 0 0 0;
+		padding: 100px 0;
 		width: 100%;
         top: 0;
         left: 0;
         right: 0;
 	}
+
     #nav::before {
         top: -280px; 
         bottom: -80px;
@@ -20,6 +21,32 @@
 	#nav ul li a {
 		font-size: 12pt;
 		color:blue;
+	}
+	p, p a {
+		font-size: 0.8rem;
+	}
+
+	.collection-menu {
+	  display: flex;
+	  justify-content: space-evenly;
+	  list-style: none;
+	  margin: 5px 0 0 0;
+	  background: #f9f9f9;
+	  border-top: 1px solid #ddd;
+	  align-items: stretch;
+	}
+
+	.collection-menu li {
+		font-size: 0.5rem;
+		display:flex;
+		cursor: pointer;        /* show hand on hover */
+		padding: 10px;
+		flex-direction: column;       /* Stack text vertically */
+		align-items: center;          /* Vertical alignment */
+		justify-content: center;      /* Horizontal alignment */
+		flex: 1;
+		background: rgba(255, 255, 255, 0.1);
+		transition: background 0.3s, transform 0.2s;
 	}
 	.gallery {
 	  display: grid;
