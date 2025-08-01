@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>File Downloads</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; }
+        .upload-box { background: #f5f5f5; padding: 20px; border-radius: 8px; margin-bottom: 20px; }
+        .file-list { margin-top: 30px; }
+        input, button { padding: 8px; margin: 5px 0; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>File Management</h1>
+    <div class="upload-box">
+        <h2>Upload Files</h2>
+        <form id="uploadForm">
+            <input type="password" id="password" placeholder="Upload password" required>
+            <input type="file" id="fileInput" required>
+            <button type="submit">Upload</button>
+        </form>
+        <div id="uploadStatus" class="error"></div>
+    </div>
+
+    <div class="file-list">
+        <h2>Available Files</h2>
+        <div id="fileList">Loading...</div>
+    </div>
+
+    <script src="scripts/loadFiles.js"></script>
+    <script src="scripts/fileUpload.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        // Verify both functions loaded
+        if (typeof loadFiles !== 'function') {
+          console.error('loadFiles.js not loaded properly');
+        }
+        if (typeof handleFileUpload !== 'function') {
+          console.error('fileUpload.js not loaded properly');
+        }
+      });
+    </script>
+</body>
+</html>

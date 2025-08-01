@@ -7,6 +7,11 @@ RUN mkdir -p /run/nginx /etc/nginx/ssl /etc/nginx/conf
 RUN mkdir -p /var/www/html && chmod 755 /var/www/html
 RUN chown -R nobody:nobody /var/www/html
 
+RUN mkdir -p /tmp/nginx-client-body \
+    && mkdir -p /tmp/nginx-proxy \
+    && chown -R nobody:nobody /tmp/nginx-* \
+    && chmod -R 700 /tmp/nginx-*
+
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
   -keyout /etc/nginx/ssl/server.key \
   -out /etc/nginx/ssl/server.crt \

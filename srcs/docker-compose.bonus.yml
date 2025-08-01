@@ -78,3 +78,28 @@ services:
     env_file: .env
     restart: unless-stopped
     image: ftp:ft42
+
+  nodejs:
+    container_name: nodejs
+    build:
+      context: requirements/bonus/nodejs
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    volumes:
+      - "${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous:ro"
+      - "${HOST_VOLUME_PATH}/node/uploads:/usr/src/app/uploads"
+      - "${HOST_VOLUME_PATH}/node/public:/usr/public"
+    env_file: .env
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    depends_on:
+      - hazardous
+    networks:
+      - inception
+    image: nodejs:ft42

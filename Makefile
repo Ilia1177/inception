@@ -6,7 +6,7 @@ else
 	VOLUMES_PATH := $(shell pwd)/volumes
 endif
 
-all : info colima volumes build
+all : colima volumes build
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
 	open -a "Firefox" https://npolack.42.fr
 
@@ -36,7 +36,7 @@ save:
 		echo "Folder does not exist or is empty"; \
 	fi
 
-bonus : info colima volumes build_bonus
+bonus : colima volumes build_bonus
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
 	open -a "Firefox" https://hazardous.fr
 
@@ -59,19 +59,9 @@ wordpress :
 redis : 
 	docker build -t redis:ft42 srcs/requirements/bonus/redis
 
-info :
-ifeq ($(OS), Darwin)
-	@echo "With MacOs intel, to give colima permission on volumes: use \"colima start --edit\" then add:"
-	@echo
-	@echo "mounts:" && echo '  - location: "/Users/ilia/Documents/42CC/inception/volumes"'
-	@echo "  writable: true"
-	@echo
-	@echo "guest:"
-	@echo "  uid: 501" && echo "  gid: 20"
-	@echo
-else
-	@echo "Running from linux"
-endif
+re : fclean all
+
+rebonus : fclean bonus
 
 clean :
 	@if [ -n "$$(docker ps -q)" ]; then docker stop $$(docker ps -q); else echo "No running containers to stop."; fi

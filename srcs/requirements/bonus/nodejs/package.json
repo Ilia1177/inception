@@ -1,0 +1,18 @@
+{
+  "name": "nodejs-html-server",
+  "version": "1.0.0",
+  "description": "Node.js server for HTML website with file upload",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "multer": "^1.4.5-lts.1"
+  },
+  "keywords": ["nodejs", "express", "html", "file-upload"],
+  "author": "",
+  "license": "ISC"
+}
