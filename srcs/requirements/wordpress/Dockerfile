@@ -35,9 +35,8 @@ COPY		conf/www.conf		/tmp/www.conf
 COPY		conf/wp-config.php	/tmp/wp-config.php
 COPY 		docker-entrypoint.sh		/usr/local/bin/docker-entrypoint.sh
 RUN			chmod 755			/usr/local/bin/docker-entrypoint.sh
-#COPY 		wp_init.sh			/usr/local/bin/wp_init.sh
-#RUN			chmod 755			/usr/local/bin/wp_init.sh
-#EXPOSE		9000
+COPY 		wp-install.sh		/usr/local/bin/wp-install.sh
+RUN			chmod 755			/usr/local/bin/wp-install.sh
 
 #ENTRYPOINT	["/usr/local/bin/wp_init.sh"]
 ENTRYPOINT	["/usr/local/bin/docker-entrypoint.sh"]

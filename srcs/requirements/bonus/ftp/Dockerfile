@@ -22,4 +22,4 @@ RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 ENTRYPOINT ["docker-entrypoint.sh"]
 
-#CMD ["vsftpd", "/etc/vsftpd/vsftpd.conf"]
+

@@ -64,7 +64,7 @@ function startServer() {
     res.header('Access-Control-Allow-Methods', 'GET, POST');
     next();
   });
-  // Add this middleware to handle multipart headers
+  // middleware to handle multipart headers
   app.use((req, res, next) => {
     if (req.headers['content-type']?.startsWith('multipart/form-data')) {
       // Skip body parsing for file uploads
