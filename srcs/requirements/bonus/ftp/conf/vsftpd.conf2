@@ -53,9 +53,5 @@ ftpd_banner=Welcome to WordPress FTP Server
 # Disable some commands for security
 cmds_denied=DELE,RMD
 
-# Enable upload
-upload_enable=YES
-download_enable=YES
-
 # Standalone mode
 background=NO

@@ -4,10 +4,22 @@ mkdir -p $WP_PATH
 echo "I am : $(whoami)" 
 id $(whoami)
 
-chown -R nobody:nobody $WP_PATH #HAS BEEN REPLACED
+#chown -R nobody:nobody $WP_PATH #HAS BEEN REPLACED
+#
+addgroup incept 2>/dev/null || true
+adduser -D -G incept wpuser 2>/dev/null || true
 
+
+# Create shared group and WordPress user
 mv /tmp/www.conf /etc/php82/php-fpm.d/www.conf
 mv /tmp/html 	/var/www/html
+# Change ownership to wpuser with incept group
+chown -R wpuser:incept $WP_PATH
+# Give group write permissions
+chmod -R g+w $WP_PATH
+
+echo "NOW I am : $(whoami)" 
+id $(whoami)
 
 echo "memory_limit = 256M" >> /etc/php82/php.ini
 
@@ -15,6 +27,7 @@ while ! mariadb -h$DB_HOST -u$DB_USER -p$DB_PASSWORD -e "SELECT 1"; do
   echo "Waiting for MariaDB..."
   sleep 2
 done
+
 
 echo "[INFO] Install wp-cli.phar at $PWD"
 curl -O		https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
@@ -64,7 +77,7 @@ wp theme activate breevia					   --allow-root --path=$WP_PATH
 wp plugin install jetpack 			--activate --allow-root --path=$WP_PATH;
 wp plugin install classic-editor	--activate --allow-root --path=$WP_PATH;
 wp plugin install redis-cache		--activate --allow-root --path=$WP_PATH;
-wp redis enable 						   	   --allow-root
+#wp redis enable 						   	   --allow-root
 #wp rewrite structure '/%postname%/' --hard --allow-root
 #wp rewrite flush --allow-root
 

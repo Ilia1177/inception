@@ -10,8 +10,6 @@ local_umask=022
 
 # Daemon settings - CRITICAL for Docker
 background=NO
-listen=YES
-listen_ipv6=NO
 
 # Security settings
 chroot_local_user=YES
@@ -59,6 +57,3 @@ cmds_denied=DELE,RMD
 # Enable upload
 upload_enable=YES
 download_enable=YES
-
-# Standalone mode - MUST be NO for Docker
-background=NO

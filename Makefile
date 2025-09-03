@@ -13,13 +13,23 @@ all : colima volumes build
 volumes:
 	@echo "Create volumes folder at $(VOLUMES_PATH)"
 	@mkdir -p $(VOLUMES_PATH)/{mariadb,wordpress}
-	@sudo chown -R $(whoami):staff /Users/ilia/Documents/42CC/inception/volumes
-	@chmod -R 755 /Users/ilia/Documents/42CC/inception/volumes
+	#@sudo chown -R $(whoami):staff $(VOLUMES_PATH)
+	@chmod -R 755 $(VOLUMES_PATH)
+	@echo "Setting up WordPress volume for shared group access..."
+	@chmod -R 775 $(VOLUMES_PATH)/wordpress
+	@echo "Volumes created with proper permissions for container group sharing"
+	sudo chown -R 1000:1000 $(VOLUMES_PATH)wordpress/
+
+#volumes:
+#	@echo "Create volumes folder at $(VOLUMES_PATH)"
+#	@mkdir -p $(VOLUMES_PATH)/{mariadb,wordpress}
+#	@sudo chown -R $(whoami):staff /Users/ilia/Documents/42CC/inception/volumes
+#	@chmod -R 755 /Users/ilia/Documents/42CC/inception/volumes
 
 colima:
 	@echo "system is : $(OS)"
 ifeq ($(OS), Darwin)
-	colima start --mount /Users/ilia/Documents/42CC/inception/volumes:w --vm-type vz
+	colima start --mount $(VOLUMES_PATH):w --vm-type vz
 endif
 
 build: colima
@@ -52,6 +62,9 @@ nginx :
 mariadb : volumes
 	docker build -t mariadb:ft42 srcs/requirements/mariadb
 	docker run -it mariadb:ft42 --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql mariadb
+
+ftp :
+	docker build -t ftp:ft42 srcs/requirements/bonus/ftp
 
 wordpress :
 	docker build -t wordpress:ft42 srcs/requirements/wordpress

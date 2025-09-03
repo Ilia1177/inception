@@ -33,8 +33,11 @@ RUN 		ln -s /usr/bin/php82 /usr/bin/php
 COPY		breevia/			/tmp/breevia/
 COPY		conf/www.conf		/tmp/www.conf
 COPY		conf/wp-config.php	/tmp/wp-config.php
-COPY 		wp_init.sh			/usr/local/bin/wp_init.sh
-RUN			chmod 755			/usr/local/bin/wp_init.sh
-EXPOSE		9000
+COPY 		docker-entrypoint.sh		/usr/local/bin/docker-entrypoint.sh
+RUN			chmod 755			/usr/local/bin/docker-entrypoint.sh
+#COPY 		wp_init.sh			/usr/local/bin/wp_init.sh
+#RUN			chmod 755			/usr/local/bin/wp_init.sh
+#EXPOSE		9000
 
-ENTRYPOINT	["/usr/local/bin/wp_init.sh"]
+#ENTRYPOINT	["/usr/local/bin/wp_init.sh"]
+ENTRYPOINT	["/usr/local/bin/docker-entrypoint.sh"]

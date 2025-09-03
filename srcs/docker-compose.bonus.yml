@@ -78,6 +78,12 @@ services:
     env_file: .env
     restart: unless-stopped
     image: ftp:ft42
+    cap_add:
+      - SYS_CHROOT
+      - SETUID
+      - SETGID
+    security_opt:
+      - apparmor:unconfined
 
   nodejs:
     container_name: nodejs
