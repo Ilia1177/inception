@@ -16,7 +16,7 @@ trap shutdown TERM INT
 
 # Ensure proper permissions
 if [ "$(id -u)" = '0' ]; then
-    chown -R redis:redis /var/lib/redis /var/log/redis
+    #chown -R redis:redis /var/lib/redis /var/log/redis
     exec su-exec redis "$0" "$@"
 fi
 
@@ -37,7 +37,7 @@ else
 fi
 
 # test on wordpress container : apk add redis && redis-cli -h redis -p 6379 -a $REDIS_PASSWORD ping
-chown redis:redis /etc/redis/redis.conf
+#chown redis:redis /etc/redis/redis.conf
 
 # If the first argument is redis-server
 if [ "$1" = 'redis-server' ]; then
