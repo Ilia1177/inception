@@ -14,7 +14,9 @@ volumes:
 	@echo "Create volumes folder at $(VOLUMES_PATH)"
 	@mkdir -p $(VOLUMES_PATH)/mariadb
 	@mkdir -p $(VOLUMES_PATH)/wordpress
+	@mkdir -p $(VOLUMES_PATH)/redis
 	@mkdir -p $(VOLUMES_PATH)/node/uploads
+	@mkdir -p $(VOLUMES_PATH)/node/public
 	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
 	@sudo chmod -R 775 $(VOLUMES_PATH)
 
@@ -63,12 +65,3 @@ fclean: clean
 	docker system prune -a --volumes --force
 	docker network prune
 	sudo rm -fr $(VOLUMES_PATH)
-
-# Quick fix for immediate use (run this if you get permission denied)
-fix_docker_permissions:
-ifeq ($(OS), Linux)
-	@echo "Quick fix: Running newgrp docker to activate group membership"
-	@echo "This will start a new shell with docker group activated"
-	newgrp docker
-endif
-
