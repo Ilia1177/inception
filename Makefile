@@ -6,9 +6,7 @@ DOCKER_GROUP_CHECK := $(shell groups | grep -q docker && echo "ok" || echo "miss
 all : volumes build
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
 
-setup_docker:
-	export UID=$(id -u)
-	export GID=$(id -g)
+setup:
 	sudo usermod -aG docker $(USER)
 	newgrp docker
 
@@ -17,6 +15,7 @@ volumes:
 	@mkdir -p $(VOLUMES_PATH)/mariadb
 	@mkdir -p $(VOLUMES_PATH)/wordpress
 	@mkdir -p $(VOLUMES_PATH)/node
+	@mkdir -p $(VOLUMES_PATH)/node/uploads
 	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
 	@sudo chmod -R 775 $(VOLUMES_PATH)
 

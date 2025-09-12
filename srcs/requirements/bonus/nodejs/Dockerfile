@@ -1,5 +1,6 @@
 FROM alpine:3.21
 
+USER 1000:1000
 # Install Node.js and npm
 RUN apk add --no-cache nodejs npm
 
