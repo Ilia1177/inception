@@ -5,38 +5,34 @@ RUN apk update && \
     vsftpd \
     openssl \
     bash \
-	shadow \
-	busybox-extras \
+    shadow \
+    busybox-extras \
     && rm -rf /var/cache/apk/*
 
-# Create user and group for ftpuser (1000:1000)
+# Create ftpuser group and user with specific IDs
 RUN addgroup -g 1000 -S ftpuser && \
-    adduser -D -s /bin/sh -u 1000 -G ftpuser ftpuser
-    
-# Create necessary directories
-RUN mkdir -p /docker-entrypoint.d \
-    && mkdir -p /var/run/vsftpd/empty \
+    adduser -D -s /sbin/nologin -u 1000 -G ftpuser ftpuser
+
+# Create necessary directories with proper permissions
+RUN mkdir -p /var/run/vsftpd/empty \
     && mkdir -p /var/log/vsftpd \
     && mkdir -p /etc/ssl/private \
-    && mkdir -p /etc/ssl/certs  \
-    && chown -R ftpuser:ftpuser /var/run/vsftpd/empty \
-    && chown -R ftpuser:ftpuser /var/log/vsftpd \
-    && chown -R ftpuser:ftpuser /etc/ssl/private \
-    && chown -R ftpuser:ftpuser /etc/ssl/certs 
+    && mkdir -p /etc/ssl/certs \
+    && mkdir -p /home/ftpuser/ftp/files
 
+# Set proper ownership for system directories
+RUN chown root:root /var/run/vsftpd/empty \
+    && chown root:root /var/log/vsftpd \
+    && chown root:root /etc/ssl/private \
+    && chown root:root /etc/ssl/certs
 
-# Set environment variables with defaults
-ENV FTP_USER=ftpuser
-ENV FTP_PASS=ftp_pass
+# Set up FTP user home directory
+RUN chown -R ftpuser:ftpuser /home/ftpuser/ \
+    && chmod -R g+w /home/ftpuser/ftp/files \
+    && chmod a-w /home/ftpuser/ftp \
+    && chmod a-w /home/ftpuser
 
-# Create user and group during build time (as root)
-RUN mkdir -p /home/$FTP_USER/ftp/files \
-    && chown -R $FTP_USER:ftpuser /home/$FTP_USER/ \
-    && chmod -R g+w /home/$FTP_USER/ftp/files \
-    && chmod a-w /home/$FTP_USER/ftp \
-    && chmod a-w /home/$FTP_USER
-
-# Generate SSL certificates during build
+# Generate SSL certificates
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     -keyout /etc/ssl/private/vsftpd.key \
     -out /etc/ssl/certs/vsftpd.crt \
@@ -44,18 +40,19 @@ RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
     && chmod 600 /etc/ssl/private/vsftpd.key \
     && chmod 644 /etc/ssl/certs/vsftpd.crt
 
-# Copy entrypoint script and vsftpd config
+# Copy configuration files
 COPY docker-entrypoint.sh /usr/local/bin/
 COPY conf/vsftpd.conf /etc/vsftpd/vsftpd.conf
 
 # Make entrypoint executable
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
-# Set up permissions for vsftpd to run as non-root
-RUN chown -R $FTP_USER:ftpuser /var/log/vsftpd \
-    && chmod -R 755 /var/log/vsftpd
+# Set environment variables
+ENV FTP_USER=ftpuser
+ENV FTP_PASS=ftp_pass
 
-# The actual user switch will be handled by docker-compose user directive
-# But we prepare everything to work with it
+# Expose FTP ports
+EXPOSE 20 21 21000-21010
+
+# Run as root (required for vsftpd)
 ENTRYPOINT ["docker-entrypoint.sh"]
-
