@@ -3,8 +3,6 @@ FROM alpine:3.21
 # Install Node.js and npm
 RUN apk add --no-cache nodejs npm
 
-USER 1000:1000
-
 # Create app directory
 WORKDIR /usr/src/app
 
@@ -13,7 +11,9 @@ RUN mkdir -p /var/www/hazardous && \
     mkdir -p /usr/uploads && \
     mkdir -p ./public && \
     chmod 755 /var/www/hazardous && \
-    chmod 755 /usr/uploads
+    chmod 755 /usr/uploads && \
+	chown -R 1000:1000 /usr/uploads && \
+	chown -R 1000:1000 /var/www/hazardous
 
 # Copy package.json first for better caching
 COPY package*.json ./
@@ -41,4 +41,5 @@ EXPOSE 3000
 #  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
 # Start the Node.js server
+ENTRYPOINT ["docker-entrypoint.sh"]
 CMD ["node", "server.js"]
