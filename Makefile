@@ -3,7 +3,7 @@ OS := $(shell uname)
 VOLUMES_PATH := /home/$(USER)/data
 DOCKER_GROUP_CHECK := $(shell groups | grep -q docker && echo "ok" || echo "missing")
 
-all : setup_docker volumes build
+all : volumes build
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
 
 setup_docker:
@@ -39,10 +39,10 @@ volumes:
 	@mkdir -p $(VOLUMES_PATH)/node
 	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
 
-build: setup_docker
+build:
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
 
-build_bonus : setup_docker
+build_bonus :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
 
 bonus : setup_docker volumes build_bonus
@@ -54,27 +54,27 @@ stop :
 down :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml down
 
-nginx : setup_docker
+nginx :
 	docker build -t nginx srcs/requirements/nginx/
 
-mariadb : setup_docker volumes
+mariadb : volumes
 	docker build -t mariadb:ft42 srcs/requirements/mariadb
 	docker run -it mariadb:ft42 --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql mariadb
 
-ftp : setup_docker
+ftp :
 	docker build -t ftp:ft42 srcs/requirements/bonus/ftp
 
-wordpress : setup_docker
+wordpress :
 	docker build -t wordpress:ft42 srcs/requirements/wordpress
 
-redis : setup_docker
+redis :
 	docker build -t redis:ft42 srcs/requirements/bonus/redis
 
 re : fclean all
 
 rebonus : fclean bonus
 
-clean : setup_docker
+clean :
 	@if [ -n "$$(docker ps -q)" ]; then docker stop $$(docker ps -q); else echo "No running containers to stop."; fi
 	@if [ -n "$$(docker ps -aq)" ]; then docker rm -f $$(docker ps -aq); else echo "No running containers to remove."; fi
 	@if [ -n "$$(docker images -q)" ]; then docker rmi -f $$(docker images -q); else echo "No images to remove."; fi
