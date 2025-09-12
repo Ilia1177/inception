@@ -20,7 +20,7 @@ echo "[INFO] Running as group: $(id -gn)"
 cd "$WP_PATH" || { echo "[ERROR] Cannot change to WP_PATH: $WP_PATH"; exit 1; }
 
 # Double-check ownership before any operations
-chown -R www-data:www-data "$WP_PATH" 2>/dev/null || true
+chown -R 1000:1000 "$WP_PATH" 2>/dev/null || true
 chmod -R 775 "$WP_PATH" 2>/dev/null || true
 
 # Download WordPress if not present
