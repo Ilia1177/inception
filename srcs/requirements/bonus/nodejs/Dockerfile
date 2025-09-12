@@ -23,7 +23,7 @@ RUN npm install --only=production
 
 # Copy application files
 COPY . .
-COPY docker-entrpoint.sh	/usr/bin/docker-entrypoint.sh
+COPY docker-entrypoint.sh	/usr/bin/docker-entrypoint.sh
 RUN chmod +x /usr/bin/docker-entrypoint.sh
 # Create a non-root user for security
 #RUN addgroup -g 1000 -S nodejs && \
