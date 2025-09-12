@@ -23,7 +23,8 @@ RUN npm install --only=production
 
 # Copy application files
 COPY . .
-
+COPY docker-entrpoint.sh	/usr/bin/docker-entrypoint.sh
+RUN chmod +x /usr/bin/docker-entrypoint.sh
 # Create a non-root user for security
 #RUN addgroup -g 1000 -S nodejs && \
 #    adduser -D -s /bin/sh -u 1000 -G nodejs nodejs && \
@@ -41,5 +42,5 @@ EXPOSE 3000
 #  CMD wget --no-verbose --tries=1 --spider http://localhost:3000/ || exit 1
 
 # Start the Node.js server
-ENTRYPOINT ["docker-entrypoint.sh"]
+ENTRYPOINT ["/usr/bin/docker-entrypoint.sh"]
 CMD ["node", "server.js"]
