@@ -14,7 +14,6 @@ volumes:
 	@echo "Create volumes folder at $(VOLUMES_PATH)"
 	@mkdir -p $(VOLUMES_PATH)/mariadb
 	@mkdir -p $(VOLUMES_PATH)/wordpress
-	@mkdir -p $(VOLUMES_PATH)/node
 	@mkdir -p $(VOLUMES_PATH)/node/uploads
 	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
 	@sudo chmod -R 775 $(VOLUMES_PATH)
