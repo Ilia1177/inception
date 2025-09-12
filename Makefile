@@ -9,7 +9,7 @@ all : volumes build
 setup_docker:
 	export UID=$(id -u)
 	export GID=$(id -g)
-	sudo usermod -aG docker $USER
+	sudo usermod -aG docker $(USER)
 	newgrp docker
 
 setup_docker2:
