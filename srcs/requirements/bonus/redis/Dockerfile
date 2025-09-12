@@ -8,8 +8,8 @@ RUN apk update && apk upgrade && \
 		su-exec
 
 # Create redis user and group if they don't exist
-RUN addgroup -g 999 redis 2>/dev/null || true && \
-    adduser -D -s /bin/sh -u 999 -G redis redis 2>/dev/null || true
+RUN addgroup -g 1000 redis 2>/dev/null || true && \
+    adduser -D -s /bin/sh -u 1000 -G redis redis 2>/dev/null || true
 
 # Create necessary directories
 RUN mkdir -p 				/var/lib/redis /var/log/redis /etc/redis /var/run

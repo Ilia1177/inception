@@ -30,6 +30,7 @@ services:
     volumes:
     - "${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous"
     image: hazardous:ft42
+    user: "1000:1000"
 
   adminer:
     container_name: adminer
@@ -46,6 +47,7 @@ services:
     - "9000"
     restart: unless-stopped
     image: adminer:ft42
+    user: "1000:1000"
 
   redis:
     container_name: redis
@@ -61,6 +63,7 @@ services:
       - "6379"
     restart: unless-stopped
     image: redis:ft42
+    user: "1000:1000"
 
   ftp:
     container_name: ftp
@@ -84,6 +87,7 @@ services:
       - SETGID
     security_opt:
       - apparmor:unconfined
+    user: "1000:1000"
 
   nodejs:
     container_name: nodejs
@@ -109,3 +113,4 @@ services:
     networks:
       - inception
     image: nodejs:ft42
+    user: "1000:1000"

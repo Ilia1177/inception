@@ -23,8 +23,8 @@ RUN npm install --only=production
 COPY . .
 
 # Create a non-root user for security
-RUN addgroup -g 1001 -S nodejs && \
-    adduser -D -s /bin/sh -u 1001 -G nodejs nodejs && \
+RUN addgroup -g 1000 -S nodejs && \
+    adduser -D -s /bin/sh -u 1000 -G nodejs nodejs && \
     chown -R nodejs:nodejs /usr/src/app && \
     chown -R nodejs:nodejs /var/www/hazardous && \
     chown -R nodejs:nodejs /usr/uploads

@@ -12,26 +12,6 @@ setup_docker:
 	sudo usermod -aG docker $(USER)
 	newgrp docker
 
-setup_docker2:
-	@echo "Setting up Docker for Linux..."
-	@echo "Checking Docker installation..."
-	@which docker > /dev/null || (echo "Docker not found. Please install Docker first." && exit 1)
-	@echo "Checking Docker service..."
-	@sudo systemctl is-active docker > /dev/null || sudo systemctl start docker
-	@echo "Checking Docker group membership..."
-	@if [ "$(DOCKER_GROUP_CHECK)" != "ok" ]; then \
-		echo "Adding user to docker group..."; \
-		sudo usermod -aG docker $(USER); \
-		echo ""; \
-		echo "IMPORTANT: You need to log out and log back in (or run 'newgrp docker')"; \
-		echo "for the group changes to take effect, then run 'make all' again."; \
-		echo ""; \
-		echo "Alternatively, you can run: newgrp docker"; \
-		echo "Then run 'make all' in the new shell."; \
-		exit 1; \
-	fi
-	@echo "Docker setup complete for Linux"
-
 volumes:
 	@echo "Create volumes folder at $(VOLUMES_PATH)"
 	@mkdir -p $(VOLUMES_PATH)/mariadb
@@ -45,7 +25,7 @@ build:
 build_bonus :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
 
-bonus : setup_docker volumes build_bonus
+bonus : volumes build_bonus
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
 
 stop :
