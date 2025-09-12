@@ -18,6 +18,7 @@ volumes:
 	@mkdir -p $(VOLUMES_PATH)/wordpress
 	@mkdir -p $(VOLUMES_PATH)/node
 	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
+	@sudo chmod -R 775 $(VOLUMES_PATH)
 
 build:
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
