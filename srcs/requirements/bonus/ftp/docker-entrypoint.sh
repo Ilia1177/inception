@@ -1,51 +1,57 @@
 #!/bin/bash
-
 set -e
 
 # Set FTP_USER and FTP_PASS from env (fallback to defaults)
 FTP_USER="${FTP_USER:-ftpuser}"
 FTP_PASS="${FTP_PASS:-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)}"
 
+echo "[INFO] Setting up FTP server for user: $FTP_USER"
+
 # Ensure directories exist
 mkdir -p /var/run/vsftpd/empty
 mkdir -p /home/$FTP_USER/ftp/files
 mkdir -p /var/log/vsftpd
 
-# Create ftpuser group if it doesn't exist
-#getent group ftpuser >/dev/null || addgroup -g 1000 ftpuser
+# Create ftpuser group with consistent GID if it doesn't exist
+if ! getent group ftpuser >/dev/null; then
+    addgroup -g 1000 ftpuser
+    echo "[INFO] Created ftpuser group with GID 1000"
+fi
 
-# Create FTP user if it doesn't exist
-#if ! id -u "$FTP_USER" &>/dev/null; then
-#    adduser -D -h /home/$FTP_USER -s /sbin/nologin -u 1000 -G ftpuser $FTP_USER
-#else
-    # Ensure user is in ftpuser group
-#    addgroup "$FTP_USER" ftpuser 2>/dev/null || true
-#fi
+# Create FTP user with consistent UID if it doesn't exist
+if ! id -u "$FTP_USER" &>/dev/null; then
+    adduser -D -h /home/$FTP_USER -s /sbin/nologin -u 1000 -G ftpuser $FTP_USER
+    echo "[INFO] Created user $FTP_USER with UID 1000"
+else
+    # Ensure existing user is in ftpuser group
+    addgroup "$FTP_USER" ftpuser 2>/dev/null || true
+    echo "[INFO] User $FTP_USER already exists"
+fi
 
 # Set up directory ownership and permissions
-# Home directory structure
-chown -R $FTP_USER:$FTP_USER	 /home/$FTP_USER/
-chown -R $FTP_USER:ftpuser 		/home/$FTP_USER/ftp/files
-chown -R $FTP_USER:ftpuser		 /var/run/vsftpd/empty
-chown -R $FTP_USER:ftpuser		 /var/log/vsftpd
+echo "[INFO] Setting up directory permissions..."
 
-# Set permissions
-chmod -R g+w /home/$FTP_USER/ftp/files
-chmod a-w /home/$FTP_USER/ftp
-chmod a-w /home/$FTP_USER
+# Use consistent UID:GID (1000:1000)
+chown -R 1000:1000 /home/$FTP_USER/
+chown -R 1000:1000 /home/$FTP_USER/ftp/files
+chown -R 1000:1000 /var/log/vsftpd
 
-# Ensure system directories have correct ownership
-chown ftpuser:ftpuser /var/run/vsftpd/empty
-chown ftpuser:ftpuser /var/log/vsftpd
-#chown root:root /var/run/vsftpd/empty
-#chown root:root /var/log/vsftpd
+# Set permissions (secure FTP directory structure)
+chmod 755 /home/$FTP_USER
+chmod 755 /home/$FTP_USER/ftp
+chmod 775 /home/$FTP_USER/ftp/files  # Allow group write
+
+# vsftpd needs these as root
+chown root:root /var/run/vsftpd/empty
+chmod 755 /var/run/vsftpd/empty
 
 # Set password for the user
 echo "$FTP_USER:$FTP_PASS" | chpasswd
-echo "Set password for $FTP_USER: $FTP_PASS"
+echo "[INFO] Set password for $FTP_USER: $FTP_PASS"
 
-# Generate SSL cert if missing (shouldn't happen in this fixed version)
+# Generate SSL cert if missing
 if [ ! -f /etc/ssl/certs/vsftpd.crt ]; then
+    echo "[INFO] Generating SSL certificate..."
     openssl req -x509 -nodes -days 365 -newkey rsa:2048 \
         -keyout /etc/ssl/private/vsftpd.key \
         -out /etc/ssl/certs/vsftpd.crt \
@@ -58,5 +64,7 @@ fi
 sed -i "s|{{PASV_ADDRESS}}|${PASV_ADDRESS:-$(hostname -i)}|g" /etc/vsftpd/vsftpd.conf
 sed -i "s|{{FTP_USER_DIR}}|/home/$FTP_USER/ftp|g" /etc/vsftpd/vsftpd.conf
 
-# Start vsftpd as root (it will drop privileges as configured)
+echo "[INFO] Starting vsftpd server..."
+
+# vsftpd MUST run as root - it handles user switching internally
 exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
