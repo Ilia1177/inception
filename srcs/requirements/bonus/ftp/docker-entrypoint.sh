@@ -12,20 +12,22 @@ mkdir -p /home/$FTP_USER/ftp/files
 mkdir -p /var/log/vsftpd
 
 # Create ftpuser group if it doesn't exist
-getent group ftpuser >/dev/null || addgroup -g 1000 ftpuser
+#getent group ftpuser >/dev/null || addgroup -g 1000 ftpuser
 
 # Create FTP user if it doesn't exist
-if ! id -u "$FTP_USER" &>/dev/null; then
-    adduser -D -h /home/$FTP_USER -s /sbin/nologin -u 1000 -G ftpuser $FTP_USER
-else
+#if ! id -u "$FTP_USER" &>/dev/null; then
+#    adduser -D -h /home/$FTP_USER -s /sbin/nologin -u 1000 -G ftpuser $FTP_USER
+#else
     # Ensure user is in ftpuser group
-    addgroup "$FTP_USER" ftpuser 2>/dev/null || true
-fi
+#    addgroup "$FTP_USER" ftpuser 2>/dev/null || true
+#fi
 
 # Set up directory ownership and permissions
 # Home directory structure
-chown -R $FTP_USER:$FTP_USER /home/$FTP_USER/
-chown -R $FTP_USER:ftpuser /home/$FTP_USER/ftp/files
+chown -R $FTP_USER:$FTP_USER	 /home/$FTP_USER/
+chown -R $FTP_USER:ftpuser 		/home/$FTP_USER/ftp/files
+chown -R $FTP_USER:ftpuser		 /var/run/vsftpd/empty
+chown -R $FTP_USER:ftpuser		 /var/log/vsftpd
 
 # Set permissions
 chmod -R g+w /home/$FTP_USER/ftp/files
@@ -33,8 +35,10 @@ chmod a-w /home/$FTP_USER/ftp
 chmod a-w /home/$FTP_USER
 
 # Ensure system directories have correct ownership
-chown root:root /var/run/vsftpd/empty
-chown root:root /var/log/vsftpd
+chown ftpuser:ftpuser /var/run/vsftpd/empty
+chown ftpuser:ftpuser /var/log/vsftpd
+#chown root:root /var/run/vsftpd/empty
+#chown root:root /var/log/vsftpd
 
 # Set password for the user
 echo "$FTP_USER:$FTP_PASS" | chpasswd

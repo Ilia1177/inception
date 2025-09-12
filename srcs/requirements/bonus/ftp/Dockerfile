@@ -21,10 +21,15 @@ RUN mkdir -p /var/run/vsftpd/empty \
     && mkdir -p /home/ftpuser/ftp/files
 
 # Set proper ownership for system directories
+#RUN chown root:root /var/run/vsftpd/empty \
+#    && chown root:root /var/log/vsftpd \
+#    && chown root:root /etc/ssl/private \
+#    && chown root:root /etc/ssl/certs
+
 RUN chown root:root /var/run/vsftpd/empty \
-    && chown root:root /var/log/vsftpd \
-    && chown root:root /etc/ssl/private \
-    && chown root:root /etc/ssl/certs
+    && chown ftpuser:ftpuser /var/log/vsftpd \
+    && chown ftpuser:ftpuser /etc/ssl/private \
+    && chown ftpuser:ftpuser /etc/ssl/certs
 
 # Set up FTP user home directory
 RUN chown -R ftpuser:ftpuser /home/ftpuser/ \
