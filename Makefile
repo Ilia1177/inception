@@ -38,17 +38,17 @@ down :
 nginx :
 	docker build -t nginx srcs/requirements/nginx/
 
-mariadb : volumes
+mariadb : nginx
 	docker build -t mariadb:ft42 srcs/requirements/mariadb
 	docker run -it mariadb:ft42 --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql mariadb
 
-ftp :
+ftp : wordpress
 	docker build -t ftp:ft42 srcs/requirements/bonus/ftp
 
-wordpress :
+wordpress : mariadb
 	docker build -t wordpress:ft42 srcs/requirements/wordpress
 
-redis :
+redis : wordpress
 	docker build -t redis:ft42 srcs/requirements/bonus/redis
 
 re : fclean all
