@@ -87,7 +87,7 @@ services:
       - SETGID
     security_opt:
       - apparmor:unconfined
-    user: "1000:1000"
+    #user: "1000:1000"
 
   nodejs:
     container_name: nodejs

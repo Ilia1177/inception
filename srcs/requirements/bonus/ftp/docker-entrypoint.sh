@@ -11,25 +11,25 @@ mkdir -p /var/run/vsftpd/empty
 mkdir -p /home/$FTP_USER/ftp/files
 
 # Create shared group first
-addgroup incept 2>/dev/null || true
+# addgroup ftpuser 2>/dev/null || true
 
 # Create FTP user if it doesn't exist
 if ! id -u "$FTP_USER" &>/dev/null; then
     adduser -D -h /home/$FTP_USER -s /sbin/nologin $FTP_USER
-    # Add user to incept group
-    addgroup "$FTP_USER" incept 2>/dev/null || true
+    # Add user to ftpuser group
+    addgroup "$FTP_USER" ftpuser 2>/dev/null || true
 fi
 
 # Set up directory ownership and permissions
 chown -R $FTP_USER:$FTP_USER /home/$FTP_USER/
 # Set ownership with shared group for files directory (may take time due to volume)
-chown -R $FTP_USER:incept /home/$FTP_USER/ftp/files 2>/dev/null || true
+chown -R $FTP_USER:ftpuser /home/$FTP_USER/ftp/files 2>/dev/null || true
 # Give group write permissions
 chmod -R g+w /home/$FTP_USER/ftp/files 2>/dev/null || true
 
 # FTP directory should not be writable (chroot requirement)
 chmod a-w /home/$FTP_USER/ftp
-chown $FTP_USER:incept /home/$FTP_USER/ftp
+#chown $FTP_USER:ftpuser /home/$FTP_USER/ftp
 
 # Remove write permissions on chroot directories
 chmod a-w /home/$FTP_USER
