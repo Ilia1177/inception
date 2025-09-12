@@ -20,7 +20,7 @@ echo "[INFO] Running as group: $(id -gn)"
 cd "$WP_PATH" || { echo "[ERROR] Cannot change to WP_PATH: $WP_PATH"; exit 1; }
 
 # Double-check ownership before any operations
-chown -R wpuser:incept "$WP_PATH" 2>/dev/null || true
+chown -R www-data:www-data "$WP_PATH" 2>/dev/null || true
 chmod -R 775 "$WP_PATH" 2>/dev/null || true
 
 # Download WordPress if not present
@@ -80,6 +80,6 @@ wp plugin install redis-cache --activate --path="$WP_PATH" 2>/dev/null || echo "
 echo "[INFO] File ownership in $WP_PATH:"
 ls -la "$WP_PATH"
 
-# Start PHP-FPM as wpuser
-echo "[INFO] Starting php-fpm82 as wpuser"
+# Start PHP-FPM as www-data
+echo "[INFO] Starting php-fpm82 as www-data"
 exec /usr/sbin/php-fpm82 -F

@@ -8,14 +8,14 @@ RUN apk update && apk add --no-cache nginx openssl netcat-openbsd
 RUN mkdir -p /run/nginx /etc/nginx/ssl /etc/nginx/conf
 RUN mkdir -p /var/www/html && chmod 755 /var/www/html
 
-RUN addgroup -g 1000 appuser && \
+RUN addgroup -g 1000 nginxuser && \
     adduser -D -u 1000 -G nginxuser nginxuser
 
 RUN chown -R nginxuser:nginxuser /var/www/html
 
 RUN mkdir -p /tmp/nginx-client-body \
     && mkdir -p /tmp/nginx-proxy \
-    && chown -R nginxuser:nginxuser /tmp/nginx-* \
+    && chown -R 1000:1000 /tmp/nginx-* \
     && chmod -R 700 /tmp/nginx-*
 
 RUN openssl req -x509 -nodes -days 365 -newkey rsa:2048 \

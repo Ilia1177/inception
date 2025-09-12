@@ -11,8 +11,8 @@ echo "[INFO] Running as: $(whoami)"
 echo "[INFO] WP_PATH: $WP_PATH"
 
 # Create shared group and WordPress user
-addgroup incept 2>/dev/null || true
-adduser -D -G incept wpuser 2>/dev/null || true
+RUN groupadd -g 1000 www-data && \
+    useradd -r -u 1000 -g www-data www-data
 
 # Create WordPress directory first
 mkdir -p "$WP_PATH"
@@ -33,7 +33,7 @@ fi
 
 # Create and set permissions for PHP log directory
 mkdir -p /var/log/php82
-chown -R wpuser:incept /var/log/php82
+chown -R 1000:1000 /var/log/php82
 chmod -R 775 /var/log/php82
 
 # Set PHP memory limit
@@ -59,23 +59,23 @@ mkdir -p "$WP_PATH/wp-content/plugins"
 mkdir -p "$WP_PATH/wp-content/uploads"
 
 # CRITICAL: Set ownership of WP directory BEFORE any WordPress operations
-chown -R wpuser:incept "$WP_PATH"
+chown -R 1000:1000 "$WP_PATH"
 chmod -R 775 "$WP_PATH"
 
 # Move theme as root (with error handling)
 if [ -d "/tmp/breevia" ]; then
     mv /tmp/breevia "$WP_PATH/wp-content/themes/breevia"
-    chown -R wpuser:incept "$WP_PATH/wp-content/themes/breevia"
+    chown -R 1000:1000 "$WP_PATH/wp-content/themes/breevia"
     echo "[INFO] Breevia theme installed"
 else
     echo "[WARN] Breevia theme not found at /tmp/breevia"
 fi
 
-echo "[INFO] Switching to wpuser and running WordPress installation..."
+echo "[INFO] Switching to www-data and running WordPress installation..."
 # Pass environment variables explicitly to wp-install script
 # Using su without - to preserve environment, then explicitly set HOME
-exec su wpuser -c "
-    export HOME=/home/wpuser
+exec su www-data -c "
+    export HOME=/home/www-data
     export WP_PATH='$WP_PATH'
     export DB_NAME='$DB_NAME'
     export DB_USER='$DB_USER'
@@ -93,7 +93,7 @@ exec su wpuser -c "
 "
 
 ## Double-check ownership before any operations
-#chown -R wpuser:incept $WP_PATH 2>/dev/null || true
+#chown -R www-data:incept $WP_PATH 2>/dev/null || true
 #chmod -R 775 $WP_PATH 2>/dev/null || true
 #
 ## Download WordPress if not present
@@ -155,7 +155,7 @@ exec su wpuser -c "
 #echo \"[INFO] File ownership in $WP_PATH:\"
 #ls -la \"$WP_PATH\"
 #
-## Start PHP-FPM as wpuser
-#echo \"[INFO] Starting php-fpm82 as wpuser\"
+## Start PHP-FPM as www-data
+#echo \"[INFO] Starting php-fpm82 as www-data\"
 #exec /usr/sbin/php-fpm82 -F
 #"
