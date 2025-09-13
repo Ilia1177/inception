@@ -3,53 +3,42 @@ OS := $(shell uname)
 VOLUMES_PATH := /home/$(USER)/data
 DOCKER_GROUP_CHECK := $(shell groups | grep -q docker && echo "ok" || echo "missing")
 
-all : volumes build
+all : build
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
+
+bonus : build_bonus
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
+
+build: volumes
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
+
+build_bonus : volumes_bonus
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
 
 setup:
 	sudo usermod -aG docker $(USER)
 	newgrp docker
 
-volumes:
+volumes_bonus:
 	@echo "Create volumes folder at $(VOLUMES_PATH)"
-	@mkdir -p $(VOLUMES_PATH)/mariadb
-	@mkdir -p $(VOLUMES_PATH)/wordpress
 	@mkdir -p $(VOLUMES_PATH)/redis
 	@mkdir -p $(VOLUMES_PATH)/node/uploads
 	@mkdir -p $(VOLUMES_PATH)/node/public
 	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
 	@sudo chmod -R 775 $(VOLUMES_PATH)
 
-build:
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
-
-build_bonus :
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
-
-bonus : volumes build_bonus
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
+volumes:
+	@echo "Create volumes folder at $(VOLUMES_PATH)"
+	@mkdir -p $(VOLUMES_PATH)/mariadb
+	@mkdir -p $(VOLUMES_PATH)/wordpress
+	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
+	@sudo chmod -R 775 $(VOLUMES_PATH)
 
 stop :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml stop 
 
 down :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml down
-
-nginx :
-	docker build -t nginx srcs/requirements/nginx/
-
-mariadb : nginx
-	docker build -t mariadb:ft42 srcs/requirements/mariadb
-	docker run -it mariadb:ft42 --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql mariadb
-
-ftp : wordpress
-	docker build -t ftp:ft42 srcs/requirements/bonus/ftp
-
-wordpress : mariadb
-	docker build -t wordpress:ft42 srcs/requirements/wordpress
-
-redis : wordpress
-	docker build -t redis:ft42 srcs/requirements/bonus/redis
 
 re : fclean all
 
