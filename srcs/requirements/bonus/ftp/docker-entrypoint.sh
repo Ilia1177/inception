@@ -12,25 +12,24 @@ mkdir -p /var/run/vsftpd/empty
 mkdir -p /home/$FTP_USER/ftp/files
 mkdir -p /var/log/vsftpd
 
-# Create ftpuser group with consistent GID if it doesn't exist
-if ! getent group ftpuser >/dev/null; then
-    addgroup -g 1000 ftpuser
-    echo "[INFO] Created ftpuser group with GID 1000"
+# Create group with same name as user and consistent GID if it doesn't exist
+if ! getent group $FTP_USER >/dev/null; then
+    addgroup -g 1000 $FTP_USER
+    echo "[INFO] Created $FTP_USER group with GID 1000"
 fi
 
 # Create FTP user with consistent UID if it doesn't exist
 if ! id -u "$FTP_USER" &>/dev/null; then
-    adduser -D -h /home/$FTP_USER -s /sbin/nologin -u 1000 -G ftpuser $FTP_USER
+    adduser -D -h /home/$FTP_USER -s /sbin/nologin -u 1000 -G $FTP_USER $FTP_USER
     echo "[INFO] Created user $FTP_USER with UID 1000"
 else
-    # Ensure existing user is in ftpuser group
-    addgroup "$FTP_USER" ftpuser 2>/dev/null || true
+    # Ensure existing user is in their own group
+    addgroup "$FTP_USER" $FTP_USER 2>/dev/null || true
     echo "[INFO] User $FTP_USER already exists"
 fi
 
 # Set up directory ownership and permissions
 echo "[INFO] Setting up directory permissions..."
-
 # Use consistent UID:GID (1000:1000)
 chown -R 1000:1000 /home/$FTP_USER/
 chown -R 1000:1000 /home/$FTP_USER/ftp/files
@@ -65,6 +64,5 @@ sed -i "s|{{PASV_ADDRESS}}|${PASV_ADDRESS:-$(hostname -i)}|g" /etc/vsftpd/vsftpd
 sed -i "s|{{FTP_USER_DIR}}|/home/$FTP_USER/ftp|g" /etc/vsftpd/vsftpd.conf
 
 echo "[INFO] Starting vsftpd server..."
-
 # vsftpd MUST run as root - it handles user switching internally
 exec /usr/sbin/vsftpd /etc/vsftpd/vsftpd.conf
