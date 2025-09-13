@@ -21,4 +21,5 @@ ls -la /var/www/hazardous
 
 # Keep container running (since this is likely a one-time setup)
 echo "Setup complete. Files are now available in the shared volume."
-sleep infinity
+#sleep infinity
+exit 0
