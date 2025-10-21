@@ -12,45 +12,52 @@ shutdown() {
 }
 
 echo "Start"
+echo "Running as user: $(id -u):$(id -g)"
+
 # Trap SIGTERM and SIGINT
 trap shutdown TERM INT
 
-# Ensure proper permissions
-#if [ "$(id -u)" = '0' ]; then
-    #chown -R redis:redis /var/lib/redis /var/log/redis
-#    exec su-exec redis "$0" "$@"
-#fi
+# Check if config file exists and is readable
+if [ ! -f /etc/redis/redis.conf ]; then
+    echo "ERROR: Config file /etc/redis/redis.conf does not exist!"
+    exit 1
+fi
 
-# Create log file if it doesn't exist
+echo "Config file permissions: $(ls -la /etc/redis/redis.conf)"
 
-#mkdir -p /var/run/redis
-#chown redis:redis /var/run/redis
+# Show current config content before modification
+echo "=== Current config content (last 10 lines) ==="
+tail -10 /etc/redis/redis.conf
+echo "=== End of current config ==="
 
 # Configure Redis security
 if [ -n "$REDIS_PASSWORD" ]; then
     echo "Setting up Redis with password authentication..."
-    echo "" >> /etc/redis/redis.conf
-    echo "# Security configuration" >> /etc/redis/redis.conf
-    echo "protected-mode yes" >> /etc/redis/redis.conf
-    echo "requirepass $REDIS_PASSWORD" >> /etc/redis/redis.conf
+    {
+        echo ""
+        echo "# Security configuration added by entrypoint"
+        echo "protected-mode yes"
+        echo "requirepass $REDIS_PASSWORD"
+    } >> /etc/redis/redis.conf
 else
     echo "Setting up Redis without password (protected mode disabled)..."
-    echo "" >> /etc/redis/redis.conf
-    echo "# Security configuration" >> /etc/redis/redis.conf
-    echo "protected-mode no" >> /etc/redis/redis.conf
+    {
+        echo ""
+        echo "# Security configuration added by entrypoint"
+        echo "protected-mode no"
+    } >> /etc/redis/redis.conf
 fi
 
-echo "after making password security"
-# If the first argument is redis-server
-#if [ "$1" = 'redis-server' ]; then
-#    # Check if config file exists
-#    if [ ! -f "$2" ]; then
-#        echo "Redis configuration file not found: $2"
-#        exit 1
-#    fi
-#    echo "Starting Redis server..."
-#    exec "$@"
-#fi
+echo "After security configuration"
 
-# Execute the command
+# Show final config content
+echo "=== Final config content (last 15 lines) ==="
+tail -15 /etc/redis/redis.conf
+echo "=== End of final config ==="
+
+# Check directory permissions
+echo "Data directory permissions: $(ls -ld /var/lib/redis)"
+
+echo "Starting Redis server..."
+# Start Redis without any additional flags to avoid confusion
 exec redis-server /etc/redis/redis.conf

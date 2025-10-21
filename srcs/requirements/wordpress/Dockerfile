@@ -29,6 +29,9 @@ RUN apk update && apk upgrade && apk add --no-cache\
 	iproute2\
 	&& rm -rf /var/lib/apt/lists/*
 
+#RUN addgroup -g 1000 www-data && #\
+#    adduser -D -u 1000 -G www-data www-data
+
 RUN 		ln -s /usr/bin/php82 /usr/bin/php
 COPY		breevia/			/tmp/breevia/
 COPY		conf/www.conf		/tmp/www.conf

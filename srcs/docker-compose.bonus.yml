@@ -8,7 +8,7 @@ services:
     volumes:
       - ${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress
       - ${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous
-      - ${HOST_VOLUME_PATH}/adminer:/var/www/adminer
+        #- ${HOST_VOLUME_PATH}/adminer:/var/www/adminer
 
   wordpress:
     depends_on:
@@ -30,15 +30,15 @@ services:
     volumes:
     - "${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous"
     image: hazardous:ft42
-    user: "1000:1000"
+      #user: "1000:1000"
 
   adminer:
     container_name: adminer
     build:
       context: requirements/bonus/adminer
       dockerfile: Dockerfile
-    volumes:
-    - ${HOST_VOLUME_PATH}/adminer:/var/www/adminer
+    #volumes:
+    # - ${HOST_VOLUME_PATH}/adminer:/var/www/adminer
     networks:
     - inception
     depends_on:
@@ -47,7 +47,7 @@ services:
     - "9000"
     restart: unless-stopped
     image: adminer:ft42
-    user: "1000:1000"
+      #user: "1000:1000"
 
   redis:
     container_name: redis
@@ -73,7 +73,7 @@ services:
     networks:
       - inception
     volumes:
-      - "${HOST_VOLUME_PATH}/wordpress:/home/ftpuser/ftp/files"
+      - "${HOST_VOLUME_PATH}/wordpress:/home/${FTP_USER}/ftp/files"
     ports:
       - "20:20"
       - "21:21"
@@ -87,7 +87,6 @@ services:
       - SETGID
     security_opt:
       - apparmor:unconfined
-    user: "1000:1000"
 
   nodejs:
     container_name: nodejs
@@ -99,15 +98,15 @@ services:
     volumes:
       - "${HOST_VOLUME_PATH}/hazardous:/var/www/hazardous:ro"
       - "${HOST_VOLUME_PATH}/node/uploads:/usr/src/app/uploads"
-      - "${HOST_VOLUME_PATH}/node/public:/usr/public"
+      - "${HOST_VOLUME_PATH}/node/public:/usr/src/app/public"
     env_file: .env
     restart: unless-stopped
-    healthcheck:
-      test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-      start_period: 40s
+    # healthcheck:
+      # test: ["CMD", "wget", "--quiet", "--tries=1", "--spider", "http://localhost:3000"]
+      # interval: 30s
+      # timeout: 10s
+      # retries: 3
+      # start_period: 40s
     depends_on:
       - hazardous
     networks:

@@ -1,54 +1,54 @@
-version: '3.8'
+version: "3.8"
 
 services:
   nginx:
     container_name: nginx
     volumes:
-    - "${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress"
+      - "${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress"
     networks:
-    - inception
+      - inception
     depends_on:
-    - wordpress
-    build: 
+      - wordpress
+    build:
       context: requirements/nginx
       dockerfile: Dockerfile
     env_file: .env
     ports:
-    - "443:443"
+      - "443:443"
     restart: on-failure
     image: nginx:ft42
 
   mariadb:
     container_name: mariadb
     networks:
-    - inception
-    build: 
+      - inception
+    build:
       context: requirements/mariadb
       dockerfile: Dockerfile
     env_file: .env
-    volumes: 
-    - "${HOST_VOLUME_PATH}/mariadb:/var/lib/mysql"
+    volumes:
+      - "${HOST_VOLUME_PATH}/mariadb:/var/lib/mysql"
     restart: unless-stopped
     expose:
-    - "3306"
+      - "3306"
     image: mariadb:ft42
 
   wordpress:
-      container_name: wordpress
-      env_file: .env
-      volumes:
+    container_name: wordpress
+    env_file: .env
+    volumes:
       - "${HOST_VOLUME_PATH}/wordpress:/var/www/wordpress"
-      networks:
+    networks:
       - inception
-      build: 
-        context: requirements/wordpress
-        dockerfile: Dockerfile
-      depends_on:
+    build:
+      context: requirements/wordpress
+      dockerfile: Dockerfile
+    depends_on:
       - mariadb
-      restart: on-failure
-      expose: 
+    restart: on-failure
+    expose:
       - "9000"
-      image: wordpress:ft42
+    image: wordpress:ft42
 
 networks:
   inception:

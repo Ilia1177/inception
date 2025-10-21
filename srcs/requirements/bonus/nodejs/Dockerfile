@@ -8,11 +8,11 @@ WORKDIR /usr/src/app
 
 # Create necessary directories with secure permissions
 RUN mkdir -p /var/www/hazardous && \
-    mkdir -p /usr/uploads && \
-    mkdir -p ./public && \
+    mkdir -p /usr/src/app/uploads && \
+    mkdir -p /usr/src/app/public && \
     chmod 755 /var/www/hazardous && \
-    chmod 755 /usr/uploads && \
-	chown -R 1000:1000 /usr/uploads && \
+    chmod 755 /usr/src/app/uploads && \
+	chown -R 1000:1000 /usr/src/app/uploads && \
 	chown -R 1000:1000 /var/www/hazardous
 
 # Copy package.json first for better caching
@@ -23,17 +23,17 @@ RUN npm install --only=production
 
 # Copy application files
 COPY . .
-COPY docker-entrypoint.sh	/tmp/docker-entrypoint.sh
+COPY docker-entrypoint.sh /tmp/docker-entrypoint.sh
 RUN echo "docker file copied"
 RUN chmod +x /tmp/docker-entrypoint.sh
 # Create a non-root user for security
-#RUN addgroup -g 1000 -S nodejs && \
-#    adduser -D -s /bin/sh -u 1000 -G nodejs nodejs && \
-#    chown -R nodejs:nodejs /usr/src/app && \
-#    chown -R nodejs:nodejs /var/www/hazardous && \
-#    chown -R nodejs:nodejs /usr/uploads
+RUN addgroup -g 1000 -S nodejs && \
+    adduser -D -s /bin/sh -u 1000 -G nodejs nodejs && \
+    chown -R nodejs:nodejs /usr/src/app && \
+    chown -R nodejs:nodejs /var/www/hazardous && \
+    chown nodejs:nodejs /tmp/docker-entrypoint.sh
 
-#USER nodejs
+USER nodejs
 
 # Expose port
 EXPOSE 3000
@@ -44,5 +44,5 @@ EXPOSE 3000
 
 # Start the Node.js server
 RUN cat /tmp/docker-entrypoint.sh
-ENTRYPOINT ["/tmp/docker-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/tmp/docker-entrypoint.sh"]
 CMD ["node", "server.js"]
