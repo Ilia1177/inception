@@ -2,7 +2,8 @@
 set -e
 
 # Set FTP_USER and FTP_PASS from env (fallback to defaults)
-FTP_USER="${FTP_USER:-ftpuser}"
+echo $FTP_USER
+FTP_USER="${FTP_USER:-myUser}"
 FTP_PASS="${FTP_PASS:-$(head /dev/urandom | tr -dc A-Za-z0-9 | head -c 16)}"
 
 echo "[INFO] Setting up FTP server for user: $FTP_USER"

@@ -73,7 +73,7 @@ services:
     networks:
       - inception
     volumes:
-      - "${HOST_VOLUME_PATH}/wordpress:/home/ftpuser/ftp/files"
+      - "${HOST_VOLUME_PATH}/wordpress:/home/${FTP_USER}/ftp/files"
     ports:
       - "20:20"
       - "21:21"

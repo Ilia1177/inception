@@ -29,8 +29,8 @@ COPY conf/vsftpd.conf /etc/vsftpd/vsftpd.conf
 RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 # Set default environment variables (can be overridden)
-ENV FTP_USER=ftpuser
-ENV FTP_PASS=ftp_pass
+# ENV FTP_USER=ftpuser
+# ENV FTP_PASS=ftp_pass
 
 # Expose FTP ports
 EXPOSE 20 21 21000-21010
