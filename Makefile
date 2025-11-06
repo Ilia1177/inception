@@ -1,44 +1,76 @@
 OS := $(shell uname)
 
-VOLUMES_PATH := /home/$(USER)/data
-DOCKER_GROUP_CHECK := $(shell groups | grep -q docker && echo "ok" || echo "missing")
+ifeq ($(OS), Linux)
+	VOLUMES_PATH := /home/npolack/data
+else
+	VOLUMES_PATH := $(shell pwd)/volumes
+endif
 
-all : build
+all : colima volumes build
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml up -d
-
-bonus : build_bonus
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
-
-build: volumes
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml build
-
-build_bonus : volumes_bonus
-	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
-
-setup:
-	sudo usermod -aG docker $(USER)
-	newgrp docker
-
-volumes_bonus:
-	@echo "Create volumes folder at $(VOLUMES_PATH)"
-	@mkdir -p $(VOLUMES_PATH)/redis
-	@mkdir -p $(VOLUMES_PATH)/node/uploads
-	@mkdir -p $(VOLUMES_PATH)/node/public
-	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
-	@sudo chmod -R 775 $(VOLUMES_PATH)
+	open -a "Firefox" https://npolack.42.fr
 
 volumes:
 	@echo "Create volumes folder at $(VOLUMES_PATH)"
-	@mkdir -p $(VOLUMES_PATH)/mariadb
-	@mkdir -p $(VOLUMES_PATH)/wordpress
-	@sudo chown -R 1000:1000 $(VOLUMES_PATH)
-	@sudo chmod -R 775 $(VOLUMES_PATH)
+	@mkdir -p $(VOLUMES_PATH)/{mariadb,wordpress}
+	#@sudo chown -R $(whoami):staff $(VOLUMES_PATH)
+	@chmod -R 755 $(VOLUMES_PATH)
+	@echo "Setting up WordPress volume for shared group access..."
+	@chmod -R 775 $(VOLUMES_PATH)/wordpress
+	@echo "Volumes created with proper permissions for container group sharing"
+	sudo chown -R 1000:1000 $(VOLUMES_PATH)/wordpress/
+
+#volumes:
+#	@echo "Create volumes folder at $(VOLUMES_PATH)"
+#	@mkdir -p $(VOLUMES_PATH)/{mariadb,wordpress}
+#	@sudo chown -R $(whoami):staff /Users/ilia/Documents/42CC/inception/volumes
+#	@chmod -R 755 /Users/ilia/Documents/42CC/inception/volumes
+
+colima:
+	@echo "system is : $(OS)"
+ifeq ($(OS), Darwin)
+	colima start --mount $(VOLUMES_PATH):w --vm-type vz
+endif
+
+build: colima
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f build
+
+build_bonus : colima
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml build
+
+save:
+	@if [ -d "${VOLUMES_PATH}/hazardous" ] && [ "$$(ls -A "${VOLUMES_PATH}/hazardous")" ]; then \
+		echo "Save html files"; \
+		rm -fr srcs/requirements/bonus/www/hazardous && cp -r "${VOLUMES_PATH}/hazardous" srcs/requirements/bonus/www/hazardous; \
+	else \
+		echo "Folder does not exist or is empty"; \
+	fi
+
+bonus : colima volumes build_bonus
+	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml up -d
+	open -a "Firefox" https://hazardous.fr
 
 stop :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml stop 
 
 down :
 	HOST_VOLUME_PATH=$(VOLUMES_PATH) docker compose -f srcs/docker-compose.yml -f srcs/docker-compose.bonus.yml down
+
+nginx : 
+	docker build -t nginx srcs/requirements/nginx/
+
+mariadb : volumes
+	docker build -t mariadb:ft42 srcs/requirements/mariadb
+	docker run -it mariadb:ft42 --env-file srcs/.env -v $(VOLUMES_PATH)/mariadb:/var/lib/mysql mariadb
+
+ftp :
+	docker build -t ftp:ft42 srcs/requirements/bonus/ftp
+
+wordpress :
+	docker build -t wordpress:ft42 srcs/requirements/wordpress
+
+redis : 
+	docker build -t redis:ft42 srcs/requirements/bonus/redis
 
 re : fclean all
 
@@ -53,4 +85,9 @@ clean :
 fclean: clean
 	docker system prune -a --volumes --force
 	docker network prune
-	sudo rm -fr $(VOLUMES_PATH)
+	rm -fr $(VOLUMES_PATH)
+ifeq ($(OS), Darwin)
+	colima stop && colima delete
+endif
+
+# docker exec -it my-nginx /bin/bash
